@@ -8,6 +8,9 @@ class PasienController extends BaseController
 {
     public function index()
     {
-        return view('pasien/data_pasien');
+        $data = [
+            'tittle' => 'Pasien',
+        ];
+        return view('pasien/data_pasien', $data);
     }
 }

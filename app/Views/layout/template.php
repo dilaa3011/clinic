@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Admin Dashboard</title>
+  <title><?= $tittle; ?></title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link rel="icon" href="assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
 
@@ -21,7 +21,7 @@
           "Font Awesome 5 Brands",
           "simple-line-icons",
         ],
-        urls: ["assets/css/fonts.min.css"],
+        urls: ["kaiadmin/assets/css/fonts.min.css"],
       },
       active: function() {
         sessionStorage.fonts = true;
@@ -33,6 +33,8 @@
   <link rel="stylesheet" href="kaiadmin/assets/css/bootstrap.min.css" />
   <link rel="stylesheet" href="kaiadmin/assets/css/plugins.min.css" />
   <link rel="stylesheet" href="kaiadmin/assets/css/kaiadmin.min.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -164,24 +166,6 @@
         lineColor: "#177dff",
         fillColor: "rgba(23, 125, 255, 0.14)",
       });
-
-      $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#f3545d",
-        fillColor: "rgba(243, 84, 93, .14)",
-      });
-
-      $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
-        type: "line",
-        height: "70",
-        width: "100%",
-        lineWidth: "2",
-        lineColor: "#ffa534",
-        fillColor: "rgba(255, 165, 52, .14)",
-      });
     </script>
     <!-- pagination -->
     <script>
@@ -199,6 +183,67 @@
             .fnAddData([$('#nama').val(), $('#alamat').val(), $('#telepon').val(), $('#alamat').val(), $('#pekerjaan').val(), $('#gender').val(), action]);
           $('#addRowModal').modal('hide');
         });
+      });
+    </script>
+    <script>
+      const statisticsCtx = document.getElementById('statisticsChart').getContext('2d');
+      new Chart(statisticsCtx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [{
+              label: 'Red Zone',
+              data: [100, 200, 150, 300, 350, 400, 450, 500, 550, 600, 700, 800],
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 2,
+              fill: true,
+            },
+            {
+              label: 'Blue Zone',
+              data: [200, 250, 300, 350, 400, 450, 500, 550, 600, 700, 800, 1000],
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 2,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true
+            },
+          },
+        },
+      });
+    </script>
+    <script>
+      const salesCtx = document.getElementById('dailySalesChart').getContext('2d');
+      new Chart(salesCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Sales',
+            data: [500, 700, 1000, 1200, 1500, 2000, 2500],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            fill: true,
+          }, ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+          },
+        },
       });
     </script>
 </body>

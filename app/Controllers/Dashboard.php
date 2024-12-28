@@ -8,7 +8,10 @@ class Dashboard extends BaseController
 {
     public function index()
     {
-        return view('admin/dashboard');
+        $data = [
+            'tittle' => 'Dashboard',
+        ];
+        return view('admin/dashboard', $data);
     }
     public function sidebar()
     {
