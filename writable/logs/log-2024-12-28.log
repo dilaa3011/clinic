@@ -1,0 +1,31 @@
+CRITICAL - 2024-12-28 04:19:30 --> Invalid file: "layout/templates.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('layout/templates.php')
+ 2 SYSTEMPATH\View\View.php(244): CodeIgniter\View\View->render('layout/templates', [], true)
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('admin/dashboard', [], true)
+ 4 APPPATH\Controllers\Dashboard.php(11): view('admin/dashboard')
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Dashboard->index()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\rekam_medis\\public\\index.php')
+CRITICAL - 2024-12-28 04:34:56 --> Invalid file: "/layout/sidebar.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('/layout/sidebar.php')
+ 2 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('/layout/sidebar', [], true)
+ 3 APPPATH\Controllers\Dashboard.php(15): view('/layout/sidebar')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Dashboard->sidebar()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\rekam_medis\\public\\index.php')
+CRITICAL - 2024-12-28 04:34:57 --> Invalid file: "/layout/sidebar.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('/layout/sidebar.php')
+ 2 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('/layout/sidebar', [], true)
+ 3 APPPATH\Controllers\Dashboard.php(15): view('/layout/sidebar')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\Dashboard->sidebar()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\xampp\\htdocs\\rekam_medis\\public\\index.php')
