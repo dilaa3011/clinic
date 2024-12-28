@@ -34,8 +34,6 @@
   <link rel="stylesheet" href="kaiadmin/assets/css/plugins.min.css" />
   <link rel="stylesheet" href="kaiadmin/assets/css/kaiadmin.min.css" />
 
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link rel="stylesheet" href="<?= base_url(); ?> assets/css/demo.css" />
 </head>
 
 <body>
@@ -149,16 +147,9 @@
     <!-- Sweet Alert -->
     <script src="kaiadmin/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
-    <!-- Datatables -->
-    <script src="<?= base_url(''); ?> kaiadmin/assets/js/plugin/datatables/datatables.min.js"></script>
-
     <!-- Kaiadmin JS -->
     <script src="kaiadmin/assets/js/kaiadmin.min.js"></script>
 
-    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
-    <script src="kaiadmin/assets/js/setting-demo.js"></script>
-    <script src="../assets/js/setting-demo2.js"></script>
-    <script src="kaiadmin/assets/js/demo.js"></script>
     <script>
       $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
         type: "line",
@@ -185,6 +176,24 @@
         lineWidth: "2",
         lineColor: "#ffa534",
         fillColor: "rgba(255, 165, 52, .14)",
+      });
+    </script>
+    <script>
+      $(document).ready(function() {
+        // Add Row
+        $('#add-row').DataTable({
+          pageLength: 5,
+        });
+
+        var action =
+          '<td> <div class="form-button-action"> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+        $('#addRowButton').click(function() {
+          $('#add-row')
+            .dataTable()
+            .fnAddData([$('#addName').val(), $('#addPosition').val(), $('#addOffice').val(), action]);
+          $('#addRowModal').modal('hide');
+        });
       });
     </script>
 </body>
