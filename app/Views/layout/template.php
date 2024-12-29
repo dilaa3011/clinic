@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title><?= $tittle; ?></title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-  <link rel="icon" href="assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="<?= base_url(); ?>clinic/assets/tittle.png" type="image/x-icon" />
 
   <!-- Fonts and icons -->
   <script src="kaiadmin/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -46,7 +46,7 @@
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
           <a href="<?= base_url('/'); ?>" class="logo">
-            <img src="assets/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20" />
+            <img src="<?= base_url(); ?>clinic/assets/header.png" alt="navbar brand" class="navbar-brand pt-md-4" height="200" />
           </a>
           <!-- toggle sidebar -->
           <div class="nav-toggle">
