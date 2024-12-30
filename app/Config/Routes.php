@@ -18,5 +18,6 @@ $routes->get('/sidebar', 'Dashboard::sidebar');
 $routes->get('/pasien', 'pasienController::index');
 
 // dokter
+$routes->get('/rm', 'dokterController::index');
 
 // payment

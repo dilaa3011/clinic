@@ -8,7 +8,7 @@
         <h3 class="fw-bold mb-3">Dashboard</h3>
       </div>
       <div class="ms-md-auto py-2 py-md-0">
-        <a href="#" class="btn btn-primary btn-round">Patient Baru</a>
+        <a href="<?= base_url('/pasien'); ?>" class="btn btn-primary btn-round">Pasien Baru</a>
       </div>
     </div>
     <div class="row">

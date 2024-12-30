@@ -80,7 +80,7 @@
             </li>
             <li class="nav-item">
               <a href="<?= base_url('/pasien'); ?>">
-                <i class="fas fa-user-alt"></i>
+                <i class="fas fa-user-plus"></i>
                 <p>Data Pasien</p>
               </a>
             </li>
@@ -91,15 +91,21 @@
               </a>
             </li> -->
             <li class="nav-item">
+              <a href="<?= base_url('/rm'); ?>">
+                <i class="fas fa-file-medical-alt"></i>
+                <p>Data Rekam Medis</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="<?= base_url('/tindakan'); ?>">
-                <i class="fas fa-file"></i>
-                <p>Data Tindakan</p>
+                <i class="fas fa-notes-medical"></i>
+                <p>Antrian</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="<?= base_url('/payment'); ?>">
                 <i class="fas fa-desktop"></i>
-                <p>Transaksi</p>
+                <p>Laporan</p>
               </a>
             </li>
           </ul>
@@ -170,8 +176,37 @@
     <!-- pagination -->
     <script>
       $(document).ready(function() {
+        $('#basic-datatables').DataTable({});
+
+        $('#multi-filter-select').DataTable({
+          pageLength: 5,
+          initComplete: function() {
+            this.api()
+              .columns()
+              .every(function() {
+                var column = this;
+                var select = $('<select class="form-select"><option value=""></option></select>')
+                  .appendTo($(column.footer()).empty())
+                  .on('change', function() {
+                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                  });
+
+                column
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function(d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
+                  });
+              });
+          },
+        });
+
+        // Add Row
         $('#add-row').DataTable({
-          pageLength: 3,
+          pageLength: 5,
         });
 
         var action =
@@ -180,7 +215,7 @@
         $('#addRowButton').click(function() {
           $('#add-row')
             .dataTable()
-            .fnAddData([$('#nama').val(), $('#alamat').val(), $('#telepon').val(), $('#alamat').val(), $('#pekerjaan').val(), $('#gender').val(), action]);
+            .fnAddData([$('#addName').val(), $('#addPosition').val(), $('#addOffice').val(), action]);
           $('#addRowModal').modal('hide');
         });
       });
