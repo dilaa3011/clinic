@@ -9,6 +9,7 @@
 
   <!-- Fonts and icons -->
   <script src="kaiadmin/assets/js/plugin/webfont/webfont.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script>
     WebFont.load({
       google: {
@@ -28,6 +29,23 @@
       },
     });
   </script>
+
+  <style>
+    .btn-menunggu {
+      background-color: red;
+      color: white;
+    }
+
+    .btn-sedang {
+      background-color: yellow;
+      color: black;
+    }
+
+    .btn-selesai {
+      background-color: blue;
+      color: white;
+    }
+  </style>
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="kaiadmin/assets/css/bootstrap.min.css" />
@@ -97,13 +115,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('/tindakan'); ?>">
+              <a href="<?= base_url('/antrian'); ?>">
                 <i class="fas fa-notes-medical"></i>
                 <p>Antrian</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url('/payment'); ?>">
+              <a href="<?= base_url('/laporan'); ?>">
                 <i class="fas fa-desktop"></i>
                 <p>Laporan</p>
               </a>
@@ -134,6 +152,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- jQuery Scrollbar -->
     <script src="kaiadmin/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
@@ -220,6 +240,36 @@
         });
       });
     </script>
+    <!-- antrian -->
+    <script>
+      document.getElementById('addToQueueButton').addEventListener('click', function() {
+        const patientId = this.getAttribute('data-patient-id');
+
+        // Kirim data ke backend menggunakan fetch
+        fetch('/antrian/add', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': '<?= csrf_hash() ?>' // jika CSRF diaktifkan
+            },
+            body: JSON.stringify({
+              patientId: patientId
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert('Pasien berhasil dimasukkan ke dalam antrian.');
+              window.location.href = '/antrian'; // Redirect ke halaman antrian
+            } else {
+              alert('Gagal memasukkan pasien ke antrian.');
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      });
+    </script>
+
+    <!-- grafik dashboard -->
     <script>
       const statisticsCtx = document.getElementById('statisticsChart').getContext('2d');
       new Chart(statisticsCtx, {
@@ -279,6 +329,33 @@
             },
           },
         },
+      });
+    </script>
+
+    <!-- status -->
+    <script>
+      const button = document.getElementById('dropdownMenu2');
+      const items = document.querySelectorAll('.dropdown-item');
+
+      items.forEach(item => {
+        item.addEventListener('click', function() {
+          const status = this.getAttribute('data-status');
+
+          // Reset button classes
+          button.className = 'btn btn-rounded dropdown-toggle';
+
+          // Add class based on status
+          if (status === 'menunggu') {
+            button.classList.add('btn-menunggu');
+            button.textContent = 'Menunggu';
+          } else if (status === 'sedang') {
+            button.classList.add('btn-sedang');
+            button.textContent = 'Diperiksa';
+          } else if (status === 'selesai') {
+            button.classList.add('btn-selesai');
+            button.textContent = 'Selesai';
+          }
+        });
       });
     </script>
 </body>

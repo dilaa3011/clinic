@@ -1,0 +1,9 @@
+CRITICAL - 2025-01-06 13:22:21 --> Invalid file: "payment/index.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('payment/index.php')
+ 2 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('payment/index', [], true)
+ 3 APPPATH\Controllers\PaymentController.php(15): view('payment/index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\PaymentController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PaymentController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

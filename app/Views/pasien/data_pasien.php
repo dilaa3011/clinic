@@ -81,7 +81,7 @@
                                                 <div class="form-group">
                                                     <label>Jenis Kelamin</label><br />
                                                     <div class="d-flex">
-                                                        <div class="form-check">
+                                                        <div class="form-check-inline">
                                                             <input
                                                                 class="form-check-input"
                                                                 type="radio"
@@ -93,7 +93,7 @@
                                                                 Laki-laki
                                                             </label>
                                                         </div>
-                                                        <div class="form-check">
+                                                        <div class="form-check-inline">
                                                             <input
                                                                 class="form-check-input"
                                                                 type="radio"
@@ -113,8 +113,8 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer border-0">
-                                    <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="button" id="addRowButton" class="btn btn-primary">Tambah</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                                 </div>
                             </div>
                         </div>
@@ -127,126 +127,182 @@
                             class="display table table-striped table-hover">
                             <thead>
                                 <tr>
+                                    <th>NIK</th>
                                     <th>Nama</th>
                                     <th>Alamat</th>
                                     <th>Nomor Telepon</th>
                                     <th>Usia</th>
-                                    <th>Pekerjaan</th>
                                     <th>Jenis Kelamin</th>
                                     <th style="width: 10%"> </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>352546756455</td>
                                     <td>Tiger Nixon</td>
                                     <td>Edinburgh</td>
                                     <td>894759230983</td>
                                     <td>30</td>
-                                    <td>System Architect</td>
                                     <td>Laki-laki</td>
                                     <td>
                                         <div class="form-button-action">
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-primary btn-lg"
-                                                data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-danger"
-                                                data-original-title="Remove">
-                                                <i class="fa fa-times"></i>
+                                            <button type="button" class="btn btn-link btn-rounded btn-outline-info"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#antrianModal">
+                                                <i class="btn btn-rounded btn-outline-info">Lihat</i>
                                             </button>
                                         </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="antrianModal" tabindex="-1" aria-labelledby="antrianModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="antrianModalLabel">Detail Informasi</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table>
+                                                            <tr>
+                                                                <td>Antrian Saat ini</td>
+                                                                <td>:</td>
+                                                                <td>12</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <a href="<?= base_url('/antrian'); ?>" class="btn btn-secondary" id="addToQueueButton" data-patient-id="352546756455">Antrian</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal -->
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>352546756455</td>
                                     <td>Tiger Nixon</td>
                                     <td>Edinburgh</td>
                                     <td>894759230983</td>
                                     <td>30</td>
-                                    <td>System Architect</td>
                                     <td>Laki-laki</td>
                                     <td>
                                         <div class="form-button-action">
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-primary btn-lg"
-                                                data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-danger"
-                                                data-original-title="Remove">
-                                                <i class="fa fa-times"></i>
+                                            <button type="button" class="btn btn-link btn-rounded btn-outline-info"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#antrianModal">
+                                                <i class="btn btn-rounded btn-outline-info">Lihat</i>
                                             </button>
                                         </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="antrianModal" tabindex="-1" aria-labelledby="antrianModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="antrianModalLabel">Detail Informasi</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table>
+                                                            <tr>
+                                                                <td>Antrian Saat ini</td>
+                                                                <td>:</td>
+                                                                <td>12</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <a href="<?= base_url('/antrian'); ?>" class="btn btn-secondary" id="addToQueueButton" data-patient-id="352546756455">Antrian</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal -->
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>352546756455</td>
                                     <td>Tiger Nixon</td>
                                     <td>Edinburgh</td>
                                     <td>894759230983</td>
                                     <td>30</td>
-                                    <td>System Architect</td>
                                     <td>Laki-laki</td>
                                     <td>
                                         <div class="form-button-action">
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-primary btn-lg"
-                                                data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-danger"
-                                                data-original-title="Remove">
-                                                <i class="fa fa-times"></i>
+                                            <button type="button" class="btn btn-link btn-rounded btn-outline-info"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#antrianModal">
+                                                <i class="btn btn-rounded btn-outline-info">Lihat</i>
                                             </button>
                                         </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="antrianModal" tabindex="-1" aria-labelledby="antrianModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="antrianModalLabel">Detail Informasi</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table>
+                                                            <tr>
+                                                                <td>Antrian Saat ini</td>
+                                                                <td>:</td>
+                                                                <td>12</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <a href="<?= base_url('/antrian'); ?>" class="btn btn-secondary" id="addToQueueButton" data-patient-id="352546756455">Antrian</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal -->
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>352546756455</td>
                                     <td>Tiger Nixon</td>
                                     <td>Edinburgh</td>
                                     <td>894759230983</td>
                                     <td>30</td>
-                                    <td>System Architect</td>
                                     <td>Laki-laki</td>
                                     <td>
                                         <div class="form-button-action">
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-primary btn-lg"
-                                                data-original-title="Edit Task">
-                                                <i class="fa fa-edit"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                data-bs-toggle="tooltip"
-                                                title=""
-                                                class="btn btn-link btn-danger"
-                                                data-original-title="Remove">
-                                                <i class="fa fa-times"></i>
+                                            <button type="button" class="btn btn-link btn-rounded btn-outline-info"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#antrianModal">
+                                                <i class="btn btn-rounded btn-outline-info">Lihat</i>
                                             </button>
                                         </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="antrianModal" tabindex="-1" aria-labelledby="antrianModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="antrianModalLabel">Detail Informasi</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table>
+                                                            <tr>
+                                                                <td>Antrian Saat ini</td>
+                                                                <td>:</td>
+                                                                <td>12</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <a href="<?= base_url('/antrian'); ?>" class="btn btn-secondary" id="addToQueueButton" data-patient-id="352546756455">Antrian</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal -->
                                     </td>
                                 </tr>
                             </tbody>
