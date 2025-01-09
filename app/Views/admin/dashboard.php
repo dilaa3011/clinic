@@ -157,7 +157,7 @@
               <div class="item-list">
                 <div class="avatar">
                   <img
-                    src="/kaiadmin/assets/img/jm_denis.jpg"
+                    src="<?= base_url(); ?>kaiadmin/assets/img/jm_denis.jpg"
                     alt="..."
                     class="avatar-img rounded-circle" />
                 </div>
@@ -185,7 +185,7 @@
               <div class="item-list">
                 <div class="avatar">
                   <img
-                    src="kaiadmin/assets/img/talha.jpg"
+                    src="<?= base_url(); ?>kaiadmin/assets/img/talha.jpg"
                     alt="..."
                     class="avatar-img rounded-circle" />
                 </div>
@@ -200,7 +200,7 @@
               <div class="item-list">
                 <div class="avatar">
                   <img
-                    src="kaiadmin/assets/img/chadengle.jpg"
+                    src="<?= base_url(); ?>kaiadmin/assets/img/chadengle.jpg"
                     alt="..."
                     class="avatar-img rounded-circle" />
                 </div>

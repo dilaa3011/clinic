@@ -8,7 +8,7 @@
   <link rel="icon" href="<?= base_url(); ?>clinic/assets/tittle.png" type="image/x-icon" />
 
   <!-- Fonts and icons -->
-  <script src="kaiadmin/assets/js/plugin/webfont/webfont.min.js"></script>
+  <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/webfont/webfont.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script>
     WebFont.load({
@@ -48,9 +48,9 @@
   </style>
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="kaiadmin/assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="kaiadmin/assets/css/plugins.min.css" />
-  <link rel="stylesheet" href="kaiadmin/assets/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="<?= base_url(); ?>kaiadmin/assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="<?= base_url(); ?>kaiadmin/assets/css/plugins.min.css" />
+  <link rel="stylesheet" href="<?= base_url(); ?>kaiadmin/assets/css/kaiadmin.min.css" />
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -144,9 +144,9 @@
       <?= $this->include('/layout/footer'); ?>
     </div>
     <!--   Core JS Files   -->
-    <script src="kaiadmin/assets/js/core/jquery-3.7.1.min.js"></script>
-    <script src="kaiadmin/assets/js/core/popper.min.js"></script>
-    <script src="kaiadmin/assets/js/core/bootstrap.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/core/jquery-3.7.1.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/core/popper.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/core/bootstrap.min.js"></script>
 
     <!-- bootstrap -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -156,32 +156,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- jQuery Scrollbar -->
-    <script src="kaiadmin/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
     <!-- Chart JS -->
-    <script src="kaiadmin/assets/js/plugin/chart.js/chart.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/chart.js/chart.min.js"></script>
 
     <!-- jQuery Sparkline -->
-    <script src="kaiadmin/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
 
     <!-- Chart Circle -->
-    <script src="kaiadmin/assets/js/plugin/chart-circle/circles.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/chart-circle/circles.min.js"></script>
 
     <!-- Datatables -->
-    <script src="kaiadmin/assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/datatables/datatables.min.js"></script>
 
     <!-- Bootstrap Notify -->
-    <script src="kaiadmin/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 
     <!-- jQuery Vector Maps -->
-    <script src="kaiadmin/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
-    <script src="kaiadmin/assets/js/plugin/jsvectormap/world.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/jsvectormap/world.js"></script>
 
     <!-- Sweet Alert -->
-    <script src="kaiadmin/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
     <!-- Kaiadmin JS -->
-    <script src="kaiadmin/assets/js/kaiadmin.min.js"></script>
+    <script src="<?= base_url(); ?>kaiadmin/assets/js/kaiadmin.min.js"></script>
 
     <script>
       $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {

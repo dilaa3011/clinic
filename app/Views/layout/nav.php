@@ -2,7 +2,7 @@
     <div class="main-header-logo">
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
+            <a href="<?= base_url('/'); ?>" class="logo">
                 <img src="<?= base_url(); ?>clinic/assets/header.png" alt="navbar brand" class="navbar-brand" width="50" height="50" />
                 <!-- <h1>Dill</h1> -->
             </a>
@@ -37,7 +37,7 @@
                 <li class="nav-item topbar-user dropdown hidden-caret">
                     <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                         <div class="avatar-sm">
-                            <img src="kaiadmin/assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle" />
+                            <img src="<?= base_url(); ?>kaiadmin/assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle" />
                         </div>
                         <span class="profile-username">
                             <span class="op-7">Hi,</span>
@@ -49,12 +49,12 @@
                             <li>
                                 <div class="user-box">
                                     <div class="avatar-lg">
-                                        <img src="kaiadmin/assets/img/mlane.jpg" alt="image profile" class="avatar-img rounded" />
+                                        <img src="<?= base_url(); ?>kaiadmin/assets/img/mlane.jpg" alt="image profile" class="avatar-img rounded" />
                                     </div>
                                     <div class="u-text">
                                         <h4>Hizrian</h4>
                                         <p class="text-muted">hello@example.com</p>
-                                        <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                        <a href="#" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                     </div>
                                 </div>
                             </li>

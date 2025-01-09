@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $tittle; ?></title>
     <link rel="icon" href="<?= base_url(); ?>clinic/assets/tittle.png" type="image/x-icon" />
-    <link rel="stylesheet" href="seo/src/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>seo/src/assets/css/styles.min.css" />
 </head>
 
 <body>
@@ -40,7 +40,7 @@
                                                 Remeber this Device
                                             </label>
                                         </div>
-                                        <a class="text-primary fw-bold" href="./index.html">Forgot Password ?</a>
+                                        <a class="text-primary fw-bold" href="<?= base_url('/login'); ?>">Forgot Password ?</a>
                                     </div>
                                     <a href="<?= base_url('/'); ?>" class="btn btn-primary w-100 py-8 fs-4 mb-4">Sign In</a>
                                 </form>
