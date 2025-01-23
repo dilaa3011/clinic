@@ -1,0 +1,365 @@
+CRITICAL - 2025-01-17 02:31:36 --> Cannot access offset of type string on string
+in APPPATH\Models\AntrianModel.php on line 45.
+ 1 APPPATH\Views\dokter\form-rm.php(34): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(38): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:38:14 --> Cannot access offset of type string on string
+in APPPATH\Models\AntrianModel.php on line 45.
+ 1 APPPATH\Views\dokter\form-rm.php(30): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:39:31 --> Cannot access offset of type string on string
+in APPPATH\Models\AntrianModel.php on line 45.
+ 1 APPPATH\Views\dokter\form-rm.php(30): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:42:36 --> Data pasien_id harus disediakan.
+in APPPATH\Models\AntrianModel.php on line 37.
+ 1 APPPATH\Views\dokter\form-rm.php(30): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:43:22 --> Data pasien_id harus disediakan.
+in APPPATH\Models\AntrianModel.php on line 37.
+ 1 APPPATH\Views\dokter\form-rm.php(30): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:44:39 --> Undefined variable $antrian
+in APPPATH\Views\dokter\form-rm.php on line 34.
+ 1 APPPATH\Views\dokter\form-rm.php(34): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $antrian', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php', 34)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:47:16 --> Data pasien_id harus disediakan.
+in APPPATH\Models\AntrianModel.php on line 37.
+ 1 APPPATH\Views\dokter\form-rm.php(34): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:47:54 --> Data pasien_id harus disediakan.
+in APPPATH\Models\AntrianModel.php on line 38.
+ 1 APPPATH\Views\dokter\form-rm.php(34): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:48:15 --> Data pasien_id harus disediakan.{ $antrian}
+in APPPATH\Models\AntrianModel.php on line 38.
+ 1 APPPATH\Views\dokter\form-rm.php(34): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:48:36 --> Cannot access offset of type string on string
+in APPPATH\Models\AntrianModel.php on line 52.
+ 1 APPPATH\Views\dokter\form-rm.php(34): App\Models\AntrianModel->tambahAntrian('273844748391')
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:50:43 --> Undefined variable $antrian
+in APPPATH\Views\dokter\form-rm.php on line 38.
+ 1 APPPATH\Views\dokter\form-rm.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $antrian', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php', 38)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:51:20 --> Undefined array key "tanggal_lahir"
+in APPPATH\Views\dokter\form-rm.php on line 41.
+ 1 APPPATH\Views\dokter\form-rm.php(41): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "tanggal_lahir"', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php', 41)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:51:31 --> Undefined array key "tanggal_lahir"
+in APPPATH\Views\dokter\form-rm.php on line 41.
+ 1 APPPATH\Views\dokter\form-rm.php(41): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "tanggal_lahir"', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php', 41)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:59:06 --> Undefined array key "nik"
+in APPPATH\Views\dokter\form-rm.php on line 37.
+ 1 APPPATH\Views\dokter\form-rm.php(37): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nik"', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php', 37)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 02:59:37 --> Undefined array key "nik"
+in APPPATH\Views\dokter\form-rm.php on line 37.
+ 1 APPPATH\Views\dokter\form-rm.php(37): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "nik"', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php', 37)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\form-rm.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(469): CodeIgniter\View\View->render('/dokter/form-rm', null, true)
+ 5 APPPATH\Views\dokter\data-rm.php(29): CodeIgniter\View\View->include('/dokter/form-rm')
+ 6 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\dokter\\data-rm.php')
+ 7 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 9 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+10 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+11 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+12 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2025-01-17 02:59:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-01-17 02:59:43 --> Undefined variable $tittle
+in APPPATH\Views\layout\template.php on line 6.
+ 1 APPPATH\Views\layout\template.php(6): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $tittle', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\layout\\template.php', 6)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\layout\\template.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(244): CodeIgniter\View\View->render('layout/template', [], true)
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('dokter/data-rm', [], true)
+ 6 APPPATH\Controllers\DokterController.php(32): view('dokter/data-rm', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\DokterController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DokterController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2025-01-17 02:59:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:01:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:01:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:01:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:03:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:03:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:03:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:03:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:03:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-01-17 03:03:48 --> Array to string conversion
+in APPPATH\Controllers\AntrianController.php on line 53.
+ 1 APPPATH\Controllers\AntrianController.php(53): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\xampp\\htdocs\\clinic\\app\\Controllers\\AntrianController.php', 53)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->ambilAntrian()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2025-01-17 03:10:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 03:10:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-01-17 03:10:23 --> Undefined variable $rekam
+in APPPATH\Views\admin\antrian.php on line 134.
+ 1 APPPATH\Views\admin\antrian.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rekam', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('admin/antrian', [], true)
+ 5 APPPATH\Controllers\AntrianController.php(34): view('admin/antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 03:13:07 --> Undefined variable $rekam
+in APPPATH\Views\admin\antrian.php on line 134.
+ 1 APPPATH\Views\admin\antrian.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rekam', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('admin/antrian', [], true)
+ 5 APPPATH\Controllers\AntrianController.php(34): view('admin/antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 03:14:18 --> Undefined variable $rekam
+in APPPATH\Views\admin\antrian.php on line 134.
+ 1 APPPATH\Views\admin\antrian.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rekam', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('admin/antrian', [], true)
+ 5 APPPATH\Controllers\AntrianController.php(34): view('admin/antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2025-01-17 03:47:18 --> mysqli_sql_exception: Unknown column 'edis.pasien_id' in 'on clause' in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `rekam_m...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `rekam_m...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `rekam_m...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `rekam_m...', Array, false)
+#4 C:\xampp\htdocs\clinic\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\clinic\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\clinic\app\Controllers\AntrianController.php(29): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\clinic\system\CodeIgniter.php(942): App\Controllers\AntrianController->index()
+#8 C:\xampp\htdocs\clinic\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+#9 C:\xampp\htdocs\clinic\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\clinic\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2025-01-17 03:47:18 --> Unknown column 'edis.pasien_id' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `rekam_medis`.*, `pasien`.`nama` AS `nama_pasien`, `pasien`.`tanggal_lahir`, `tb_dokter`.`nama` AS `nama_dokter`
+FROM `rekam_medis`
+JOIN `pasien` ON `edis`.`pasien_id` = `pasien`.`id`
+LEFT JOIN `tb_dokter` ON `rekam_medis`.`dokter_id` = `tb_dokter`.`id`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AntrianController.php(29): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 03:49:03 --> Undefined variable $rekam
+in APPPATH\Views\admin\antrian.php on line 134.
+ 1 APPPATH\Views\admin\antrian.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rekam', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('admin/antrian', [], true)
+ 5 APPPATH\Controllers\AntrianController.php(35): view('admin/antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2025-01-17 03:55:13 --> Undefined variable $rekam
+in APPPATH\Views\admin\antrian.php on line 134.
+ 1 APPPATH\Views\admin\antrian.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rekam', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('admin/antrian', [], true)
+ 5 APPPATH\Controllers\AntrianController.php(35): view('admin/antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2025-01-17 03:55:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-01-17 03:55:40 --> Undefined variable $rekam
+in APPPATH\Views\admin\antrian.php on line 134.
+ 1 APPPATH\Views\admin\antrian.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rekam', 'C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\xampp\\htdocs\\clinic\\app\\Views\\admin\\antrian.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('admin/antrian', [], true)
+ 5 APPPATH\Controllers\AntrianController.php(35): view('admin/antrian', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2025-01-17 03:59:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 04:00:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 04:00:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 04:02:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 04:02:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 04:02:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 04:02:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 05:34:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 05:34:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 05:34:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 05:34:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 05:34:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 05:34:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 05:34:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-01-17 05:34:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

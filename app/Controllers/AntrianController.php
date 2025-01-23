@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Controllers\BaseController;
+use App\Models\AntrianModel;
+use App\Models\PasienModel;
+use App\Models\RMModel;
+
+class AntrianController extends BaseController
+{
+    protected $antrianModel;
+    protected $PasienModel;
+    protected $rekamMedisModel;
+
+    public function __construct()
+    {
+        $this->antrianModel = new AntrianModel();
+        $this->PasienModel = new PasienModel();
+        $this->rekamMedisModel = new RMModel();
+    }
+
+    public function index()
+    {
+
+        $rekamMedis = $this->rekamMedisModel
+            ->select('rekam_medis.*, pasien.nama AS nama_pasien, pasien.tanggal_lahir, tb_dokter.nama AS nama_dokter')
+            ->join('pasien', 'rekam_medis.pasien_id = pasien.id')
+            ->join('tb_dokter', 'rekam_medis.dokter_id = tb_dokter.id', 'left')
+            ->findAll();
+        $antrian = $this->antrianModel->getAntrianHariIni();
+        // dd($rekamMedis);
+
+        $data = [
+            'tittle' => 'Antrian',
+            // 'antrian' => $this->antrianModel->getAntrianHariIni(),
+            'rekamMedis' => $rekamMedis,
+            'antrian' => $antrian
+        ];
+        return view('admin/antrian', $data);
+    }
+
+    public function ambilAntrian()
+    {
+        $nik = $this->request->getPost('nik');
+        $pasien = $this->PasienModel->getPasienByNik($nik);
+
+        if ($pasien) {
+            // Periksa jumlah antrian yang sudah ada
+            $lastAntrian = $this->antrianModel->orderBy('id', 'DESC')->first();
+            // dd($lastAntrian);
+            $no_antrian = $lastAntrian ? $lastAntrian['nomor_antrian'] + 1 : 1;
+            $tanggal = date('Y-m-d');
+
+            // Tambahkan data antrian baru
+            $this->antrianModel->insert([
+                'nik' => $nik,
+                'nomor_antrian' => $no_antrian,
+                'tanggal_periksa' => $tanggal,
+                'status_pemeriksaan' => 'menunggu',
+                'status_bayar' => 'belum lunas',
+                'tarif' => 0,
+            ]);
+
+            // Tambahkan data rekam medis
+            $rekamMedisData = [
+                'pasien_id' => $pasien['id'],
+                'dokter_id' => 101,
+                'nomor_antrian' => $no_antrian,
+                'keluhan' => 'belum diisi',
+                'diagnosa' => 'belum diisi',
+                'tindakan' => 'belum diisi',
+                'resep' => 'belum diisi',
+                'catatan' => 'belum diisi',
+                'tanggal_periksa' => date('Y-m-d H:i:s'),
+            ];
+            $this->rekamMedisModel->addRekamMedis($rekamMedisData);
+
+            // Set Flashdata untuk pesan sukses
+            session()->setFlashdata('message', "Antrian berhasil diambil. Nomor antrian Anda: $no_antrian");
+
+            return redirect()->to(base_url('/antrian'));
+        } else {
+            // Set Flashdata untuk pesan error
+            session()->setFlashdata('error', 'Pasien tidak ditemukan');
+
+            return redirect()->to(base_url('/pasien'));
+        }
+    }
+
+    public function ubahStatus($id)
+    {
+        $status = $this->request->getPost('status_pemeriksaan');
+        $this->antrianModel->update($id, ['status_pemeriksaan' => $status]);
+
+        return redirect()->to(base_url('/antrian'))->with('message', 'Status berhasil diubah');
+    }
+
+    public function updateTarif()
+    {
+        $id = $this->request->getPost('id_antrian');
+        $tarif = $this->request->getPost('tarif');
+        $this->antrianModel->update($id, ['tarif' => $tarif]);
+
+        return redirect()->to(base_url('/antrian'))->with('message', 'Tarif berhasil diubah');
+    }
+
+    public function ubahStatusBayar($id)
+    {
+        $status = $this->request->getPost('status_bayar');
+        $this->antrianModel->update($id, ['status_bayar' => $status]);
+
+        return redirect()->to(base_url('/antrian'))->with('message', 'Status bayar berhasil diubah');
+    }
+}

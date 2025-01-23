@@ -32,4 +32,16 @@
         </div>
     </div>
 </div>
+<script>
+    // pop up berhasil
+    <?php if (session()->getFlashdata('success')) : ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '<?= session()->getFlashdata('success') ?>',
+            confirmButtonText: 'OK'
+        });
+    <?php endif; ?>
+</script>
+
 <?= $this->endSection(); ?>

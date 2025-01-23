@@ -7,6 +7,9 @@
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link rel="icon" href="<?= base_url(); ?>clinic/assets/tittle.png" type="image/x-icon" />
 
+  <!-- pop up -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- Fonts and icons -->
   <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/webfont/webfont.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -358,6 +361,10 @@
         });
       });
     </script>
+
+    <!-- pop up -->
+    <!-- Script Pop-Up -->
+
 </body>
 
 </html>

@@ -44,7 +44,9 @@
                         <thead>
                             <tr>
                                 <th>No. Rekam Medis</th>
-                                <th>Tangal Periksa</th>
+                                <th>Tanggal Periksa</th>
+                                <th>Nama Pasien</th>
+                                <th>NIK</th>
                                 <th>Nama Dokter</th>
                                 <th>Perawatan</th>
                                 <th>Resep</th>
@@ -54,7 +56,9 @@
                         <tfoot>
                             <tr>
                                 <th>No. Rekam Medis</th>
-                                <th>Tangal Periksa</th>
+                                <th>Tanggal Periksa</th>
+                                <th>Nama Pasien</th>
+                                <th>NIK</th>
                                 <th>Nama Dokter</th>
                                 <th>Perawatan</th>
                                 <th>Resep</th>
@@ -62,51 +66,22 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            <tr>
-                                <td>RM0001</td>
-                                <td>2021-08-01</td>
-                                <td>Dr. Amy</td>
-                                <td>Rawat Jalan</td>
-                                <td>Paracetamol</td>
-                                <td>Rp. 50.000</td>
-                            </tr>
-                            <tr>
-                                <td>RM0002</td>
-                                <td>2021-08-02</td>
-                                <td>Dr. Amy</td>
-                                <td>Rawat Jalan</td>
-                                <td>Amoxilin</td>
-                                <td>Rp. 100.000</td>
-                            </tr>
-                            <tr>
-                                <td>RM0003</td>
-                                <td>2021-08-03</td>
-                                <td>Dr. Amy</td>
-                                <td>Rawat Jalan</td>
-                                <td>Paracetamol</td>
-                                <td>Rp. 75.000</td>
-                            </tr>
-                            <tr>
-                                <td>RM0004</td>
-                                <td>2021-08-04</td>
-                                <td>Dr. Amy</td>
-                                <td>Rawat Jalan</td>
-                                <td>Paracetamol</td>
-                                <td>Rp. 50.000</td>
-                            </tr>
-                            <tr>
-                                <td>RM0005</td>
-                                <td>2021-08-05</td>
-                                <td>Dr. Amy</td>
-                                <td>Rawat Jalan</td>
-                                <td>Paracetamol</td>
-                                <td>Rp. 50.000</td>
-                            </tr>
+                            <?php foreach ($rekamMedis as $rekam): ?>
+                                <tr>
+                                    <td>RM<?= str_pad($rekam['id'], 4, '0', STR_PAD_LEFT); ?></td>
+                                    <td><?= $rekam['tanggal_periksa']; ?></td>
+                                    <td><?= $rekam['nama_pasien']; ?></td>
+                                    <td><?= $rekam['nik']; ?></td>
+                                    <td><?= $rekam['nama_dokter']; ?></td>
+                                    <td><?= $rekam['tindakan']; ?></td>
+                                    <td><?= $rekam['resep']; ?></td>
+                                    <td>Rp <?= number_format($rekam['tarif'], 2, ',', '.'); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
     <?= $this->endSection(); ?>
