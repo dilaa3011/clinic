@@ -7,11 +7,12 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 //  auth
-$routes->get('/login', 'AuthController::index');
+$routes->get('/', 'AuthController::index');
+$routes->post('/login', 'AuthController::login');
 
 //  dashboard
 // $routes->get('/', 'Home::index');
-$routes->get('/', 'Dashboard::index');
+$routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/sidebar', 'Dashboard::sidebar');
 
 // pasien

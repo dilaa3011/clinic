@@ -2,7 +2,7 @@
     <div class="main-header-logo">
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
-            <a href="<?= base_url('/'); ?>" class="logo">
+            <a href="<?= base_url('/dashboard'); ?>" class="logo">
                 <img src="<?= base_url(); ?>clinic/assets/header.png" alt="navbar brand" class="navbar-brand" width="50" height="50" />
                 <!-- <h1>Dill</h1> -->
             </a>
@@ -62,7 +62,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Account Setting</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="<?= base_url('/login'); ?>">Logout</a>
+                                <a class="dropdown-item" href="<?= base_url('/'); ?>">Logout</a>
                             </li>
                         </div>
                     </ul>

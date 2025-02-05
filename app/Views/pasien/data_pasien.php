@@ -6,7 +6,7 @@
             <div class="row">
                 <ul class="breadcrumbs mb-3">
                     <li class="nav-home">
-                        <a href="<?= base_url('/'); ?>">
+                        <a href="<?= base_url('/dashboard'); ?>">
                             <i class="icon-home"></i>
                         </a>
                     </li>

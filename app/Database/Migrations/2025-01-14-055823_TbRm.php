@@ -61,7 +61,6 @@ class TbRm extends Migration
             ],
         ]);
 
-        // Primary key
         $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('pasien_id', 'pasien', 'id', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('dokter_id', 'tb_dokter', 'id', 'CASCADE', 'CASCADE');

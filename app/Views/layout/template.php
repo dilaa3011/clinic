@@ -66,7 +66,7 @@
       <div class="sidebar-logo">
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
-          <a href="<?= base_url('/'); ?>" class="logo">
+          <a href="<?= base_url('/dashboard'); ?>" class="logo">
             <img src="<?= base_url(); ?>clinic/assets/header.png" alt="navbar brand" class="navbar-brand pt-md-4" height="200" />
           </a>
           <!-- toggle sidebar -->
@@ -88,7 +88,7 @@
         <div class="sidebar-content">
           <ul class="nav nav-secondary">
             <li class="nav-item">
-              <a href="<?= base_url('/'); ?>">
+              <a href="<?= base_url('/dashboard'); ?>">
                 <i class="fas fa-home"></i>
                 <p>Dashboard</p>
               </a>

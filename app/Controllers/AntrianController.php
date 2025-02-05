@@ -46,13 +46,13 @@ class AntrianController extends BaseController
         $pasien = $this->PasienModel->getPasienByNik($nik);
 
         if ($pasien) {
-            // Periksa jumlah antrian yang sudah ada
+            // Periksa jumlah antrian 
             $lastAntrian = $this->antrianModel->orderBy('id', 'DESC')->first();
             // dd($lastAntrian);
             $no_antrian = $lastAntrian ? $lastAntrian['nomor_antrian'] + 1 : 1;
             $tanggal = date('Y-m-d');
 
-            // Tambahkan data antrian baru
+            // tambah data antrian baru
             $this->antrianModel->insert([
                 'nik' => $nik,
                 'nomor_antrian' => $no_antrian,
@@ -62,7 +62,7 @@ class AntrianController extends BaseController
                 'tarif' => 0,
             ]);
 
-            // Tambahkan data rekam medis
+            // tambah data rekam medis
             $rekamMedisData = [
                 'pasien_id' => $pasien['id'],
                 'dokter_id' => 101,
@@ -76,12 +76,11 @@ class AntrianController extends BaseController
             ];
             $this->rekamMedisModel->addRekamMedis($rekamMedisData);
 
-            // Set Flashdata untuk pesan sukses
             session()->setFlashdata('message', "Antrian berhasil diambil. Nomor antrian Anda: $no_antrian");
 
             return redirect()->to(base_url('/antrian'));
         } else {
-            // Set Flashdata untuk pesan error
+
             session()->setFlashdata('error', 'Pasien tidak ditemukan');
 
             return redirect()->to(base_url('/pasien'));

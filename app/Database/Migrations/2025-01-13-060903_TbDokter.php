@@ -33,12 +33,12 @@ class TbDokter extends Migration
             ],
         ]);
 
-        $this->forge->addPrimaryKey('id'); // Primary key
-        $this->forge->createTable('tb_dokter'); // Buat tabel
+        $this->forge->addPrimaryKey('id');
+        $this->forge->createTable('tb_dokter');
     }
 
     public function down()
     {
-        $this->forge->dropTable('tb_dokter'); // Hapus tabel jika rollback
+        $this->forge->dropTable('tb_dokter');
     }
 }
