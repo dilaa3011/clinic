@@ -23,6 +23,10 @@ class TbRm extends Migration
                 'type'           => 'INT',
                 'unsigned'       => true,
             ],
+            'no_rm' => [
+                'type' => 'VARCHAR',
+                'constraint' => 10,
+            ],
             'nomor_antrian' => [
                 'type'           => 'INT',
                 'unsigned'       => true,

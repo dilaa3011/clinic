@@ -21,9 +21,9 @@ $routes->post('/pasien/save', 'PasienController::save');
 
 // antrian
 $routes->get('/antrian', 'AntrianController::index');
-$routes->post('/antrian/tambah', 'AntrianController::AmbilAntrian');
+// $routes->post('/antrian/tambah', 'AntrianController::AmbilAntrian');
 $routes->post('/antrian/ubah-status/(:num)', 'AntrianController::ubahStatus/$1');
-$routes->post('antrian/tambah', 'AntrianController::ambilAntrian');
+$routes->post('/ambilAntrian', 'AntrianController::ambilAntrian');
 $routes->post('/update-tarif', 'AntrianController::updateTarif');
 $routes->post('/antrian/ubah-status-bayar/(:num)', 'AntrianController::ubahStatusBayar/$1');
 

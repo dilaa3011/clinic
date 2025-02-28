@@ -18,6 +18,7 @@ class TbPasien extends Migration
             'nik' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '16',
+                'unique'     => true,
             ],
             'nama' => [
                 'type'       => 'VARCHAR',

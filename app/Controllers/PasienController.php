@@ -27,44 +27,35 @@ class PasienController extends BaseController
 
     public function save()
     {
-        $pasienModel = new PasienModel();
-        $rekamMedisModel = new RMModel();
 
-        $lastId = $this->pasienModel->selectMax('id')->first();
+        $nik = $this->request->getPost('nik');
 
-        $newId = $lastId ? $lastId['id'] + 1 : 1;
+        // $pasienId = $pasienModel->insert($data);
 
-        // simpan data 
-        $data = [
-            'id' => $newId,
-            'nik' => $this->request->getPost('nik'),
-            'nama' => $this->request->getPost('nama'),
-            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
-            'alamat' => $this->request->getPost('alamat'),
-            'telepon' => $this->request->getPost('telepon'),
-            'pekerjaan' => $this->request->getPost('pekerjaan'),
-            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
-        ];
+        if (strlen($nik) !== 16) {
+            session()->setFlashdata('error', 'Gagal menambahkan data pasien. NIK harus terdiri dari 16 karakter.');
+            return redirect()->back()->withInput();
+        } else {
 
+            $pasienModel = new PasienModel();
 
-        $pasienId = $pasienModel->insert($data);
+            $lastId = $this->pasienModel->selectMax('id')->first();
 
-        if ($pasienId) {
-            $rekamMedisData = [
-                'pasien_id' => $pasienId,
-                'dokter_id' => 101,
-                'tanggal_periksa' => date('Y-m-d'),
-                'keluhan' => 'Form belum diisi',
-                'diagnosa' => 'Form belum diisi',
-                'tindakan' => 'Form belum diisi',
-                'resep' => 'Form belum diisi',
-                'catatan' => 'Form belum diisi',
+            $newId = $lastId ? $lastId['id'] + 1 : 1;
+            $data = [
+                'id' => $newId,
+                'nik' => $this->request->getPost('nik'),
+                'nama' => $this->request->getPost('nama'),
+                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+                'alamat' => $this->request->getPost('alamat'),
+                'telepon' => $this->request->getPost('telepon'),
+                'pekerjaan' => $this->request->getPost('pekerjaan'),
+                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
             ];
-            $rekamMedisModel->insert($rekamMedisData);
+
+            $pasienModel->insert($data);
 
             session()->setFlashdata('success', 'Data pasien dan rekam medis berhasil ditambahkan!');
-        } else {
-            session()->setFlashdata('error', 'Gagal menambahkan data pasien.');
         }
 
 

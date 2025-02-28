@@ -1,0 +1,102 @@
+INFO - 2025-02-27 02:12:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-02-27 02:13:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-02-27 02:13:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-02-27 02:13:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-02-27 02:13:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-02-27 02:14:02 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`ci4`.`antrian`, CONSTRAINT `antrian_rm_id_foreign` FOREIGN KEY (`rm_id`) REFERENCES `rekam_medis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `an...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `an...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `an...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `an...', Array, false)
+#4 C:\xampp\htdocs\clinic\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\clinic\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\clinic\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\clinic\app\Controllers\AntrianController.php(66): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\clinic\system\CodeIgniter.php(942): App\Controllers\AntrianController->ambilAntrian()
+#9 C:\xampp\htdocs\clinic\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+#10 C:\xampp\htdocs\clinic\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\clinic\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2025-02-27 02:14:02 --> Cannot add or update a child row: a foreign key constraint fails (`ci4`.`antrian`, CONSTRAINT `antrian_rm_id_foreign` FOREIGN KEY (`rm_id`) REFERENCES `rekam_medis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `antrian` (`nik`, `nomor_antrian`, `tanggal_periksa`, `status_pemeriksaan`, `status_bayar`, `tarif`, `created_at`, `updated_at`) VALUES (:nik:, :nomor_antrian:, :tanggal_periksa:, :status_pemeriksaan:, :status_bayar:, :tarif:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AntrianController.php(66): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->ambilAntrian()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2025-02-27 02:17:39 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`ci4`.`antrian`, CONSTRAINT `antrian_rm_id_foreign` FOREIGN KEY (`rm_id`) REFERENCES `rekam_medis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `an...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `an...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `an...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `an...', Array, false)
+#4 C:\xampp\htdocs\clinic\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\clinic\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\clinic\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\clinic\app\Controllers\AntrianController.php(66): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\clinic\system\CodeIgniter.php(942): App\Controllers\AntrianController->ambilAntrian()
+#9 C:\xampp\htdocs\clinic\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+#10 C:\xampp\htdocs\clinic\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\clinic\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2025-02-27 02:17:39 --> Cannot add or update a child row: a foreign key constraint fails (`ci4`.`antrian`, CONSTRAINT `antrian_rm_id_foreign` FOREIGN KEY (`rm_id`) REFERENCES `rekam_medis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `antrian` (`nik`, `nomor_antrian`, `tanggal_periksa`, `status_pemeriksaan`, `status_bayar`, `tarif`, `created_at`, `updated_at`) VALUES (:nik:, :nomor_antrian:, :tanggal_periksa:, :status_pemeriksaan:, :status_bayar:, :tarif:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AntrianController.php(66): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->ambilAntrian()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2025-02-27 02:19:59 --> mysqli_sql_exception: Can't create table `ci4`.`antrian` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('CREATE TABLE `a...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `a...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `a...')
+#3 C:\xampp\htdocs\clinic\system\Database\Forge.php(546): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `a...')
+#4 C:\xampp\htdocs\clinic\app\Database\Migrations\2025-01-20-152102_TbAntrian.php(62): CodeIgniter\Database\Forge->createTable('antrian')
+#5 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(873): App\Database\Migrations\TbAntrian->up()
+#6 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\clinic\system\Commands\Database\Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\clinic\system\CLI\BaseCommand.php(115): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\clinic\system\Commands\Database\MigrateRefresh.php(85): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#14 {main}
+INFO - 2025-02-27 02:21:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-02-27 02:22:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-02-27 02:23:00 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`ci4`.`antrian`, CONSTRAINT `antrian_rm_id_foreign` FOREIGN KEY (`rm_id`) REFERENCES `rekam_medis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `an...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `an...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `an...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `an...', Array, false)
+#4 C:\xampp\htdocs\clinic\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\xampp\htdocs\clinic\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\xampp\htdocs\clinic\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\xampp\htdocs\clinic\app\Controllers\AntrianController.php(66): CodeIgniter\Model->insert(Array)
+#8 C:\xampp\htdocs\clinic\system\CodeIgniter.php(942): App\Controllers\AntrianController->ambilAntrian()
+#9 C:\xampp\htdocs\clinic\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+#10 C:\xampp\htdocs\clinic\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\clinic\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2025-02-27 02:23:00 --> Cannot add or update a child row: a foreign key constraint fails (`ci4`.`antrian`, CONSTRAINT `antrian_rm_id_foreign` FOREIGN KEY (`rm_id`) REFERENCES `rekam_medis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `antrian` (`nik`, `nomor_antrian`, `tanggal_periksa`, `status_pemeriksaan`, `status_bayar`, `tarif`, `created_at`, `updated_at`) VALUES (:nik:, :nomor_antrian:, :tanggal_periksa:, :status_pemeriksaan:, :status_bayar:, :tarif:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AntrianController.php(66): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AntrianController->ambilAntrian()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AntrianController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

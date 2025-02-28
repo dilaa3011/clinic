@@ -13,7 +13,7 @@ class TbDokter extends Migration
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
-                'auto_increment' => true,
+                // 'auto_increment' => true,
             ],
             'nama' => [
                 'type'       => 'VARCHAR',

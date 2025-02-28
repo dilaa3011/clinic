@@ -12,6 +12,7 @@ class RMModel extends Model
     protected $allowedFields = [
         'pasien_id',
         'dokter_id',
+        'no_rm',
         'nomor_antrian',
         'keluhan',
         'diagnosa',

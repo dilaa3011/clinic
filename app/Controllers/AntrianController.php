@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\AntrianModel;
 use App\Models\PasienModel;
 use App\Models\RMModel;
+use CodeIgniter\I18n\Time;
 
 class AntrianController extends BaseController
 {
@@ -28,7 +29,12 @@ class AntrianController extends BaseController
             ->join('pasien', 'rekam_medis.pasien_id = pasien.id')
             ->join('tb_dokter', 'rekam_medis.dokter_id = tb_dokter.id', 'left')
             ->findAll();
-        $antrian = $this->antrianModel->getAntrianHariIni();
+
+        $antrian = $this->antrianModel
+            ->select('antrian.*, rekam_medis.no_rm') 
+            ->join('rekam_medis', 'antrian.rm_id = rekam_medis.id')
+            ->where('DATE(antrian.tanggal_periksa)', date('Y-m-d'))
+            ->findAll();
         // dd($rekamMedis);
 
         $data = [
@@ -44,15 +50,19 @@ class AntrianController extends BaseController
     {
         $nik = $this->request->getPost('nik');
         $pasien = $this->PasienModel->getPasienByNik($nik);
+        $tanggal = Time::now('Asia/Jakarta', 'Y-m-d H:i:s');
 
         if ($pasien) {
-            // Periksa jumlah antrian 
-            $lastAntrian = $this->antrianModel->orderBy('id', 'DESC')->first();
-            // dd($lastAntrian);
-            $no_antrian = $lastAntrian ? $lastAntrian['nomor_antrian'] + 1 : 1;
-            $tanggal = date('Y-m-d');
+            // Periksa jumlah antrian pada tanggal yang sama
+            $lastAntrian = $this->antrianModel
+                ->where('tanggal_periksa', $tanggal)
+                ->orderBy('nomor_antrian', 'DESC')
+                ->first();
 
-            // tambah data antrian baru
+            // Jika belum ada antrian untuk hari ini, mulai dari 1
+            $no_antrian = $lastAntrian ? $lastAntrian['nomor_antrian'] + 1 : 1;
+
+            // Tambah data antrian baru
             $this->antrianModel->insert([
                 'nik' => $nik,
                 'nomor_antrian' => $no_antrian,
@@ -62,17 +72,22 @@ class AntrianController extends BaseController
                 'tarif' => 0,
             ]);
 
-            // tambah data rekam medis
+            // Tambah data rekam medis
+
+            $rekam = $this->rekamMedisModel->findAll();
+            $lastRm = $rekam['no_rm'];
+            $rm =  $lastRm ? $rekam['no_rm'] + 1 : 1;
             $rekamMedisData = [
                 'pasien_id' => $pasien['id'],
                 'dokter_id' => 101,
+                'no_rm' => $rm,
                 'nomor_antrian' => $no_antrian,
                 'keluhan' => 'belum diisi',
                 'diagnosa' => 'belum diisi',
                 'tindakan' => 'belum diisi',
                 'resep' => 'belum diisi',
                 'catatan' => 'belum diisi',
-                'tanggal_periksa' => date('Y-m-d H:i:s'),
+                'tanggal_periksa' => Time::now('Asia/Jakarta', 'Y-m-d H:i:s'),
             ];
             $this->rekamMedisModel->addRekamMedis($rekamMedisData);
 
@@ -80,13 +95,12 @@ class AntrianController extends BaseController
 
             return redirect()->to(base_url('/antrian'));
         } else {
-
             session()->setFlashdata('error', 'Pasien tidak ditemukan');
-
             return redirect()->to(base_url('/pasien'));
         }
     }
 
+    //
     public function ubahStatus($id)
     {
         $status = $this->request->getPost('status_pemeriksaan');

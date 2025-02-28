@@ -50,14 +50,13 @@
                         <?php foreach ($antrian as $a):
 
                             $pasienModel = new \App\Models\PasienModel();
-                            $pasien = $pasienModel->where('nik', $a['nik'])->first();
-                            $rekamMedisModel = new \App\Models\RMModel();
-                            $rekam = $rekamMedisModel->where('nomor_antrian', $a['nomor_antrian'])->first();
-                            // dd($rekam)
-
+                            $pasien = $pasienModel->where('nik', $a['nik'])->first();                            
+                            $rekam = $rekamMedis;
+                            // $rekamMedisModel->where('nomor_antrian', $a['nomor_antrian'])->first();
+                            dd($a)
                         ?>
                             <tr>
-                                <td>RM<?= str_pad($a['id'], 4, '0', STR_PAD_LEFT); ?></td>
+                                <td>RM<?= str_pad($rekam['no_rm'], 4, '0', STR_PAD_LEFT); ?></td>
                                 <td><?= $pasien ? $pasien['nama'] : 'Nama tidak ditemukan';
                                     ?></td>
                                 <td><?= $a['nomor_antrian']; ?></td>

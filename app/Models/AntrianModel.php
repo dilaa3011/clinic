@@ -23,15 +23,15 @@ class AntrianModel extends Model
 
     protected $useTimestamps = true;
 
-    public function getAntrianHariIni()
-    {
-        //  data antrian tanggal hari ini
-        return $this->db->table('antrian')
-            ->where('DATE(tanggal_periksa)', date('Y-m-d'))
-            ->orderBy('tanggal_periksa', 'asc')
-            ->get()
-            ->getResultArray();
-    }
+    // public function getAntrianHariIni()
+    // {
+    //     //  data antrian tanggal hari ini
+    //     return $this->db->table('antrian')
+    //         ->where('DATE(tanggal_periksa)', date('Y-m-d'))
+    //         ->orderBy('tanggal_periksa', 'asc')
+    //         ->get()
+    //         ->getResultArray();
+    // }
 
     public function getDataByAntrian($antrian)
     {

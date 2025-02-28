@@ -29,7 +29,7 @@
                         </button>
                     </div>
                 </div>
-                <!-- modal data -->
+                <!-- modal add pasien -->
                 <div class="card-body">
                     <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -43,8 +43,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">
-                                    <!-- <p class="small">Create a new row using this form, make sure you fill them all</p> -->
+                                <div class="modal-body">                                    
                                     <form action="<?= base_url('pasien/save'); ?>" method="post">
                                         <?= csrf_field(); ?>
                                         <div class="row">
@@ -198,8 +197,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         <!-- Button Ambil Antrian -->
-                                                        <form action="<?= base_url('antrian/tambah'); ?>" method="post">
-                                                            <?= csrf_field(); ?>
+                                                        <form action="<?= base_url('/ambilAntrian'); ?>" method="post">                                                            
                                                             <input type="hidden" name="nik" value="<?= $p['nik']; ?>" />
                                                             <button type="submit" class="btn btn-primary">Ambil Antrian</button>
                                                         </form>

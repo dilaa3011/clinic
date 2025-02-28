@@ -26,12 +26,15 @@
             </tfoot>
             <tbody>
                 <?php
-
+                $no = 1;
                 foreach ($rekamMedis as $rekam):;
+                $lastRm = $rekam['no_rm'];
+        // $nomor_antrian = $lastAntrian ? $lastAntrian['nomor_antrian'] + 1 : 1;
+                $rm =  $lastRm ? $rekam['no_rm']+1:1;
                 ?>
                     <tr>
                         <td><?= $rekam['nomor_antrian'] ?></td>
-                        <td>RM<?= str_pad($rekam['id'], 4, '0', STR_PAD_LEFT) ?></td>
+                        <td>RM<?= str_pad($rm, 4, '0', STR_PAD_LEFT) ?></td>
                         <td><?= $rekam['nama_pasien'] ?></td>
                         <td><?= $rekam['tanggal_lahir'] ? date_diff(date_create($rekam['tanggal_lahir']), date_create('today'))->y : '-' ?></td>
                         <td><?= date('d-m-Y', strtotime($rekam['tanggal_periksa'])); ?></td>
