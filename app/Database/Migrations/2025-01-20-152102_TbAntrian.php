@@ -11,13 +11,12 @@ class TbAntrian extends Migration
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
-                'constraint'     => 5,
+                'constraint'     => 11,
                 'unsigned'       => true,
-                // 'auto_increment' => true,
+                'auto_increment' => true, // Tambahkan ini
             ],
             'rm_id' => [
-                'type'           => 'INT',
-                // 'constraint'     => 11,
+                'type'           => 'INT',                
                 'unsigned'       => true,
             ],
             'nomor_antrian' => [
@@ -61,6 +60,7 @@ class TbAntrian extends Migration
         $this->forge->addForeignKey('rm_id', 'rekam_medis', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('antrian');
     }
+
 
     public function down()
     {

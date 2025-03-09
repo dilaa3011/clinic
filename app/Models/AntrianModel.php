@@ -18,7 +18,9 @@ class AntrianModel extends Model
         'status_bayar',
         'tanggal_lahir',
         'tindakan',
-        'dokter_id'
+        'dokter_id',
+        'rm_id',
+        // 'no_rm'
     ];
 
     protected $useTimestamps = true;

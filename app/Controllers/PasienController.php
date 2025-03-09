@@ -26,39 +26,52 @@ class PasienController extends BaseController
     }
 
     public function save()
-    {
+{
+    $nik = $this->request->getPost('nik');
 
-        $nik = $this->request->getPost('nik');
-
-        // $pasienId = $pasienModel->insert($data);
-
-        if (strlen($nik) !== 16) {
-            session()->setFlashdata('error', 'Gagal menambahkan data pasien. NIK harus terdiri dari 16 karakter.');
-            return redirect()->back()->withInput();
-        } else {
-
-            $pasienModel = new PasienModel();
-
-            $lastId = $this->pasienModel->selectMax('id')->first();
-
-            $newId = $lastId ? $lastId['id'] + 1 : 1;
-            $data = [
-                'id' => $newId,
-                'nik' => $this->request->getPost('nik'),
-                'nama' => $this->request->getPost('nama'),
-                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
-                'alamat' => $this->request->getPost('alamat'),
-                'telepon' => $this->request->getPost('telepon'),
-                'pekerjaan' => $this->request->getPost('pekerjaan'),
-                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
-            ];
-
-            $pasienModel->insert($data);
-
-            session()->setFlashdata('success', 'Data pasien dan rekam medis berhasil ditambahkan!');
-        }
-
-
-        return redirect()->to(base_url('pasien'));
+    // Cek apakah panjang NIK tepat 16 karakter
+    if (strlen($nik) !== 16) {
+        session()->setFlashdata('error', 'Gagal menambahkan data pasien. NIK harus terdiri dari 16 karakter.');
+        return redirect()->back()->withInput();
     }
+
+    // Panggil model pasien
+    $pasienModel = new PasienModel();
+
+    // Cek apakah NIK sudah ada di database
+    $existingPasien = $pasienModel->where('nik', $nik)->first();
+    if ($existingPasien) {
+        session()->setFlashdata('error', 'Gagal menambahkan data pasien. NIK sudah terdaftar.');
+        return redirect()->back()->withInput();
+    }
+
+    try {
+        // Ambil ID terakhir
+        $lastId = $pasienModel->selectMax('id')->first();
+        $newId = $lastId ? $lastId['id'] + 1 : 1;
+
+        // Data pasien yang akan disimpan
+        $data = [
+            'id' => $newId,
+            'nik' => $nik,
+            'nama' => $this->request->getPost('nama'),
+            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+            'alamat' => $this->request->getPost('alamat'),
+            'telepon' => $this->request->getPost('telepon'),
+            'pekerjaan' => $this->request->getPost('pekerjaan'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+        ];
+
+        // Insert ke database
+        $pasienModel->insert($data);
+
+        // Set pesan sukses
+        session()->setFlashdata('success', 'Data pasien berhasil ditambahkan!');
+    } catch (\Exception $e) {
+        session()->setFlashdata('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
+    }
+
+    return redirect()->to(base_url('pasien'));
+}
+
 }

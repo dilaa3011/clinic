@@ -31,7 +31,7 @@ class AntrianController extends BaseController
             ->findAll();
 
         $antrian = $this->antrianModel
-            ->select('antrian.*, rekam_medis.no_rm') 
+            ->select('antrian.*, rekam_medis.no_rm')
             ->join('rekam_medis', 'antrian.rm_id = rekam_medis.id')
             ->where('DATE(antrian.tanggal_periksa)', date('Y-m-d'))
             ->findAll();
@@ -46,59 +46,78 @@ class AntrianController extends BaseController
         return view('admin/antrian', $data);
     }
 
+    // $tanggal = Time::now('Asia/Jakarta', 'Y-m-d H:i:s');
+
     public function ambilAntrian()
     {
         $nik = $this->request->getPost('nik');
-        $pasien = $this->PasienModel->getPasienByNik($nik);
-        $tanggal = Time::now('Asia/Jakarta', 'Y-m-d H:i:s');
+        $pasien = $this->PasienModel->where('nik', $nik)->first();
+        $tanggal = date('Y-m-d'); // Format tanggal tanpa waktu
 
-        if ($pasien) {
-            // Periksa jumlah antrian pada tanggal yang sama
-            $lastAntrian = $this->antrianModel
-                ->where('tanggal_periksa', $tanggal)
-                ->orderBy('nomor_antrian', 'DESC')
-                ->first();
+        if (!$pasien) {
+            session()->setFlashdata('error', 'Pasien tidak ditemukan. Harap mendaftar terlebih dahulu.');
+            return redirect()->back();
+        }
 
-            // Jika belum ada antrian untuk hari ini, mulai dari 1
-            $no_antrian = $lastAntrian ? $lastAntrian['nomor_antrian'] + 1 : 1;
+        // Cek apakah pasien sudah mengambil antrian hari ini
+        $cekAntrianHariIni = $this->antrianModel
+            ->where('nik', $nik)
+            ->where('tanggal_periksa', $tanggal)
+            ->first();
 
-            // Tambah data antrian baru
-            $this->antrianModel->insert([
-                'nik' => $nik,
-                'nomor_antrian' => $no_antrian,
-                'tanggal_periksa' => $tanggal,
-                'status_pemeriksaan' => 'menunggu',
-                'status_bayar' => 'belum lunas',
-                'tarif' => 0,
-            ]);
+        if ($cekAntrianHariIni) {
+            session()->setFlashdata('message', 'Anda sudah memiliki antrian hari ini. Nomor antrian: ' . $cekAntrianHariIni['nomor_antrian']);
+            return redirect()->to(base_url('/antrian'));
+        }
 
-            // Tambah data rekam medis
+        // Cek apakah pasien sudah memiliki rekam medis
+        $rekamMedis = $this->rekamMedisModel->where('pasien_id', $pasien['id'])->first();
 
-            $rekam = $this->rekamMedisModel->findAll();
-            $lastRm = $rekam['no_rm'];
-            $rm =  $lastRm ? $rekam['no_rm'] + 1 : 1;
+        if (!$rekamMedis) {
+            // Jika belum ada, buat rekam medis baru
             $rekamMedisData = [
                 'pasien_id' => $pasien['id'],
-                'dokter_id' => 101,
-                'no_rm' => $rm,
-                'nomor_antrian' => $no_antrian,
+                'dokter_id' => 101, // Default dokter
+                'no_rm' => str_pad($pasien['id'], 6, "0", STR_PAD_LEFT),
+                'nomor_antrian' => 1,
                 'keluhan' => 'belum diisi',
                 'diagnosa' => 'belum diisi',
                 'tindakan' => 'belum diisi',
                 'resep' => 'belum diisi',
                 'catatan' => 'belum diisi',
-                'tanggal_periksa' => Time::now('Asia/Jakarta', 'Y-m-d H:i:s'),
+                'tanggal_periksa' => $tanggal,
             ];
-            $this->rekamMedisModel->addRekamMedis($rekamMedisData);
+            $this->rekamMedisModel->insert($rekamMedisData);
 
-            session()->setFlashdata('message', "Antrian berhasil diambil. Nomor antrian Anda: $no_antrian");
-
-            return redirect()->to(base_url('/antrian'));
-        } else {
-            session()->setFlashdata('error', 'Pasien tidak ditemukan');
-            return redirect()->to(base_url('/pasien'));
+            // Ambil rekam medis yang baru dibuat
+            $rekamMedis = $this->rekamMedisModel->where('pasien_id', $pasien['id'])->first();
         }
+
+        // Periksa jumlah antrian pada tanggal yang sama
+        $lastAntrian = $this->antrianModel
+            ->where('tanggal_periksa', $tanggal)
+            ->orderBy('nomor_antrian', 'DESC')
+            ->first();
+
+        $no_antrian = $lastAntrian ? $lastAntrian['nomor_antrian'] + 1 : 1;
+
+        // Tambahkan data ke tabel antrian
+        $this->antrianModel->insert([
+            'rm_id' => $rekamMedis['id'],  // Gunakan ID dari rekam medis yang sudah dibuat
+            'nik' => $nik,
+            'nomor_antrian' => $no_antrian,
+            'tanggal_periksa' => $tanggal,
+            'status_pemeriksaan' => 'menunggu',
+            'status_bayar' => 'belum lunas',
+            'tarif' => 0,
+        ]);
+
+        session()->setFlashdata('message', "Antrian berhasil diambil. Nomor antrian Anda: $no_antrian");
+        return redirect()->to(base_url('/antrian'));
     }
+
+
+
 
     //
     public function ubahStatus($id)
