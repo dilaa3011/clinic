@@ -27,7 +27,8 @@
             <tbody>
                 <?php
                 $no = 1;
-                foreach ($rekamMedis as $rekam):;?>
+                foreach ($rekamMedis as $rekam):
+                // dd($rekam)?>
                     <tr>
                         <td><?= $rekam['nomor_antrian'] ?></td>
                         <td><?= $rekam['no_rm']; ?></td>

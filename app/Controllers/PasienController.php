@@ -29,16 +29,13 @@ class PasienController extends BaseController
 {
     $nik = $this->request->getPost('nik');
 
-    // Cek apakah panjang NIK tepat 16 karakter
     if (strlen($nik) !== 16) {
         session()->setFlashdata('error', 'Gagal menambahkan data pasien. NIK harus terdiri dari 16 karakter.');
         return redirect()->back()->withInput();
     }
 
-    // Panggil model pasien
     $pasienModel = new PasienModel();
 
-    // Cek apakah NIK sudah ada di database
     $existingPasien = $pasienModel->where('nik', $nik)->first();
     if ($existingPasien) {
         session()->setFlashdata('error', 'Gagal menambahkan data pasien. NIK sudah terdaftar.');

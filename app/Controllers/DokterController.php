@@ -25,16 +25,19 @@ class DokterController extends BaseController
 
     public function index()
     {
-        $rekamMedis = $this->rekamMedisModel->select('rekam_medis.*, pasien.nama AS nama_pasien, pasien.tanggal_lahir, tb_dokter.nama AS nama_dokter')
+
+        $rekamMedis = $this->rekamMedisModel
+            ->select('rekam_medis.*, pasien.nama AS nama_pasien, pasien.tanggal_lahir, tb_dokter.nama AS nama_dokter, antrian.id AS antrian_id')
             ->join('pasien', 'rekam_medis.pasien_id = pasien.id', 'left')
             ->join('tb_dokter', 'rekam_medis.dokter_id = tb_dokter.id', 'left')
+            ->join('antrian', 'rekam_medis.id = antrian.rm_id', 'left')            
             ->findAll();
 
         // dd($rekamMedis);
+
         return view('dokter/data-rm', [
             'tittle' => 'Rekam Medis',
             'rekamMedis' => $rekamMedis,
-            // 'antrianData' => $antrianData
         ]);
     }
 
