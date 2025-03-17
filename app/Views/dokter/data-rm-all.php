@@ -15,7 +15,13 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Data Rekam Medis</a>
+                        <a href="<?= base_url('/rm'); ?>">Data Rekam Medis</a>
+                    </li>
+                    <li class="separator">
+                        <i class="icon-arrow-right"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Data Semua Rekam Medis</a>
                     </li>
                 </ul>
             </div>
@@ -26,19 +32,11 @@
                     <div class="row">
                         <div class="col-6">
                             <h4 class="card-title">Rekam Medis Pasien</h4>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <form action="<?= base_url('/all-rm'); ?>" method="get">
-                                <button type="submit" class="btn btn-primary btn-round ms-auto">
-                                    <i class="fab fa-searchengin me-2"></i>
-                                     Data Rekam Medis
-                                </button>
-                            </form>
-                        </div>
+                        </div>                    
                     </div>
                 </div>
                 <div class="card-body">
-                    <?= $this->include('/dokter/form-rm'); ?>
+                    <?= $this->include('/dokter/form-rm-all'); ?>
                 </div>
             </div>
         </div>

@@ -33,6 +33,7 @@ $routes->get('/rm/(:num)', 'DokterController::index/$1');
 $routes->get('/rm', 'DokterController::index');
 $routes->get('rekamMedis', 'DokterController::rekam');
 $routes->post('/update_rekam_medis', 'DokterController::updateRekamMedis');
+$routes->get('/all-rm', 'DokterController::all');
 
 
 // payment
