@@ -55,10 +55,10 @@ class DokterController extends BaseController
               pasien.tanggal_lahir, 
               tb_dokter.nama AS nama_dokter, 
               antrian.id AS antrian_id, 
-              antrian.nomor_antrian') // Tambahkan nomor antrian
+              antrian.nomor_antrian')
             ->join('pasien', 'rekam_medis.pasien_id = pasien.id', 'left')
             ->join('tb_dokter', 'rekam_medis.dokter_id = tb_dokter.id', 'left')
-            ->join('antrian', 'rekam_medis.id = antrian.rm_id', 'left') // Perbaiki bagian ini
+            ->join('antrian', 'rekam_medis.id = antrian.rm_id', 'left') 
             ->findAll();
 
 

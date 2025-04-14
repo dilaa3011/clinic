@@ -14,7 +14,7 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Laporan</a>
+                        <a href="<?= base_url('/laporan'); ?>">Laporan</a>
                     </li>
                 </ul>
             </div>
@@ -23,7 +23,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-6">
-                        <form action="" method="post">
+                        <form id="formFilter" action="<?= base_url('/laporan'); ?>" method="post">
                             <div class="input-group">
                                 <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal">
                                 <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir">
@@ -33,7 +33,12 @@
                     </div>
                     <div class="col-md-6">
                         <div class="d-flex justify-content-end">
-                            <a href="#" class="btn btn-primary">Cetak</a>
+                            <form action="<?= site_url('laporan/cetak'); ?>" method="post" target="_blank" id="formCetak">
+                                <input type="hidden" name="tanggal_awal" id="cetak_tanggal_awal">
+                                <input type="hidden" name="tanggal_akhir" id="cetak_tanggal_akhir">
+                                <button type="submit" class="btn btn-primary">Cetak</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -84,4 +89,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Saat submit form pencarian
+        document.getElementById('formFilter').addEventListener('submit', function() {
+            document.getElementById('cetak_tanggal_awal').value = document.getElementById('tanggal_awal').value;
+            document.getElementById('cetak_tanggal_akhir').value = document.getElementById('tanggal_akhir').value;
+        });
+
+        // Tambahkan juga sinkronisasi saat user belum submit pencarian tapi langsung klik "Cetak"
+        document.getElementById('formCetak').addEventListener('submit', function() {
+            document.getElementById('cetak_tanggal_awal').value = document.getElementById('tanggal_awal').value;
+            document.getElementById('cetak_tanggal_akhir').value = document.getElementById('tanggal_akhir').value;
+        });
+    </script>
+
+
+
     <?= $this->endSection(); ?>

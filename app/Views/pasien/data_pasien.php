@@ -43,7 +43,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <div class="modal-body">                                    
+                                <div class="modal-body">
                                     <form action="<?= base_url('pasien/save'); ?>" method="post">
                                         <?= csrf_field(); ?>
                                         <div class="row">
@@ -150,15 +150,14 @@
                                         </div>
                                         <!-- Detail Modal -->
                                         <div class="modal fade" id="detailModal<?= $p['nik']; ?>" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- pakai modal-lg untuk ruang tambahan -->
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="detailModalLabel">Detail Informasi</h5>
+                                                        <h5 class="modal-title">Detail Informasi</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <table class="table table-borderless">
-
                                                             <tr>
                                                                 <td>NIK</td>
                                                                 <td>:</td>
@@ -191,16 +190,50 @@
                                                                 <td>:</td>
                                                                 <td><?= $p['telepon']; ?></td>
                                                             </tr>
-
                                                         </table>
+
+                                                        <!-- Tambahan Tabel Rekam Medis -->
+                                                        <?php if (!empty($p['rekam_medis'])): ?>
+                                                            <hr>
+                                                            <h5>Riwayat Rekam Medis</h5>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered table-striped">
+                                                                    <thead class="table-light">
+                                                                        <tr>
+                                                                            <th>Tanggal</th>
+                                                                            <th>Keluhan</th>
+                                                                            <th>Diagnosa</th>
+                                                                            <th>Tindakan</th>
+                                                                            <th>Resep</th>
+                                                                            <th>Catatan</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php foreach ($p['rekam_medis'] as $rm): ?>
+                                                                            <tr>
+                                                                                <td><?= esc($rm['tanggal_periksa']) ?></td>
+                                                                                <td><?= esc($rm['keluhan']) ?></td>
+                                                                                <td><?= esc($rm['diagnosa']) ?></td>
+                                                                                <td><?= esc($rm['tindakan']) ?></td>
+                                                                                <td><?= esc($rm['resep']) ?></td>
+                                                                                <td><?= esc($rm['catatan']) ?></td>
+                                                                            </tr>
+                                                                        <?php endforeach; ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        <?php else: ?>
+                                                            <hr>
+                                                            <p class="text-muted">Belum ada data rekam medis.</p>
+                                                        <?php endif; ?>
+                                                        <!-- End Rekam Medis -->
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <!-- Button Ambil Antrian -->
-                                                        <form action="<?= base_url('/ambilAntrian'); ?>" method="post">                                                            
+                                                        <form action="<?= base_url('/ambilAntrian'); ?>" method="post" class="d-inline">
                                                             <input type="hidden" name="nik" value="<?= $p['nik']; ?>" />
                                                             <button type="submit" class="btn btn-primary">Ambil Antrian</button>
                                                         </form>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                                     </div>
                                                 </div>
                                             </div>

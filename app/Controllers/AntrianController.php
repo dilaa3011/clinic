@@ -37,7 +37,7 @@ class AntrianController extends BaseController
             ->select('antrian.*, rekam_medis.no_rm')
             ->join('rekam_medis', 'antrian.rm_id = rekam_medis.id', 'left')
             ->where('DATE(antrian.tanggal_periksa)', date('Y-m-d'))
-            ->findAll();
+            ->findAll();        
         // dd($rekamMedis);
 
         $data = [
@@ -62,7 +62,6 @@ class AntrianController extends BaseController
             return redirect()->back();
         }
 
-        // Cek apakah pasien sudah mengambil antrian hari ini
         $cekAntrianHariIni = $this->antrianModel
             ->where('nik', $nik)
             ->where('tanggal_periksa', $tanggal)
@@ -73,15 +72,13 @@ class AntrianController extends BaseController
             return redirect()->to(base_url('/antrian'));
         }
 
-        // Ambil nomor rekam medis lama (jika ada)
         $rekamMedisLama = $this->rekamMedisModel->where('pasien_id', $pasien['id'])->first();
         $no_rm = $rekamMedisLama ? $rekamMedisLama['no_rm'] : str_pad($pasien['id'], 6, "0", STR_PAD_LEFT);
 
-        // Buat rekam medis baru setiap kali pasien mengambil antrian
         $rekamMedisData = [
             'pasien_id' => $pasien['id'],
-            'dokter_id' => 101, // Default dokter
-            'no_rm' => $no_rm,  // Gunakan nomor rekam medis yang sama
+        'dokter_id' => 101, 
+        'no_rm' => $no_rm,  
             'keluhan' => 'belum diisi',
             'diagnosa' => 'belum diisi',
             'tindakan' => 'belum diisi',
@@ -90,15 +87,12 @@ class AntrianController extends BaseController
             'tanggal_periksa' => $tanggal,
         ];
         $this->rekamMedisModel->insert($rekamMedisData);
-
-        // Ambil rekam medis yang baru saja dibuat
+        
         $rekamMedisBaru = $this->rekamMedisModel->where('pasien_id', $pasien['id'])->orderBy('id', 'DESC')->first();
-
-        // Hitung nomor antrian hari ini
+        
         $jumlahAntrianHariIni = $this->antrianModel->where('tanggal_periksa', $tanggal)->countAllResults();
         $no_antrian = $jumlahAntrianHariIni + 1;
-
-        // Tambahkan ke tabel antrian dengan ID rekam medis terbaru
+        
         $this->antrianModel->insert([
             'rm_id' => $rekamMedisBaru['id'],
             'nik' => $nik,
@@ -112,8 +106,7 @@ class AntrianController extends BaseController
         session()->setFlashdata('message', "Antrian berhasil diambil. Nomor antrian Anda: $no_antrian");
         return redirect()->to(base_url('/antrian'));
     }
-
-    //
+    
     public function ubahStatus($id)
     {
         $status = $this->request->getPost('status_pemeriksaan');

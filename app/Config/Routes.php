@@ -36,5 +36,7 @@ $routes->post('/update_rekam_medis', 'DokterController::updateRekamMedis');
 $routes->get('/all-rm', 'DokterController::all');
 
 
-// payment
+// laporan
 $routes->get('/laporan', 'LaporanController::index');
+$routes->post('/laporan/cetak', 'LaporanController::cetak');
+$routes->post('/laporan', 'LaporanController::index');
