@@ -23,102 +23,12 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <button type="button" class="btn btn-primary btn-round ms-auto" data-toggle="modal" data-target="#addRowModal">
-                            <i class="fa fa-plus"></i>
-                            Pasien Baru
-                        </button>
-                    </div>
-                </div>
-                <!-- modal add pasien -->
-                <div class="card-body">
-                    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header border-0">
-                                    <h5 class="modal-title">
-                                        <span class="fw-mediumbold text-info">Pasien</span>
-                                        <span class="fw-light"> Baru </span>
-                                    </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="<?= base_url('pasien/save'); ?>" method="post">
-                                        <?= csrf_field(); ?>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>NIK</label>
-                                                    <input id="nik" name="nik" type="text" class="form-control" placeholder="Isi nik" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>Nama</label>
-                                                    <input id="nama" name="nama" type="text" class="form-control" placeholder="Isi nama" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default p-2">
-                                                    <label>Alamat</label>
-                                                    <input id="alamat" name="alamat" type="text" class="form-control" placeholder="Isi alamat" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default p-2">
-                                                    <label>Nomor Telepon</label>
-                                                    <input id="telepon" name="telepon" type="text" class="form-control" placeholder="Isi telepon" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group form-group-default p-2">
-                                                    <label>Pekerjaan</label>
-                                                    <input id="pekerjaan" name="pekerjaan" type="text" class="form-control" placeholder="Isi pekerjaan" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 pe-0">
-                                                <div class="form-group form-group-default">
-                                                    <label>Tanggal Lahir</label>
-                                                    <input id="tanggal_lahir" name="tanggal_lahir" type="date" class="form-control" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label>Jenis Kelamin</label><br />
-                                                    <div class="d-flex">
-                                                        <div class="form-check-inline">
-                                                            <input
-                                                                class="form-check-input"
-                                                                type="radio"
-                                                                name="jenis_kelamin"
-                                                                id="laki-laki" value="Laki-laki" required />
-                                                            <label class="form-check-label" for="laki-laki">Laki-laki</label>
-                                                        </div>
-                                                        <div class="form-check-inline">
-                                                            <input
-                                                                class="form-check-input"
-                                                                type="radio"
-                                                                name="jenis_kelamin"
-                                                                id="perempuan" value="Perempuan" required />
-                                                            <label class="form-check-label" for="perempuan">Perempuan</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer border-0">
-                                            <button type="submit" class="btn btn-primary">Tambah</button>
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                        <a href="<?= base_url('/add-pasien'); ?>" class="btn btn-primary btn-round ms-auto">
+                            <i class="fas fa-plus"></i> Pasien Baru
+                        </a>
 
-                        </div>
                     </div>
                 </div>
-                <!-- end modal data -->
                 <!-- tabel pasien -->
                 <div class="table-responsive">
                     <table
@@ -129,7 +39,7 @@
                                 <th>NIK</th>
                                 <th>Nama</th>
                                 <th>Alamat</th>
-                                <th>Nomor Telepon</th>
+                                <th>Nomor yang bisa dihubungi</th>
                                 <th>Jenis Kelamin</th>
                                 <th style="width: 10%"> </th>
                             </tr>
@@ -138,10 +48,18 @@
                             <?php foreach ($pasien as $p) : ?>
                                 <tr>
                                     <td><?= $p['nik']; ?></td>
-                                    <td><?= $p['nama']; ?></td>
-                                    <td><?= $p['alamat']; ?></td>
-                                    <td><?= $p['telepon']; ?></td>
-                                    <td><?= $p['jenis_kelamin']; ?></td>
+                                    <td><?= $p['nama_lengkap']; ?></td>
+                                    <td><?= $p['alamat_lengkap']; ?>, rt <?= $p['rt']; ?>, rw <?= $p['rw']; ?>, kecamatan <?= $p['kecamatan']; ?>, kelurahan <?= $p['kelurahan']; ?>, <?= $p['provinsi']; ?></td>
+                                    <td><?php
+                                        if ($p['telepon_rumah'] !== '-' && $p['telepon_rumah'] !== '') {
+                                            echo $p['telepon_rumah'];
+                                        } elseif ($p['telepon_selular'] !== '-' && $p['telepon_selular'] !== '') {
+                                            echo $p['telepon_selular'];
+                                        } else {
+                                            echo '-';
+                                        }
+                                        ?></td>
+                                    <td><?= $p['nama_jenis_kelamin']; ?></td>
                                     <td>
                                         <div class="form-button-action">
                                             <button type="button" class="btn btn-link btn-rounded btn-outline-info" data-bs-toggle="modal" data-bs-target="#detailModal<?= $p['nik']; ?>">
@@ -150,7 +68,7 @@
                                         </div>
                                         <!-- Detail Modal -->
                                         <div class="modal fade" id="detailModal<?= $p['nik']; ?>" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg modal-dialog-centered"> <!-- pakai modal-lg untuk ruang tambahan -->
+                                            <div class="modal-dialog modal-lg modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Detail Informasi</h5>
@@ -159,6 +77,11 @@
                                                     <div class="modal-body">
                                                         <table class="table table-borderless">
                                                             <tr>
+                                                                <td>Nomor Rekam Medis</td>
+                                                                <td>:</td>
+                                                                <td><?= $p['nomor_rekam_medis']; ?></td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td>NIK</td>
                                                                 <td>:</td>
                                                                 <td><?= $p['nik']; ?></td>
@@ -166,7 +89,7 @@
                                                             <tr>
                                                                 <td>Nama</td>
                                                                 <td>:</td>
-                                                                <td><?= $p['nama']; ?></td>
+                                                                <td><?= $p['nama_lengkap']; ?></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Usia</td>
@@ -183,12 +106,20 @@
                                                             <tr>
                                                                 <td>Alamat</td>
                                                                 <td>:</td>
-                                                                <td><?= $p['alamat']; ?></td>
+                                                                <td><?= $p['alamat_lengkap']; ?>, rt <?= $p['rt']; ?>, rw <?= $p['rw']; ?>, kecamatan <?= $p['kecamatan']; ?>, kelurahan <?= $p['kelurahan']; ?>, <?= $p['provinsi']; ?></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>Nomor Telepon</td>
+                                                                <td>Nomor yang bisa dihubungi</td>
                                                                 <td>:</td>
-                                                                <td><?= $p['telepon']; ?></td>
+                                                                <td><?php
+                                                                    if ($p['telepon_rumah'] !== '-' && $p['telepon_rumah'] !== '') {
+                                                                        echo $p['telepon_rumah'];
+                                                                    } elseif ($p['telepon_selular'] !== '-' && $p['telepon_selular'] !== '') {
+                                                                        echo $p['telepon_selular'];
+                                                                    } else {
+                                                                        echo '-';
+                                                                    }
+                                                                    ?></td>
                                                             </tr>
                                                         </table>
 

@@ -7,16 +7,24 @@ use CodeIgniter\Model;
 class RMModel extends Model
 {
     protected $table = 'rekam_medis';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_rm';
     protected $useTimestamps = true;
     protected $allowedFields = [
         'pasien_id',
         'dokter_id',
+        'penyakit_id',
+        'resep_id',
+        'tindakan_id',
         'no_rm',
-        'nomor_antrian',
+        'riwayat_penyakit',
+        'riwayat_alergi',
+        'riwayat_pengobatan',
         'keluhan',
-        'diagnosa',
-        'tindakan',
+        'periksa_bibir_masuk_mulut',
+        'periksa_gigi_geligi',
+        'periksa_lidah',
+        'periksa_langit_langit',
+        'diagnosa',        
         'resep',
         'catatan',
         'tanggal_periksa',

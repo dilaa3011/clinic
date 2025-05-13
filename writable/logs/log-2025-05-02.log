@@ -1,0 +1,252 @@
+ERROR - 2025-05-02 03:28:28 --> mysqli_sql_exception: Table 'clinic.tb_dokter' doesn't exist in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `rekam_m...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `rekam_m...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `rekam_m...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `rekam_m...', Array, false)
+#4 C:\xampp\htdocs\clinic\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\clinic\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\clinic\app\Controllers\LaporanController.php(39): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\clinic\system\CodeIgniter.php(942): App\Controllers\LaporanController->index()
+#8 C:\xampp\htdocs\clinic\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+#9 C:\xampp\htdocs\clinic\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\clinic\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2025-05-02 03:28:28 --> Table 'clinic.tb_dokter' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `rekam_medis`.*, `pasien`.`nama` AS `nama_pasien`, `pasien`.`nik`, `tb_dokter`.`nama` AS `nama_dokter`, `antrian`.`tarif`
+FROM `rekam_medis`
+LEFT JOIN `pasien` ON `rekam_medis`.`pasien_id` = `pasien`.`id`
+LEFT JOIN `tb_dokter` ON `rekam_medis`.`dokter_id` = `tb_dokter`.`id`
+LEFT JOIN `antrian` ON `pasien`.`nik` = `antrian`.`nik`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\LaporanController.php(39): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\LaporanController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2025-05-02 03:48:14 --> mysqli_sql_exception: Table 'informed_consent' already exists in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('CREATE TABLE `i...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `i...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `i...')
+#3 C:\xampp\htdocs\clinic\system\Database\Forge.php(546): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `i...')
+#4 C:\xampp\htdocs\clinic\app\Database\Migrations\2025-05-01-163127_InformedConsent.php(51): CodeIgniter\Database\Forge->createTable('informed_consen...')
+#5 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(873): App\Database\Migrations\InformedConsent->up()
+#6 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\clinic\system\Commands\Database\Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\clinic\system\CLI\BaseCommand.php(115): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\clinic\system\Commands\Database\MigrateRefresh.php(85): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#14 {main}
+ERROR - 2025-05-02 03:58:30 --> mysqli_sql_exception: Table 'informed_consent' already exists in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('CREATE TABLE `i...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `i...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `i...')
+#3 C:\xampp\htdocs\clinic\system\Database\Forge.php(546): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `i...')
+#4 C:\xampp\htdocs\clinic\app\Database\Migrations\2025-05-01-163127_InformedConsent.php(51): CodeIgniter\Database\Forge->createTable('informed_consen...')
+#5 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(873): App\Database\Migrations\InformedConsent->up()
+#6 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\clinic\system\Commands\Database\Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#11 {main}
+ERROR - 2025-05-02 03:59:39 --> mysqli_sql_exception: Table 'clinic.tb_dokter' doesn't exist in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `rekam_m...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `rekam_m...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `rekam_m...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `rekam_m...', Array, false)
+#4 C:\xampp\htdocs\clinic\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\clinic\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\xampp\htdocs\clinic\app\Controllers\LaporanController.php(39): CodeIgniter\BaseModel->findAll()
+#7 C:\xampp\htdocs\clinic\system\CodeIgniter.php(942): App\Controllers\LaporanController->index()
+#8 C:\xampp\htdocs\clinic\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+#9 C:\xampp\htdocs\clinic\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\clinic\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2025-05-02 03:59:39 --> Table 'clinic.tb_dokter' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `rekam_medis`.*, `pasien`.`nama` AS `nama_pasien`, `pasien`.`nik`, `tb_dokter`.`nama` AS `nama_dokter`, `antrian`.`tarif`
+FROM `rekam_medis`
+LEFT JOIN `pasien` ON `rekam_medis`.`pasien_id` = `pasien`.`id`
+LEFT JOIN `tb_dokter` ON `rekam_medis`.`dokter_id` = `tb_dokter`.`id`
+LEFT JOIN `antrian` ON `pasien`.`nik` = `antrian`.`nik`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\LaporanController.php(39): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\LaporanController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LaporanController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2025-05-02 03:59:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-05-02 04:09:12 --> mysqli_sql_exception: Unknown column 'created_at' in 'field list' in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `ob...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ob...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ob...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(1800): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ob...', NULL, false)
+#4 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(2191): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\clinic\app\Database\Seeds\Obat.php(41): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\clinic\system\Database\Seeder.php(146): App\Database\Seeds\Obat->run()
+#7 C:\xampp\htdocs\clinic\app\Database\Seeds\SedeerAll.php(11): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\clinic\system\Database\Seeder.php(146): App\Database\Seeds\SedeerAll->run()
+#9 C:\xampp\htdocs\clinic\system\Commands\Database\Seed.php(77): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#10 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Seed->run(Array)
+#11 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#12 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#13 {main}
+ERROR - 2025-05-02 04:10:17 --> mysqli_sql_exception: Table 'clinic.tb_dokter' doesn't exist in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `tb...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `tb...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `tb...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(1800): CodeIgniter\Database\BaseConnection->query('INSERT INTO `tb...', NULL, false)
+#4 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(2191): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\clinic\app\Database\Seeds\Dokter.php(30): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\clinic\system\Database\Seeder.php(146): App\Database\Seeds\Dokter->run()
+#7 C:\xampp\htdocs\clinic\app\Database\Seeds\SedeerAll.php(12): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\clinic\system\Database\Seeder.php(146): App\Database\Seeds\SedeerAll->run()
+#9 C:\xampp\htdocs\clinic\system\Commands\Database\Seed.php(77): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#10 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Seed->run(Array)
+#11 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#12 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#13 {main}
+ERROR - 2025-05-02 04:10:40 --> mysqli_sql_exception: Duplicate entry '0' for key 'PRIMARY' in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `do...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `do...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `do...')
+#3 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(1800): CodeIgniter\Database\BaseConnection->query('INSERT INTO `do...', NULL, false)
+#4 C:\xampp\htdocs\clinic\system\Database\BaseBuilder.php(2191): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\clinic\app\Database\Seeds\Dokter.php(30): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\clinic\system\Database\Seeder.php(146): App\Database\Seeds\Dokter->run()
+#7 C:\xampp\htdocs\clinic\app\Database\Seeds\SedeerAll.php(12): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\clinic\system\Database\Seeder.php(146): App\Database\Seeds\SedeerAll->run()
+#9 C:\xampp\htdocs\clinic\system\Commands\Database\Seed.php(77): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#10 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Seed->run(Array)
+#11 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#12 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#13 {main}
+INFO - 2025-05-02 04:13:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:13:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:15:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:17:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:17:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:18:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:18:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:19:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:19:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:19:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:19:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:22:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:34:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:35:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 04:35:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-05-02 05:02:00 --> mysqli_sql_exception: Table 'informed_consent' already exists in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('CREATE TABLE `i...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `i...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `i...')
+#3 C:\xampp\htdocs\clinic\system\Database\Forge.php(546): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `i...')
+#4 C:\xampp\htdocs\clinic\app\Database\Migrations\2025-05-01-163127_InformedConsent.php(51): CodeIgniter\Database\Forge->createTable('informed_consen...')
+#5 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(873): App\Database\Migrations\InformedConsent->up()
+#6 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\clinic\system\Commands\Database\Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#11 {main}
+ERROR - 2025-05-02 05:02:11 --> mysqli_sql_exception: Table 'informed_consent' already exists in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('CREATE TABLE `i...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `i...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `i...')
+#3 C:\xampp\htdocs\clinic\system\Database\Forge.php(546): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `i...')
+#4 C:\xampp\htdocs\clinic\app\Database\Migrations\2025-05-01-163127_InformedConsent.php(51): CodeIgniter\Database\Forge->createTable('informed_consen...')
+#5 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(873): App\Database\Migrations\InformedConsent->up()
+#6 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\clinic\system\Commands\Database\Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\clinic\system\CLI\BaseCommand.php(115): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\clinic\system\Commands\Database\MigrateRefresh.php(85): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#14 {main}
+ERROR - 2025-05-02 05:03:00 --> mysqli_sql_exception: Table 'informed_consent' already exists in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('CREATE TABLE `i...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `i...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `i...')
+#3 C:\xampp\htdocs\clinic\system\Database\Forge.php(546): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `i...')
+#4 C:\xampp\htdocs\clinic\app\Database\Migrations\2025-05-01-163127_InformedConsent.php(51): CodeIgniter\Database\Forge->createTable('informed_consen...')
+#5 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(873): App\Database\Migrations\InformedConsent->up()
+#6 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\clinic\system\Commands\Database\Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\clinic\system\CLI\BaseCommand.php(115): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\clinic\system\Commands\Database\MigrateRefresh.php(85): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#14 {main}
+ERROR - 2025-05-02 05:03:32 --> mysqli_sql_exception: Table 'informed_consent' already exists in C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\xampp\htdocs\clinic\system\Database\MySQLi\Connection.php(306): mysqli->query('CREATE TABLE `i...', 0)
+#1 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `i...')
+#2 C:\xampp\htdocs\clinic\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `i...')
+#3 C:\xampp\htdocs\clinic\system\Database\Forge.php(546): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `i...')
+#4 C:\xampp\htdocs\clinic\app\Database\Migrations\2025-05-01-163127_InformedConsent.php(51): CodeIgniter\Database\Forge->createTable('informed_consen...')
+#5 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(873): App\Database\Migrations\InformedConsent->up()
+#6 C:\xampp\htdocs\clinic\system\Database\MigrationRunner.php(188): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\clinic\system\Commands\Database\Migrate.php(84): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\clinic\system\CLI\BaseCommand.php(115): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\clinic\system\Commands\Database\MigrateRefresh.php(85): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\clinic\system\CLI\Commands.php(65): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\clinic\system\CLI\Console.php(46): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\clinic\spark(102): CodeIgniter\CLI\Console->run()
+#14 {main}
+INFO - 2025-05-02 05:04:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:04:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:05:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:08:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:08:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:08:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:08:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:08:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:11:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-05-02 05:12:15 --> Unclosed '{' on line 9
+in APPPATH\Controllers\AuthController.php on line 62.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(291): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\clinic\\app\\Controllers\\AuthController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(269): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\AuthController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\AuthController')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\AuthController', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+INFO - 2025-05-02 05:12:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:12:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:12:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:12:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:12:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:12:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:12:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 05:12:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-05-02 09:20:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

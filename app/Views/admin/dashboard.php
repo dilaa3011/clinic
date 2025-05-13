@@ -25,7 +25,7 @@
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
                   <p class="card-category">Data Pasien</p>
-                  <h4 class="card-title">1,294</h4>
+                  <h4 class="card-title"><?= $totalPasien; ?></h4>
                 </div>
               </div>
             </div>
@@ -45,7 +45,7 @@
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
                   <p class="card-category">Data Tindakan</p>
-                  <h4 class="card-title">1303</h4>
+                  <h4 class="card-title"><?= $totalTindakan; ?></h4>
                 </div>
               </div>
             </div>
@@ -95,159 +95,10 @@
     <div class="row">
       <div class="col-md-8">
         <div class="card card-round">
-          <div class="card-header">
-            <div class="card-head-row">
-              <div class="card-title">Statistik Pasien</div>
-              <div class="card-tools">
-                <a href="#" class="btn btn-label-info btn-round btn-sm">
-                  <span class="btn-label">
-                    <i class="fa fa-print"></i>
-                  </span>
-                  Print
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="chart-container" style="min-height: 375px">
-              <canvas id="statisticsChart"></canvas>
-            </div>
-            <div id="myChartLegend"></div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card card-primary card-round">
-          <div class="card-header">
-            <div class="card-head-row">
-              <div class="card-title">Pemasukan</div>
-            </div>
-            <div class="card-category">Desember 2024</div>
-          </div>
-          <div class="card-body pb-0">
-            <div class="mb-4 mt-2">
-              <h1>Rp.4,578.58</h1>
-            </div>
-            <div class="pull-in">
-              <canvas id="dailySalesChart"></canvas>
-            </div>
-          </div>
-        </div>
-        <!-- banyak pasien today -->
-        <div class="card card-round">
-          <div class="card-body pb-0">
-            <div class="h1 fw-bold float-end text-primary">+5%</div>
-            <h2 class="mb-2">17</h2>
-            <p class="text-muted">Pasien Terbaru</p>
-            <div class="pull-in sparkline-fix">
-              <div id="lineChart"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card card-round">
-          <div class="card-body">
-            <div class="card-head-row card-tools-still-right">
-              <div class="card-title">Daftar Pasien Terbaru</div>
-            </div>
-            <div class="card-list py-4">
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="<?= base_url(); ?>kaiadmin/assets/img/jm_denis.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Jimmy Denis</div>
-                  <div class="status">Graphic Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link btn-succsess op-8">
-                  <i class="fas fa-check"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white">CF</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Chandra Felix</div>
-                  <div class="status">Sales Promotion</div>
-                </div>
-                <button class="btn btn-icon btn-link btn-succsess op-8">
-                  <i class="fas fa-check"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="<?= base_url(); ?>kaiadmin/assets/img/talha.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Talha</div>
-                  <div class="status">Front End Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link btn-succsess op-8">
-                  <i class="fas fa-check"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <img
-                    src="<?= base_url(); ?>kaiadmin/assets/img/chadengle.jpg"
-                    alt="..."
-                    class="avatar-img rounded-circle" />
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Chad</div>
-                  <div class="status">CEO Zeleaf</div>
-                </div>
-                <button class="btn btn-icon btn-link btn-succsess op-8">
-                  <i class="fas fa-check"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white bg-primary">H</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Hizrian</div>
-                  <div class="status">Web Designer</div>
-                </div>
-                <button class="btn btn-icon btn-link btn-succsess op-8">
-                  <i class="fas fa-check"></i>
-                </button>
-              </div>
-              <div class="item-list">
-                <div class="avatar">
-                  <span
-                    class="avatar-title rounded-circle border border-white bg-secondary">F</span>
-                </div>
-                <div class="info-user ms-3">
-                  <div class="username">Farrah</div>
-                  <div class="status">Marketing</div>
-                </div>
-                <button class="btn btn-icon btn-link btn-succsess op-8">
-                  <i class="fas fa-check"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-8">
-        <div class="card card-round">
-          <div class="card-header">
-            <div class="card-head-row card-tools-still-right">
-              <div class="card-title">Riwayat Transaksi</div>
-              <div class="card-tools">
+          <div class="card mt-4">
+            <div class="card-header">
+              <div class="card-head-row">
+                <div class="card-title">Statistik Pasien</div>
                 <div class="card-tools">
                   <a href="#" class="btn btn-label-info btn-round btn-sm">
                     <span class="btn-label">
@@ -256,6 +107,72 @@
                     Print
                   </a>
                 </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-container" style="min-height: 375px">
+                <canvas id="statisticsChart"></canvas>
+              </div>
+              <div id="myChartLegend"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-4">
+
+        <!-- banyak pasien today -->
+        <div class="card card-round">
+          <div class="card-body pb-0">
+            <div class="h1 fw-bold float-end text-primary">
+              <?= ($persentaseKenaikan > 0 ? '+' : '') . $persentaseKenaikan ?>%
+            </div>
+            <h2 class="mb-2"><?= $jumlahPasienTerbaru ?></h2>
+            <p class="text-muted">Pasien Terbaru</p>
+          </div>
+        </div>
+        <div class="card card-round">
+          <div class="card-body">
+            <div class="card-head-row card-tools-still-right">
+              <div class="card-title">Daftar Pasien Terbaru</div>
+              <a href="<?= base_url('pasien') ?>" class="btn btn-sm btn-primary">Lihat Semua</a>
+            </div>
+            <div class="card-list py-4">
+              <?php foreach ($pasienTerbaru as $pasien): ?>
+                <div class="item-list d-flex align-items-center mb-2">
+                  <div class="avatar">
+                    <span class="avatar-title rounded-circle border border-white">
+                      <?= strtoupper(substr($pasien['nama_lengkap'], 0, 2)) ?>
+                    </span>
+                  </div>
+                  <div class="info-user ms-3">
+                    <div class="username"><?= esc($pasien['nama_lengkap']) ?></div>
+                    <div class="status">Terdaftar: <?= date('d M Y', strtotime($pasien['created_at'])) ?></div>
+                  </div>
+                  <button class="btn btn-icon btn-link btn-success ms-auto" title="Lihat Detail">
+                    <i class="fas fa-check"></i>
+                  </button>
+                </div>
+              <?php endforeach; ?>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">      
+      <div class="col-md-8">
+        <div class="card card-round">
+          <div class="card-header">
+            <div class="card-head-row card-tools-still-right">
+              <div class="card-title">Riwayat Transaksi</div>
+              <div class="card-tools">
+                <a href="#" class="btn btn-label-info btn-round btn-sm">
+                  <span class="btn-label">
+                    <i class="fa fa-print"></i>
+                  </span>
+                  Print
+                </a>
               </div>
             </div>
           </div>
@@ -272,90 +189,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <button
-                        class="btn btn-icon btn-round btn-success btn-sm me-2">
-                        <i class="fa fa-check"></i>
-                      </button>
-                      Payment from #10231
-                    </th>
-                    <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                    <td class="text-end">$250.00</td>
-                    <td class="text-end">
-                      <span class="badge badge-success">Completed</span>
-                    </td>
-                  </tr>
+                  <?php if (empty($riwayatTransaksi)): ?>
+                    <tr>
+                      <td colspan="4" class="text-center">Belum ada transaksi terbaru</td>
+                    </tr>
+                  <?php else: ?>
+                    <?php foreach ($riwayatTransaksi as $transaksi): ?>
+                      <tr>
+                        <th scope="row">
+                          <button class="btn btn-icon btn-round btn-success btn-sm me-2">
+                            <i class="fa fa-check"></i>
+                          </button>
+                          Payment from #<?= $transaksi['no_bayar']; ?>
+                        </th>
+                        <td class="text-end"><?= date('M d, Y, h:i A', strtotime($transaksi['tanggal_bayar'])); ?></td>
+                        <td class="text-end">$<?= number_format($transaksi['total_bayar'], 2); ?></td>
+                        <td class="text-end">
+                          <span class="badge badge-success">Completed</span>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
                 </tbody>
               </table>
             </div>
@@ -365,4 +219,44 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  // Data untuk chart
+  var bulan = <?= json_encode($bulan); ?>;
+  var jumlahPasien = <?= json_encode($jumlahPasien); ?>;
+
+  // Membuat chart menggunakan Chart.js
+  var ctx = document.getElementById('statisticsChart').getContext('2d');
+  var statisticsChart = new Chart(ctx, {
+    type: 'bar', // Jenis chart: bar chart
+    data: {
+      labels: bulan, // Nama bulan
+      datasets: [{
+        label: 'Jumlah Pasien',
+        data: jumlahPasien, // Jumlah pasien per bulan
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        tooltip: {
+          enabled: true
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
 <?= $this->endSection(); ?>

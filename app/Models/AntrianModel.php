@@ -7,33 +7,32 @@ use CodeIgniter\Model;
 class AntrianModel extends Model
 {
     protected $table      = 'antrian';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_antrian';
     protected $allowedFields = [
         'nik',
         'tanggal_periksa',
-        'nomor_antrian',
-        'nama',
+        'nomor_antrian',        
         'status_pemeriksaan',
         'tarif',
-        'status_bayar',
-        'tanggal_lahir',
-        'tindakan',
-        'dokter_id',
+        'status_bayar',        
+        'pasien_id',
         'rm_id',
-        // 'no_rm'
+        'created_at',
+        'updated_at',
+
     ];
 
     protected $useTimestamps = true;
 
-    // public function getAntrianHariIni()
-    // {
-    //     //  data antrian tanggal hari ini
-    //     return $this->db->table('antrian')
-    //         ->where('DATE(tanggal_periksa)', date('Y-m-d'))
-    //         ->orderBy('tanggal_periksa', 'asc')
-    //         ->get()
-    //         ->getResultArray();
-    // }
+    public function getAntrianHariIni()
+    {
+        //  data antrian tanggal hari ini
+        return $this->db->table('antrian')
+            ->where('DATE(tanggal_periksa)', date('Y-m-d'))
+            ->orderBy('tanggal_periksa', 'asc')
+            ->get()
+            ->getResultArray();
+    }
 
     public function getDataByAntrian($antrian)
     {
@@ -58,7 +57,7 @@ class AntrianModel extends Model
         $this->insert($data);
 
         // Ambil data antrian yang baru 
-        $newAntrian = $this->where('id', $this->getInsertID())->first();
+        $newAntrian = $this->where('id_antrian', $this->getInsertID())->first();
 
         return $newAntrian;
     }

@@ -54,7 +54,7 @@
                         ?>
                             <tr>
                                 <td><?= $a['no_rm']; ?></td>
-                                <td><?= $pasien ? $pasien['nama'] : 'Nama tidak ditemukan';
+                                <td><?= $pasien ? $pasien['nama_lengkap'] : 'Nama tidak ditemukan';
                                     ?></td>
                                 <td><?= $a['nomor_antrian']; ?></td>
                                 <td><?= date('d-m-Y', strtotime($a['tanggal_periksa'])); ?></td>
@@ -65,17 +65,17 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                             <li>
-                                                <form action="<?= base_url('antrian/ubah-status/' . $a['id']); ?>" method="post">
+                                                <form action="<?= base_url('antrian/ubah-status/' . $a['id_antrian']); ?>" method="post">
                                                     <button class="dropdown-item" type="submit" name="status_pemeriksaan" value="menunggu">Menunggu</button>
                                                 </form>
                                             </li>
                                             <li>
-                                                <form action="<?= base_url('antrian/ubah-status/' . $a['id']); ?>" method="post">
+                                                <form action="<?= base_url('antrian/ubah-status/' . $a['id_antrian']); ?>" method="post">
                                                     <button class="dropdown-item" type="submit" name="status_pemeriksaan" value="diperiksa">Diperiksa</button>
                                                 </form>
                                             </li>
                                             <li>
-                                                <form action="<?= base_url('antrian/ubah-status/' . $a['id']); ?>" method="post">
+                                                <form action="<?= base_url('antrian/ubah-status/' . $a['id_antrian']); ?>" method="post">
                                                     <button class="dropdown-item" type="submit" name="status_pemeriksaan" value="selesai">Selesai</button>
                                                 </form>
                                             </li>
@@ -90,12 +90,12 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                             <li>
-                                                <form action="<?= base_url('antrian/ubah-status-bayar/' . $a['id']); ?>" method="post">
+                                                <form action="<?= base_url('antrian/ubah-status-bayar/' . $a['id_antrian']); ?>" method="post">
                                                     <button class="dropdown-item" type="submit" name="status_bayar" value="belum lunas">Belum Lunas</button>
                                                 </form>
                                             </li>
                                             <li>
-                                                <form action="<?= base_url('antrian/ubah-status-bayar/' . $a['id']); ?>" method="post">
+                                                <form action="<?= base_url('antrian/ubah-status-bayar/' . $a['id_antrian']); ?>" method="post">
                                                     <button class="dropdown-item" type="submit" name="status_bayar" value="lunas">Lunas</button>
                                                 </form>
                                             </li>
@@ -104,75 +104,102 @@
                                 </td>
                                 <td>
                                     <div class="form-button-action">
-                                        <button type="button" class="btn btn-link btn-rounded btn-outline-info" data-bs-toggle="modal" data-bs-target="#detailModal<?= $a['id'] ?>">
+                                        <button type="button" class="btn btn-link btn-rounded btn-outline-info" data-bs-toggle="modal" data-bs-target="#detailModal<?= $a['id_antrian'] ?>">
                                             <i class="btn btn-rounded btn-outline-info">Detail</i>
                                         </button>
                                     </div>
                                 </td>
-                                <!-- Modal -->
-                                <?php
-                                foreach ($rekamMedis as $rekam) :
-                                    // dd($rekam);
-                                ?>
-                                    <div class="modal fade" id="detailModal<?= $a['id'] ?>" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="detailModalLabel">Detail Informasi</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="<?= base_url('/update-tarif'); ?>" method="POST">
-                                                        <input type="hidden" name="id_antrian" id="id_antrian" value="<?= $a['id']; ?>">
-                                                        <div class="row">                                                            
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="tarif">Tarif</label>
-                                                                    <input type="number" class="form-control" id="tarif" name="tarif" value="<?= $a['tarif']; ?>">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="perawatan">Perawatan</label>
-                                                                    <input type="text" class="form-control" id="perawatan" name="perawatan" value="<?= isset($rekam) ? $rekam['tindakan'] : ''; ?>" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="resep">Resep</label>
-                                                                    <input type="text" class="form-control" id="resep" name="resep" value="<?= isset($rekam) ? $rekam['resep'] : ''; ?>" readonly>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                <?php foreach ($antrian as $a): ?>
+                            </tr>
+                        <?php
+                                endforeach; ?>
+                    </tbody>
+
+
+                </table>
+                <div class="modal fade" id="detailModal<?= $a['id_antrian'] ?>" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="detailModalLabel">Detail Informasi</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="<?= base_url('/update-tarif'); ?>" method="POST">
+                                    <input type="hidden" name="id_antrian" value="<?= $a['id_antrian']; ?>">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="tarif">Tarif</label>
+                                                <input type="number" class="form-control" name="tarif" value="<?= $a['tarif']; ?>">
+                                            </div>
+                                        </div>
+
+                                        <?php $rekam = $rekamMedis[$a['rm_id']] ?? null; 
+                                        // dd($rekamMedis);?>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="penyakit">Penyakit</label>
+                                                <input type="text" class="form-control" value="<?= $rekam['nama_penyakit'] ?? 'Belum diisi'; ?>" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="perawatan">Perawatan</label>
+                                                <input type="text" class="form-control" value="<?= $rekam['nama_tindakan'] ?? 'Belum diisi'; ?>" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="resep">Resep</label><br>
+                                                <?php $resepList = $resepPasien[$a['rm_id']] ?? []; ?>
+                                                <?php if (!empty($resepList)): ?>
+                                                    <div class="mb-3">
+                                                        
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Nama Obat</th>
+                                                                    <th>Dosis</th>
+                                                                    <th>Aturan Pakai</th>
+                                                                    <th>Tanggal Resep</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php foreach ($resepList as $r): ?>
+                                                                    <tr>
+                                                                        <td><?= esc($r['nama_obat']) ?></td>
+                                                                        <td><?= esc($r['dosis']) ?></td>
+                                                                        <td><?= esc($r['aturan_pakai']) ?></td>
+                                                                        <td><?= date('d-m-Y', strtotime($r['tanggal_resep'])) ?></td>
+                                                                    </tr>
+                                                                <?php endforeach; ?>
+                                                            </tbody>
+                                                        </table>
+                                                    <?php else: ?>
+                                                        <p class="text-muted">Belum ada obat yang diresepkan.</p>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
-                                <?php endforeach; ?>
-                            </tr>
-                        <?php
-                        endforeach; ?>
-                    </tbody>
-                </table>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
             </div>
         </div>
     </div>
 </div>
-<script>
-    // pop up sukses
-    <?php if (session()->getFlashdata('message')) : ?>
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: '<?= session()->getFlashdata('message') ?>',
-            confirmButtonText: 'OK'
-        });
-    <?php endif; ?>
-</script>
-
 <?= $this->endSection(); ?>

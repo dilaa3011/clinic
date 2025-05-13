@@ -7,23 +7,44 @@ use CodeIgniter\Model;
 class PasienModel extends Model
 {
     protected $table = 'pasien';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_pasien';
+    protected $useTimestamps = true;
+
     protected $allowedFields = [
+        'jenis_kelamin_id',
+        'agama_id',
+        'pendidikan_id',
+        'nama_lengkap',
+        'nomor_rekam_medis',
         'nik',
-        'nama',
-        'alamat',
-        'telepon',
-        'pekerjaan',
+        'identitas_lain',
+        'nama_ibu_kandung',
+        'tempat_lahir',
         'tanggal_lahir',
-        'jenis_kelamin'
+        'suku',
+        'bahasa',
+        'alamat_lengkap',
+        'alamat_domisili',
+        'rt',
+        'rw',
+        'kelurahan',
+        'kecamatan',
+        'kota',
+        'kode_pos',
+        'provinsi',
+        'negara',
+        'telepon_rumah',
+        'telepon_selular',
+        'pekerjaan',
+        'status_pernikahan',
+        'created_at',
+        'updated_at'
     ];
 
     public function getPasien($id = null)
     {
         if ($id === null) {
-            return $this->select('pasien.*, rekam_medis.keluhan, rekam_medis.diagnosa')
-                ->join('rekam_medis', 'pasien.id = rekam_medis.pasien_id', 'left')
-                ->findAll();
+            return $this->findAll();
         }
 
         return $this->find($id);

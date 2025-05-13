@@ -6,13 +6,22 @@ use CodeIgniter\Model;
 
 class DokterModel extends Model
 {
-    protected $table = 'tb_dokter';
-    protected $primaryKey = 'id';
+    protected $table = 'dokter';
+    protected $primaryKey = 'id_dokter';
     protected $useTimestamps = true;
-    protected $allowedFields = [
+    protected $allowedFields = [        
         'nama',
-        'spesialis'
+        'kode_dokter',
+        'spesialis',
+        'nomor_hp',
+        'created_at',
+        'updated_at',
     ];
+
+    public function findByNameLike($name)
+    {
+        return $this->like('nama', $name)->first(); 
+    }
 
     public function getDokter($id = null)
     {

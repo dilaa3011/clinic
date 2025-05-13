@@ -5,38 +5,55 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\PasienModel;
 use App\Models\RMModel;
+use App\Models\JeniskelaminModel;
+use App\Models\AgamaModel;
+use App\Models\PendidikanModel;
 
 class PasienController extends BaseController
 {
     protected $pasienModel;
     protected $rekamMedisModel;
+    protected $jenisKelaminModel;
+    protected $agamaModel;
+    protected $pendidikanModel;
 
     public function __construct()
     {
         $this->pasienModel = new PasienModel();
         $this->rekamMedisModel = new RMModel();
+        $this->jenisKelaminModel = new JeniskelaminModel();
+        $this->agamaModel = new AgamaModel();
+        $this->pendidikanModel = new PendidikanModel();
     }
 
     public function index()
     {
-        $pasienList = $this->pasienModel->findAll();
 
-        foreach ($pasienList as &$pasien) {
-            $pasien['rekam_medis'] = $this->rekamMedisModel
-                ->where('pasien_id', $pasien['id'])
-                ->orderBy('tanggal_periksa', 'DESC')
-                ->findAll();
-        }
+        $pasien = $this->pasienModel
+            ->select('pasien.*, jenis_kelamin.nama_jenis_kelamin, agama.nama_agama, pendidikan.nama_pendidikan')
+            ->join('jenis_kelamin', 'jenis_kelamin.id_jenis_kelamin = pasien.jenis_kelamin_id', 'left')
+            ->join('agama', 'agama.id_agama = pasien.agama_id', 'left')
+            ->join('pendidikan', 'pendidikan.id_pendidikan = pasien.pendidikan_id', 'left')
+            ->findAll();
+
+
+        $jenis_kelamin = $this->jenisKelaminModel->findAll();
+        $agama = $this->agamaModel->findAll();
+        $pendidikan = $this->pendidikanModel->findAll();
 
         $data = [
             'tittle' => 'Data Pasien',
-            'pasien' => $pasienList
+            'pasien' => $pasien,
+            'jenis_kelamin' => $jenis_kelamin,
+            'agama' => $agama,
+            'pendidikan' => $pendidikan,
+
         ];
 
         return view('pasien/data_pasien', $data);
     }
 
-    public function save()
+    public function addPasien()
     {
         $nik = $this->request->getPost('nik');
 
@@ -53,28 +70,37 @@ class PasienController extends BaseController
             return redirect()->back()->withInput();
         }
 
-        try {
-            $lastId = $pasienModel->selectMax('id')->first();
-            $newId = $lastId ? $lastId['id'] + 1 : 1;
+        $data = [
+            'nomor_rekam_medis'  => $this->request->getPost('nomor_rekam_medis'),
+            'nik'                => $nik,
+            'identitas_lain'     => $this->request->getPost('identitas_lain'),
+            'nama_lengkap'       => $this->request->getPost('nama_lengkap'),
+            'nama_ibu_kandung'   => $this->request->getPost('nama_ibu_kandung'),
+            'jenis_kelamin_id'   => $this->request->getPost('jenis_kelamin'),
+            'tempat_lahir'       => $this->request->getPost('tempat_lahir'),
+            'tanggal_lahir'      => $this->request->getPost('tanggal_lahir'),
+            'suku'               => $this->request->getPost('suku'),
+            'bahasa'             => $this->request->getPost('bahasa'),
+            'alamat_lengkap'     => $this->request->getPost('alamat_lengkap'),
+            'alamat_domisili'    => $this->request->getPost('alamat_domisili'),
+            'rt'                 => $this->request->getPost('rt'),
+            'rw'                 => $this->request->getPost('rw'),
+            'kelurahan'          => $this->request->getPost('kelurahan'),
+            'kecamatan'          => $this->request->getPost('kecamatan'),
+            'kota'               => $this->request->getPost('kota'),
+            'kode_pos'           => $this->request->getPost('kode_pos'),
+            'provinsi'           => $this->request->getPost('provinsi'),
+            'negara'             => $this->request->getPost('negara'),
+            'telepon_rumah'      => $this->request->getPost('telepon_rumah'),
+            'telepon_selular'    => $this->request->getPost('telepon_selular'),
+            'pekerjaan'          => $this->request->getPost('pekerjaan'),
+            'status_pernikahan'  => $this->request->getPost('status_pernikahan'),
+            'agama_id'           => $this->request->getPost('agama'),
+            'pendidikan_id'      => $this->request->getPost('pendidikan')
+        ];
 
-            $data = [
-                'id' => $newId,
-                'nik' => $nik,
-                'nama' => $this->request->getPost('nama'),
-                'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
-                'alamat' => $this->request->getPost('alamat'),
-                'telepon' => $this->request->getPost('telepon'),
-                'pekerjaan' => $this->request->getPost('pekerjaan'),
-                'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
-            ];
+        $pasienModel->insert($data);
 
-            $pasienModel->insert($data);
-
-            session()->setFlashdata('success', 'Data pasien berhasil ditambahkan!');
-        } catch (\Exception $e) {
-            session()->setFlashdata('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
-        }
-
-        return redirect()->to(base_url('pasien'));
+        return redirect()->to(base_url('pasien'))->with('success', 'Data pasien berhasil ditambahkan!');
     }
 }

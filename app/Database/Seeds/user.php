@@ -10,23 +10,29 @@ class User extends Seeder
     {
         $data = [
             [
-                'username' => 'manager',
-                'nama' => 'Manager',
-                'password' => password_hash('manager', PASSWORD_DEFAULT),
-                'role' => '0',
+                'nama'          => 'Admin Utama',
+                'username'      => 'admin',
+                'password'      => password_hash('admin123', PASSWORD_DEFAULT),
+                'role'          => '2',
+                'foto'          => 'clinic/assets/admin.png',
+                'email'         => 'admin@gmail.com',
+                'no_hp'         => '081234567890',
+                'jenis_kelamin' => 'L',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
             ],
             [
-                'username' => 'admin',
-                'nama' => 'Admin',
-                'password' => password_hash('admin', PASSWORD_DEFAULT),
-                'role' => '1',
-            ],
-            [
-                'username' => 'dokter',
-                'nama' => 'Dokter',
-                'password' => password_hash('dokter', PASSWORD_DEFAULT),
-                'role' => '2',
-            ],
+                'nama'          => 'Dokter Klinik',
+                'username'      => 'dokter',
+                'password'      => password_hash('dokter123', PASSWORD_DEFAULT),
+                'role'          => '1',
+                'foto'          => 'clinic/assets/dentist.png',
+                'email'         => 'dokter@gmail.com',
+                'no_hp'         => '089876543210',
+                'jenis_kelamin' => 'P',
+                'created_at'    => date('Y-m-d H:i:s'),
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ]
         ];
         $this->db->table('user')->insertBatch($data);
     }

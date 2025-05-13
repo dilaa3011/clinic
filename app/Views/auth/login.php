@@ -11,6 +11,19 @@
 </head>
 
 <body>
+    <div class="flash-message-full-width" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;">
+        <?php if (session()->getFlashdata('success')): ?>
+            <div class="alert alert-success text-center" role="alert">
+                <?= session()->getFlashdata('success') ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('error')): ?>
+            <div class="alert alert-danger text-center" role="alert">
+                <?= session()->getFlashdata('error') ?>
+            </div>
+        <?php endif; ?>
+    </div>
     <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
@@ -27,8 +40,7 @@
 
                                 <!-- Form Login -->
                                 <form action="<?= base_url('/login'); ?>" method="post">
-                                    <?= csrf_field(); ?> <!-- CSRF protection -->
-
+                                    <?= csrf_field(); ?>
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
                                         <input type="text" class="form-control" id="username" name="username" required>
@@ -39,14 +51,8 @@
                                         <input type="password" class="form-control" id="password" name="password" required>
                                     </div>
 
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
-                                            <label class="form-check-label text-dark" for="flexCheckChecked">
-                                                Remember this Device
-                                            </label>
-                                        </div>
-                                        <a class="text-primary fw-bold" href="<?= base_url('/forgot-password'); ?>">Forgot Password?</a>
+                                    <div class="d-flex align-items-center ">
+                                        <a class="text-primary fw-bold justify-content-center" href="<?= base_url('/forgot-password'); ?>">Forgot Password?</a>
                                     </div>
 
                                     <button class="btn btn-primary w-100 py-8 fs-4 mb-4" type="submit">Sign In</button>
@@ -63,28 +69,6 @@
     <script src="seo/src/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="seo/src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-
-    <script>
-        // Pop-up berhasil login
-        <?php if (session()->getFlashdata('success')) : ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: '<?= session()->getFlashdata('success') ?>',
-                confirmButtonText: 'OK'
-            });
-        <?php endif; ?>
-
-        // Pop-up gagal login
-        <?php if (session()->getFlashdata('error')) : ?>
-            Swal.fire({
-                icon: 'error',
-                title: 'Gagal',
-                text: '<?= session()->getFlashdata('error') ?>',
-                confirmButtonText: 'OK'
-            });
-        <?php endif; ?>
-    </script>
 
 </body>
 

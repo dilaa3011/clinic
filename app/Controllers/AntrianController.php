@@ -6,6 +6,10 @@ use App\Controllers\BaseController;
 use App\Models\AntrianModel;
 use App\Models\PasienModel;
 use App\Models\RMModel;
+use App\Models\PenyakitModel;
+use App\Controllers\TindakanController;
+use App\Models\TindakanModel;
+use App\models\Resep;
 use CodeIgniter\I18n\Time;
 
 class AntrianController extends BaseController
@@ -13,38 +17,67 @@ class AntrianController extends BaseController
     protected $antrianModel;
     protected $PasienModel;
     protected $rekamMedisModel;
+    protected $penyakitModel;
+    protected $tindakanModel;
+    protected $resepModel;
 
     public function __construct()
     {
         $this->antrianModel = new AntrianModel();
         $this->PasienModel = new PasienModel();
         $this->rekamMedisModel = new RMModel();
+        $this->penyakitModel = new PenyakitModel();
+        $this->tindakanModel = new TindakanModel();
+        $this->resepModel = new Resep();
     }
 
     public function index()
     {
 
-        $rekamMedis = $this->rekamMedisModel
-            ->select('rekam_medis.*, pasien.nama AS nama_pasien, pasien.tanggal_lahir, tb_dokter.nama AS nama_dokter, antrian.id AS antrian_id')
-            ->join('pasien', 'rekam_medis.pasien_id = pasien.id', 'left')
-            ->join('tb_dokter', 'rekam_medis.dokter_id = tb_dokter.id', 'left')
-            ->join('antrian', 'rekam_medis.id = antrian.rm_id', 'left')
-            ->orderBy('antrian.id', 'DESC')
+        $rekamMedisRaw = $this->rekamMedisModel
+            ->select('rekam_medis.*, pasien.id_pasien, pasien.nama_lengkap AS nama_pasien, pasien.tanggal_lahir, dokter.nama AS nama_dokter, antrian.id_antrian AS antrian_id, penyakit.nama_penyakit, tindakan.nama_tindakan')
+            ->join('pasien', 'rekam_medis.pasien_id = pasien.id_pasien', 'left')
+            ->join('dokter', 'rekam_medis.dokter_id = dokter.id_dokter', 'left')
+            ->join('penyakit', 'rekam_medis.penyakit_id = penyakit.id_penyakit', 'left')
+            ->join('tindakan', 'rekam_medis.tindakan_id = tindakan.id_tindakan', 'left')
+            ->join('antrian', 'rekam_medis.id_rm = antrian.rm_id', 'left')
+            ->orderBy('antrian.id_antrian', 'DESC')
             ->findAll();
+
+        $rekamMedis = [];
+        foreach ($rekamMedisRaw as $rekam) {
+            $rekamMedis[$rekam['id_rm']] = $rekam;
+        }
+
 
 
         $antrian = $this->antrianModel
             ->select('antrian.*, rekam_medis.no_rm')
-            ->join('rekam_medis', 'antrian.rm_id = rekam_medis.id', 'left')
+            ->join('rekam_medis', 'antrian.rm_id = rekam_medis.id_rm', 'left')
             ->where('DATE(antrian.tanggal_periksa)', date('Y-m-d'))
-            ->findAll();        
-        // dd($rekamMedis);
+            ->findAll();
+        // dd($rekamMedis);        
+
+        $resepPasien = [];
+        foreach ($rekamMedis as $rekam) {
+            $resepPasien[$rekam['id_rm']] = $this->resepModel
+                ->select('resep.*, obat.nama_obat')
+                ->join('obat', 'obat.id_obat = resep.obat_id', 'left')
+                ->where('pasien_id', $rekam['id_pasien'])
+                ->orderBy('tanggal_resep', 'DESC')
+                ->findAll();
+        }
+
+
 
         $data = [
             'tittle' => 'Antrian',
             // 'antrian' => $this->antrianModel->getAntrianHariIni(),
             'rekamMedis' => $rekamMedis,
-            'antrian' => $antrian
+            'antrian' => $antrian,
+            'resepPasien' => $resepPasien,
+            // 'penyakitList' => $this->penyakitModel->findAll(),
+            // 'tindakanList' => $this->tindakanModel->findAll(),
         ];
         return view('admin/antrian', $data);
     }
@@ -54,66 +87,58 @@ class AntrianController extends BaseController
     public function ambilAntrian()
     {
         $nik = $this->request->getPost('nik');
+
+        // Ambil data pasien berdasarkan NIK
         $pasien = $this->PasienModel->where('nik', $nik)->first();
-        $tanggal = date('Y-m-d');
 
         if (!$pasien) {
-            session()->setFlashdata('error', 'Pasien tidak ditemukan. Harap mendaftar terlebih dahulu.');
-            return redirect()->back();
+            return redirect()->back()->with('message', 'Pasien tidak ditemukan.');
         }
 
-        $cekAntrianHariIni = $this->antrianModel
-            ->where('nik', $nik)
-            ->where('tanggal_periksa', $tanggal)
-            ->first();
+        // 1. Simpan rekam medis kosong
+        $tanggal = date('Y-m-d');
+        $noRm = 'RM-' . time(); // Atau sesuai kebutuhanmu
 
-        if ($cekAntrianHariIni) {
-            session()->setFlashdata('message', 'Anda sudah memiliki antrian hari ini. Nomor antrian: ' . $cekAntrianHariIni['nomor_antrian']);
-            return redirect()->to(base_url('/antrian'));
-        }
-
-        $rekamMedisLama = $this->rekamMedisModel->where('pasien_id', $pasien['id'])->first();
-        $no_rm = $rekamMedisLama ? $rekamMedisLama['no_rm'] : str_pad($pasien['id'], 6, "0", STR_PAD_LEFT);
-
-        $rekamMedisData = [
-            'pasien_id' => $pasien['id'],
-        'dokter_id' => 101, 
-        'no_rm' => $no_rm,  
+        $dataRekamMedis = [
+            'pasien_id' => $pasien['id_pasien'],
+            'dokter_id' => session('id_dokter'),
+            'penyakit_id' => null,
+            'resep_id' => null,
+            'tindakan_id' => null,
+            'no_rm' => $noRm,
+            'riwayat_penyakit' => 'belum diisi',
+            'riwayat_alergi' => 'belum diisi',
+            'riwayat_pengobatan' => 'belum diisi',
             'keluhan' => 'belum diisi',
+            'periksa_bibir_masuk_mulut' => 'belum diisi',
+            'periksa_gigi_geligi' => 'belum diisi',
+            'periksa_lidah' => 'belum diisi',
+            'periksa_langit_langit' => 'belum diisi',
             'diagnosa' => 'belum diisi',
-            'tindakan' => 'belum diisi',
-            'resep' => 'belum diisi',
+            // 'resep' => 'belum diisi',
             'catatan' => 'belum diisi',
-            'tanggal_periksa' => $tanggal,
+            'tanggal_periksa' => $tanggal
         ];
-        $this->rekamMedisModel->insert($rekamMedisData);
-        
-        $rekamMedisBaru = $this->rekamMedisModel->where('pasien_id', $pasien['id'])->orderBy('id', 'DESC')->first();
-        
-        $jumlahAntrianHariIni = $this->antrianModel->where('tanggal_periksa', $tanggal)->countAllResults();
-        $no_antrian = $jumlahAntrianHariIni + 1;
-        
-        $this->antrianModel->insert([
-            'rm_id' => $rekamMedisBaru['id'],
+
+        $this->rekamMedisModel->insert($dataRekamMedis);
+
+        $idRekamMedis = $this->rekamMedisModel->getInsertID();
+
+        // 2. Simpan antrian
+        $dataAntrian = [
             'nik' => $nik,
-            'nomor_antrian' => $no_antrian,
-            'tanggal_periksa' => $tanggal,
+            'pasien_id' => $pasien['id_pasien'],
+            'rm_id' => $idRekamMedis,
             'status_pemeriksaan' => 'menunggu',
             'status_bayar' => 'belum lunas',
-            'tarif' => 0,
-        ]);
+            'tarif' => 0 // default 0, bisa diubah nanti
+        ];
 
-        session()->setFlashdata('message', "Antrian berhasil diambil. Nomor antrian Anda: $no_antrian");
-        return redirect()->to(base_url('/antrian'));
-    }
-    
-    public function ubahStatus($id)
-    {
-        $status = $this->request->getPost('status_pemeriksaan');
-        $this->antrianModel->update($id, ['status_pemeriksaan' => $status]);
+        $this->antrianModel->tambahAntrian($dataAntrian);
 
-        return redirect()->to(base_url('/antrian'))->with('message', 'Status berhasil diubah');
+        return redirect()->to(base_url('rekam-medis'))->with('message', 'Antrian berhasil diambil.');
     }
+
 
     public function updateTarif()
     {

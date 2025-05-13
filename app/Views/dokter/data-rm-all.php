@@ -15,7 +15,7 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="<?= base_url('/rm'); ?>">Data Rekam Medis</a>
+                        <a href="<?= base_url('/rekam-medis'); ?>">Data Rekam Medis</a>
                     </li>
                     <li class="separator">
                         <i class="icon-arrow-right"></i>
@@ -29,12 +29,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-6">
-                            <h4 class="card-title">Rekam Medis Pasien</h4>
-                        </div>                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="card-title mb-0">Rekam Medis Pasien</h4>
+                        <a href="<?= base_url('/rekam-medis'); ?>" class="btn btn-primary btn-round">
+                            Kembali
+                        </a>
                     </div>
                 </div>
+
                 <div class="card-body">
                     <?= $this->include('/dokter/form-rm-all'); ?>
                 </div>
@@ -42,16 +44,5 @@
         </div>
     </div>
 </div>
-<script>
-    // pop up berhasil
-    <?php if (session()->getFlashdata('success')) : ?>
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil',
-            text: '<?= session()->getFlashdata('success') ?>',
-            confirmButtonText: 'OK'
-        });
-    <?php endif; ?>
-</script>
 
 <?= $this->endSection(); ?>
