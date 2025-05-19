@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\I18n\Time;
 use App\Models\AntrianModel;
 use App\Models\RMModel;
 use App\Models\PasienModel;
@@ -62,8 +63,8 @@ class DokterController extends BaseController
             'spesialis' => $this->request->getPost('spesialis'),
             'alamat' => $this->request->getPost('alamat'),
             'nomor_hp' => $this->request->getPost('nomor_hp'),
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'created_at' => Time::now()->toDateTimeString(),
+            'updated_at' => Time::now()->toDateTimeString(),
         ];
 
         if ($this->dokterModel->insert($data)) {

@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="card-body">
-                    <?= $this->include('/dokter/form-rm-all'); ?>
+                    <?= $this->include('/dokter/detail/form-rm-all'); ?>
                 </div>
             </div>
         </div>

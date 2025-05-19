@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class ResumePasienModel extends Model
 {
-    protected $table            = 'resumePasien';
+    protected $table            = 'resumepasien';
     protected $primaryKey       = 'id_resume';
     protected $useAutoIncrement = true;
     protected $allowedFields    = [
@@ -16,12 +16,12 @@ class ResumePasienModel extends Model
         'dokter_id',        
         'nama_lengkap',
         'tanggal_lahir',
-        'tanggal_masuk',
-        'tanggal_keluar',
-        'nama_dpjp',
-        'anamnesa',
-        'diagnosa',
-        'terapi',
-        'anjuran',        
+        'tanggal_periksa',        
+        'nama_dpjp', //nama dokter
+        'anamnesa', //keluhan
+        'diagnosa',        
+        'catatan', 
+        'created_at',
+        'updated_at',
     ];
 }

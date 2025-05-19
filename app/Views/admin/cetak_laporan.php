@@ -1,65 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $tittle; ?></title>
-    <link rel="icon" href="<?= base_url(); ?>clinic/assets/tittle.png" type="image/x-icon" />
+    <title>Cetak Laporan Pendapatan Klinik</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
 
+        h2,
+        h4 {
+            text-align: center;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .table,
+        .table th,
+        .table td {
+            border: 1px solid black;
+            padding: 6px;
+        }
+
+        .text-end {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        @media print {
+            button {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h3 style="text-align: center;">Laporan Rekam Medis</h3>
-    
-    <div style="text-align: center;">
-        <?php if (!empty($tanggal_awal) && !empty($tanggal_akhir)) : ?>
-            <p>Periode: <?= date('d-m-Y', strtotime($tanggal_awal)) ?> s/d <?= date('d-m-Y', strtotime($tanggal_akhir)) ?></p>
-        <?php else : ?>
-            <p>Periode: Semua Data</p>            
-        <?php endif; ?>
-        <p>Tanggal Cetak: <?= date('d-m-Y') ?></p>
-    </div>
-    <table border="1" cellpadding="5" cellspacing="0" width="100%">
-    <thead>
+
+    <h2>Laporan Pendapatan Klinik</h2>
+    <?php if ($tanggal_awal && $tanggal_akhir): ?>
+        <h4>Periode: <?= date('d/m/Y', strtotime($tanggal_awal)); ?> - <?= date('d/m/Y', strtotime($tanggal_akhir)); ?></h4>
+    <?php else: ?>
+        <h4>Semua Data</h4>
+    <?php endif; ?>
+
+    <table class="table">
+        <thead>
             <tr>
-                <th>No. Rekam Medis</th>
-                <th>Tanggal Periksa</th>
-                <th>Nama Pasien</th>
+                <th>No.</th>
+                <th>No. Pembayaran</th>
+                <th>Tanggal</th>
+                <th>Pasien</th>
                 <th>NIK</th>
-                <th>Nama Dokter</th>
                 <th>Perawatan</th>
-                <th>Resep</th>
-                <th>Total Tarif</th>
+                <th>Obat</th>
+                <th>Dosis</th>
+                <th>Metode</th>
+                <th>Total (Rp)</th>
             </tr>
         </thead>
         <tbody>
-            <?php if (empty($rekamMedis)) : ?>
+            <?php $no = 1;
+            foreach ($pembayaran as $row): ?>
                 <tr>
-                    <td colspan="8" style="text-align: center;">Tidak ada data</td>
+                    <td class="text-center"><?= $no++; ?></td>
+                    <td><?= $row['no_bayar']; ?></td>
+                    <td><?= date('d/m/Y', strtotime($row['tanggal_bayar'])); ?></td>
+                    <td><?= $row['nama_lengkap']; ?></td>
+                    <td><?= $row['nik']; ?></td>
+                    <td><?= $row['nama_tindakan'] ?? '-'; ?></td>
+                    <td><?= $row['nama_obat'] ?? '-'; ?></td>
+                    <td><?= $row['dosis'] ?? '-'; ?></td>
+                    <td><?= $row['cara_pembayaran']; ?></td>
+                    <td class="text-end"><?= number_format($row['total_bayar'], 2, ',', '.'); ?></td>
                 </tr>
-            <?php else : ?>
-                <?php foreach ($rekamMedis as $rekam) : ?>
-                    <tr>
-                        <td>RM<?= str_pad($rekam['id'], 4, '0', STR_PAD_LEFT); ?></td>
-                        <td><?= date('d-m-Y', strtotime($rekam['tanggal_periksa'])); ?></td>
-                        <td><?= $rekam['nama_pasien']; ?></td>
-                        <td><?= $rekam['nik']; ?></td>
-                        <td><?= $rekam['nama_dokter']; ?></td>
-                        <td><?= $rekam['tindakan']; ?></td>
-                        <td><?= $rekam['resep']; ?></td>
-                        <td>Rp <?= number_format($rekam['tarif'], 2, ',', '.'); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <?php endforeach; ?>
+            <tr>
+                <th colspan="9" class="text-end">Total Pendapatan</th>
+                <th class="text-end">Rp <?= number_format($total, 2, ',', '.'); ?></th>
+            </tr>
         </tbody>
     </table>
+
+    <br><br>
+    <div style="text-align: right; margin-top: 40px;">
+        <p><?= date('d F Y'); ?></p>
+        <p>Petugas</p>
+        <br><br>
+        <p><?= session('nama'); ?></p>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <button onclick="window.print()">Cetak / Print</button>
+    </div>
     <script>
-        window.print();
+        window.onload = function() {
+            window.print();
+        };
     </script>
 
 </body>
 
 </html>
-
-

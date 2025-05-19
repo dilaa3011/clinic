@@ -10,24 +10,21 @@
                             <i class="icon-home"></i>
                         </a>
                     </li>
-                    <li class="separator">
-                        <i class="icon-arrow-right"></i>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= base_url('/laporan'); ?>">Laporan</a>
-                    </li>
+                    <li class="separator"><i class="icon-arrow-right"></i></li>
+                    <li class="nav-item"><a href="<?= base_url('/laporan'); ?>">Laporan</a></li>
                 </ul>
             </div>
         </div>
+
         <div class="card">
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-6">
-                        <form id="formFilter" action="<?= base_url('/laporan'); ?>" method="post">
+                        <form id="formFilter" action="<?= base_url('/master-lap-klinik'); ?>" method="post">
                             <div class="input-group">
-                                <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal">
-                                <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir">
-                                <button type="submit" class="btn btn-primary">Cari</button>
+                                <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal" value="<?= $tanggal_awal ?? '' ?>">
+                                <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir" value="<?= $tanggal_akhir ?? '' ?>">
+                                <!-- <button type="submit" class="btn btn-primary">Cari</button> -->
                             </div>
                         </form>
                     </div>
@@ -38,49 +35,43 @@
                                 <input type="hidden" name="tanggal_akhir" id="cetak_tanggal_akhir">
                                 <button type="submit" class="btn btn-primary">Cetak</button>
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="card-body">
                 <div class="table-responsive">
-                    <table id="multi-filter-select" class="display table table-striped table-hover">
+                    <table id="tabelLaporan" class="display table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>No. Rekam Medis</th>
-                                <th>Tanggal Periksa</th>
+                                <th>No. Pembayaran</th>
+                                <th>Tanggal</th>
                                 <th>Nama Pasien</th>
                                 <th>NIK</th>
-                                <th>Nama Dokter</th>
-                                <th>Perawatan</th>
-                                <th>Resep</th>
-                                <th>Total Tarif</th>
+                                <th>Perawatan</th>                                
+                                <th>Dosis</th>
+                                <th>Metode</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>No. Rekam Medis</th>
-                                <th>Tanggal Periksa</th>
-                                <th>Nama Pasien</th>
-                                <th>NIK</th>
-                                <th>Nama Dokter</th>
-                                <th>Perawatan</th>
-                                <th>Resep</th>
-                                <th>Total Tarif</th>
+                                <th colspan="7" class="text-end">Total Pendapatan</th>
+                                <th>Rp <?= number_format($total, 2, ',', '.'); ?></th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            <?php foreach ($rekamMedis as $rekam): ?>
+                            <?php foreach ($pembayaran as $row): ?>
                                 <tr>
-                                    <td>RM<?= str_pad($rekam['id'], 4, '0', STR_PAD_LEFT); ?></td>
-                                    <td><?= $rekam['tanggal_periksa']; ?></td>
-                                    <td><?= $rekam['nama_pasien']; ?></td>
-                                    <td><?= $rekam['nik']; ?></td>
-                                    <td><?= $rekam['nama_dokter']; ?></td>
-                                    <td><?= $rekam['tindakan']; ?></td>
-                                    <td><?= $rekam['resep']; ?></td>
-                                    <td>Rp <?= number_format($rekam['tarif'], 2, ',', '.'); ?></td>
+                                    <td><?= $row['no_bayar']; ?></td>
+                                    <td><?= $row['tanggal_bayar']; ?></td>
+                                    <td><?= $row['nama_lengkap']; ?></td>
+                                    <td><?= $row['nik']; ?></td>
+                                    <td><?= $row['nama_tindakan'] ?? '-'; ?></td>                                    
+                                    <td><?= $row['dosis'] ?? '-'; ?></td>
+                                    <td><?= $row['cara_pembayaran']; ?></td>
+                                    <td>Rp <?= number_format($row['total_bayar'], 2, ',', '.'); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -90,20 +81,63 @@
         </div>
     </div>
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+    <!-- jQuery & DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
     <script>
-        // Saat submit form pencarian
-        document.getElementById('formFilter').addEventListener('submit', function() {
-            document.getElementById('cetak_tanggal_awal').value = document.getElementById('tanggal_awal').value;
-            document.getElementById('cetak_tanggal_akhir').value = document.getElementById('tanggal_akhir').value;
+        // Sinkronisasi tanggal filter dan cetak
+        const formFilter = document.getElementById('formFilter');
+        const formCetak = document.getElementById('formCetak');
+
+        const tanggalAwal = document.getElementById('tanggal_awal');
+        const tanggalAkhir = document.getElementById('tanggal_akhir');
+        const cetakAwal = document.getElementById('cetak_tanggal_awal');
+        const cetakAkhir = document.getElementById('cetak_tanggal_akhir');
+
+        formFilter.addEventListener('submit', function () {
+            cetakAwal.value = tanggalAwal.value;
+            cetakAkhir.value = tanggalAkhir.value;
         });
 
-        // Tambahkan juga sinkronisasi saat user belum submit pencarian tapi langsung klik "Cetak"
-        document.getElementById('formCetak').addEventListener('submit', function() {
-            document.getElementById('cetak_tanggal_awal').value = document.getElementById('tanggal_awal').value;
-            document.getElementById('cetak_tanggal_akhir').value = document.getElementById('tanggal_akhir').value;
+        formCetak.addEventListener('submit', function () {
+            cetakAwal.value = tanggalAwal.value;
+            cetakAkhir.value = tanggalAkhir.value;
+        });
+
+        // Inisialisasi DataTables
+        $(document).ready(function () {
+            $('#tabelLaporan').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        title: 'Laporan Pendapatan Klinik'
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: 'Laporan Pendapatan Klinik'
+                    },
+                    {
+                        extend: 'print',
+                        title: 'Laporan Pendapatan Klinik'
+                    }
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json"
+                }
+            });
         });
     </script>
-
-
-
-    <?= $this->endSection(); ?>
+</div>
+<?= $this->endSection(); ?>

@@ -15,6 +15,9 @@ class FormTindakanModel extends Model
         'petugas_pelaksana',
         'tanggal_pelaksanaan',
         'waktu_mulai',
-        'waktu_selesai'
+        'waktu_selesai',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 }

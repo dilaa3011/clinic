@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\I18n\Time;
 use App\Models\RMModel;
 use App\Models\AntrianModel;
 use App\Models\PenyakitModel;
@@ -11,7 +12,9 @@ use App\Models\DokterModel;
 use App\Models\ObatModel;
 use App\Models\Resep;
 use App\Models\PasienModel;
-use Config\Session;
+use App\Models\ValidasiModel;
+use App\Models\FormTindakanModel;
+use App\Models\ResumePasienModel;
 
 class RmController extends BaseController
 {
@@ -23,6 +26,9 @@ class RmController extends BaseController
     protected $obatModel;
     protected $resepModel;
     protected $pasienModel;
+    protected $validasiModel;
+    protected $formulirTindakanModel;
+    protected $resumePasienModel;
 
     public function __construct()
     {
@@ -34,6 +40,9 @@ class RmController extends BaseController
         $this->obatModel = new ObatModel();
         $this->resepModel = new Resep();
         $this->pasienModel = new PasienModel();
+        $this->validasiModel = new ValidasiModel();
+        $this->formulirTindakanModel = new FormTindakanModel();
+        $this->resumePasienModel = new ResumePasienModel();
     }
 
     public function index()
@@ -42,15 +51,15 @@ class RmController extends BaseController
 
         $rekamMedis = $this->rekamMedisModel
             ->select('rekam_medis.*, 
-    pasien.nama_lengkap AS nama_pasien, 
-    pasien.tanggal_lahir, 
-    pasien.id_pasien AS pasien_id, 
-    dokter.nama AS nama_dokter, 
-    dokter.id_dokter AS dokter_id,
-    antrian.id_antrian AS antrian_id, 
-    antrian.nomor_antrian,
-    penyakit.nama_penyakit,
-    tindakan.nama_tindakan,')
+                pasien.nama_lengkap AS nama_pasien, 
+                pasien.tanggal_lahir, 
+                pasien.id_pasien AS pasien_id, 
+                dokter.nama AS nama_dokter, 
+                dokter.id_dokter AS dokter_id,
+                antrian.id_antrian AS antrian_id, 
+                antrian.nomor_antrian,
+                penyakit.nama_penyakit,
+                tindakan.nama_tindakan,')
 
             ->join('pasien', 'rekam_medis.pasien_id = pasien.id_pasien', 'left')
             ->join('dokter', 'rekam_medis.dokter_id = dokter.id_dokter', 'left')
@@ -65,19 +74,24 @@ class RmController extends BaseController
         $tindakan = $this->tindakanModel->findAll();
         $dokter = $this->dokterModel->findAll();
 
+        $rekamMedisGrouped = [];
+        foreach ($rekamMedis as $rm) {
+            $id_rm = $rm['id_rm'];
+            if (!isset($rekamMedisGrouped[$id_rm])) {
+                $rekamMedisGrouped[$id_rm] = $rm;
+            }
+        }
 
-        $resepModel = new Resep();
 
-        // Ambil semua resep dikelompokkan per pasien_id
-        $resepData = $resepModel->findAll();
+        $resepData = $this->resepModel->findAll();
         $resepPerPasien = [];
         foreach ($resepData as $r) {
-            $resepPerPasien[$r['pasien_id']][] = $r;
+            $resepPerPasien[$r['rm_id']][] = $r;
         }
 
         return view('dokter/data-rm', [
             'tittle' => 'Rekam Medis Hari Ini',
-            'rekamMedis' => $rekamMedis,
+            'rekamMedis' => $rekamMedisGrouped,
             'penyakit' => $penyakit,
             'tindakan' => $tindakan,
             'dokter' => $dokter,
@@ -89,7 +103,6 @@ class RmController extends BaseController
 
     public function all()
     {
-
         $rekamMedis = $this->rekamMedisModel
             ->select('rekam_medis.*, 
         pasien.nama_lengkap AS nama_pasien, 
@@ -100,48 +113,32 @@ class RmController extends BaseController
         antrian.id_antrian AS antrian_id, 
         antrian.nomor_antrian,
         penyakit.nama_penyakit,
-        tindakan.nama_tindakan,')
-
+        tindakan.nama_tindakan')
             ->join('pasien', 'rekam_medis.pasien_id = pasien.id_pasien', 'left')
             ->join('dokter', 'rekam_medis.dokter_id = dokter.id_dokter', 'left')
             ->join('penyakit', 'rekam_medis.penyakit_id = penyakit.id_penyakit', 'left')
             ->join('tindakan', 'rekam_medis.tindakan_id = tindakan.id_tindakan', 'left')
             ->join('antrian', 'rekam_medis.id_rm = antrian.rm_id', 'left')
-            // ->join('resep', 'pasien.id_pasien = resep.pasien_id', 'left')
             ->asArray()
             ->findAll();
 
-        // 1. Ambil RM hari ini
-        $rmHariIni = $this->rekamMedisModel
-            ->select('id_rm, pasien_id, tanggal_periksa')
-            ->where('DATE(tanggal_periksa)', date('Y-m-d'))
-            ->findAll();
-
-        // Ambil semua pasien_id dari RM hari ini
-        $pasienIdsHariIni = array_column($rmHariIni, 'pasien_id');
-
-        // 2. Ambil resep sesuai pasien_id yang ada di RM hari ini
+        // Ambil resep + info obat
         $resepData = $this->resepModel
-            ->select('resep.*, obat.nama_obat')
-            ->join('obat', 'resep.obat_id = obat.id_obat', 'left')
-            ->whereIn('resep.pasien_id', $pasienIdsHariIni)
+            ->select('resep.*, obat.nama_obat, obat.harga')
+            ->join('obat', 'obat.id_obat = resep.obat_id', 'left')
             ->findAll();
 
-        // 3. Kelompokkan berdasarkan pasien_id
+        // Mapping resep per rm_id
         $resepPerPasien = [];
         foreach ($resepData as $r) {
-            $resepPerPasien[$r['pasien_id']][] = $r;
+            $resepPerPasien[$r['rm_id']][] = $r;
         }
-
-        // dd($rekamMedis);        
 
         $antrian = $this->antrianModel
             ->select('antrian.*, rekam_medis.no_rm')
             ->join('rekam_medis', 'antrian.rm_id = rekam_medis.id_rm', 'left')
             ->where('DATE(antrian.tanggal_periksa)', date('Y-m-d'))
             ->findAll();
-
-        // dd($rekamMedis);
 
         $dokter = $this->dokterModel->findAll();
 
@@ -151,13 +148,14 @@ class RmController extends BaseController
             'antrian' => $antrian,
             'list_dokter' => $dokter,
             'resepPerRM' => $resepPerPasien,
-
         ]);
     }
 
+
     public function detail()
     {
-        $id = $this->request->getPost('id_rm');
+        $id = $this->request->getGet('id_rm');
+
         $rekam = $this->rekamMedisModel
             ->select('rekam_medis.*, pasien.nama_lengkap')
             ->join('pasien', 'rekam_medis.pasien_id = pasien.id_pasien', 'left')
@@ -165,87 +163,200 @@ class RmController extends BaseController
             ->asArray()
             ->first();
 
+
         if (!$rekam) {
             return redirect()->to(base_url('/rekam-medis'))->with('error', 'Data rekam medis tidak ditemukan.');
         }
 
-        // dd(session('id_dokter'));
 
-        // Ambil data obat
-        $obatModel = new ObatModel();  // Pastikan ini sesuai dengan nama model kamu
+        $obatModel = new ObatModel();
         $obatList = $obatModel->findAll();
 
-        // Ambil data resep berdasarkan pasien        
         $resepPasien = $this->resepModel
             ->select('resep.*, obat.nama_obat')
             ->join('obat', 'obat.id_obat = resep.obat_id', 'left')
-            ->where('pasien_id', $rekam['pasien_id'])
+            ->where('resep.rm_id', $rekam['id_rm'])
             ->orderBy('tanggal_resep', 'DESC')
             ->findAll();
-        // dd($resepPasien);
 
-        // Ambil data penyakit dan tindakan
         $penyakit = $this->penyakitModel->findAll();
         $tindakan = $this->tindakanModel->findAll();
 
+        // Ambil berdasarkan pasien_id dan tindakan_id
+        $formTindakan = $this->formulirTindakanModel
+            ->where('pasien_id', $rekam['pasien_id'])
+            ->where('tindakan_id', $rekam['tindakan_id'])
+            ->orderBy('tanggal_pelaksanaan', 'DESC')
+            ->first();
+
         $data = [
-            'tittle' => 'Detail Rekam Medis',
-            'rekamMedis' => $rekam,
-            'penyakit' => $penyakit,
-            'tindakan' => $tindakan,
-            'resepPasien' => $resepPasien,
-            'obatList' => $obatList, // Data obat
+            'tittle'         => 'Detail Rekam Medis',
+            'rekamMedis'     => $rekam,
+            'penyakit'       => $penyakit,
+            'tindakan'       => $tindakan,
+            'resepPasien'    => $resepPasien,
+            'obatList'       => $obatList,
+            'formTindakan'   => $formTindakan,
         ];
 
-        return view('dokter/form-rm', $data);
+        return view('dokter/detail/detail-rm', $data);
     }
 
     public function updateRekamMedis()
-{
-    $id = $this->request->getPost('rekam_id');
+    {
+        $id = $this->request->getPost('rekam_id');
 
-    $data = [
+        $existingRekam = $this->rekamMedisModel
+            ->select('rekam_medis.*, pasien.nama_lengkap, pasien.tanggal_lahir')
+            ->join('pasien', 'rekam_medis.pasien_id = pasien.id_pasien', 'left')
+            ->where('rekam_medis.id_rm', $id)
+            ->asArray()
+            ->first();
 
-        'keluhan'               => $this->request->getPost('keluhan') ?: $this->rekamMedisModel->find($id)['keluhan'],
-        'riwayat_penyakit'      => $this->request->getPost('riwayat_penyakit') ?: $this->rekamMedisModel->find($id)['riwayat_penyakit'],
-        'riwayat_alergi'        => $this->request->getPost('riwayat_alergi') ?: $this->rekamMedisModel->find($id)['riwayat_alergi'],
-        'riwayat_pengobatan'    => $this->request->getPost('riwayat_pengobatan') ?: $this->rekamMedisModel->find($id)['riwayat_pengobatan'],
-        'diagnosa'              => $this->request->getPost('diagnosa') ?: $this->rekamMedisModel->find($id)['diagnosa'],
-        'periksa_bibir_masuk_mulut'         => $this->request->getPost('periksa_bibir') ?: $this->rekamMedisModel->find($id)['periksa_bibir'],
-        'periksa_gigi_geligi'   => $this->request->getPost('periksa_gigi_geligi') ?: $this->rekamMedisModel->find($id)['periksa_gigi_geligi'],
-        'periksa_lidah'         => $this->request->getPost('periksa_lidah') ?: $this->rekamMedisModel->find($id)['periksa_lidah'],
-        'periksa_langit_langit' => $this->request->getPost('periksa_langit_langit') ?: $this->rekamMedisModel->find($id)['periksa_langit_langit'],
-        'penyakit_id'           => $this->request->getPost('penyakit') ?: $this->rekamMedisModel->find($id)['penyakit_id'],
-        'tindakan_id'           => $this->request->getPost('tindakan') ?: $this->rekamMedisModel->find($id)['tindakan_id'],
-        'catatan'               => $this->request->getPost('catatan') ?: $this->rekamMedisModel->find($id)['catatan'],
-    ];
+        if (!$existingRekam) {
+            return redirect()->to(base_url('/rekam-medis'))->with('error', 'Data rekam medis tidak ditemukan.');
+        }
 
-    if ($this->rekamMedisModel->update($id, $data)) {
-        // Update status_pemeriksaan di tabel antrian
-        $this->antrianModel
-            ->where('rm_id', $id)
-            ->set(['status_pemeriksaan' => 'Selesai'])
-            ->update();
+        $validasi = $this->request->getPost('validasi');
+        $validasi = $validasi === null ? $existingRekam['validasi'] : $validasi;
+        $tindakan_id = ($validasi == 1) ? $this->request->getPost('tindakan') : null;
 
-        return redirect()->to(base_url('/rekam-medis'))->with('success', 'Rekam medis berhasil diperbarui dan status antrian diubah.');
-    } else {
-        return redirect()->to(base_url('/rekam-medis'))->with('error', 'Gagal memperbarui rekam medis.');
+        $data = [
+            'keluhan'               => $this->request->getPost('keluhan') ?: $existingRekam['keluhan'],
+            'riwayat_penyakit'      => $this->request->getPost('riwayat_penyakit') ?: $existingRekam['riwayat_penyakit'],
+            'riwayat_alergi'        => $this->request->getPost('riwayat_alergi') ?: $existingRekam['riwayat_alergi'],
+            'riwayat_pengobatan'    => $this->request->getPost('riwayat_pengobatan') ?: $existingRekam['riwayat_pengobatan'],
+            'diagnosa'              => $this->request->getPost('diagnosa') ?: $existingRekam['diagnosa'],
+            'periksa_bibir_masuk_mulut' => $this->request->getPost('periksa_bibir') ?: $existingRekam['periksa_bibir_masuk_mulut'],
+            'periksa_gigi_geligi'   => $this->request->getPost('periksa_gigi_geligi') ?: $existingRekam['periksa_gigi_geligi'],
+            'periksa_lidah'         => $this->request->getPost('periksa_lidah') ?: $existingRekam['periksa_lidah'],
+            'periksa_langit_langit' => $this->request->getPost('periksa_langit_langit') ?: $existingRekam['periksa_langit_langit'],
+            'penyakit_id'           => $this->request->getPost('penyakit') ?: $existingRekam['penyakit_id'],
+            'tindakan_id'           => $tindakan_id,
+            'validasi'              => $validasi,
+            'catatan'               => $this->request->getPost('catatan') ?: $existingRekam['catatan'],
+            'updated_at'            => Time::now()->toDateTimeString(),
+        ];
+
+        // Cek apakah ada perubahan data dibanding sebelumnya
+        $hasChanged = false;
+        foreach ($data as $key => $value) {
+            if ($existingRekam[$key] != $value) {
+                $hasChanged = true;
+                break;
+            }
+        }
+
+        if (!$hasChanged) {
+            return redirect()->to(base_url('/rekam-medis'))->with('info', 'Tidak ada perubahan pada data rekam medis.');
+        }
+
+        if ($this->rekamMedisModel->update($id, $data)) {
+
+            // Ubah status antrian jadi "Selesai"
+            $this->antrianModel
+                ->where('rm_id', $id)
+                ->set(['status_pemeriksaan' => 'Selesai'])
+                ->update();
+
+            // Simpan validasi tindakan meskipun validasi = 0
+            $existingValidasi = $this->validasiModel
+                ->where('rm_id', $id)
+                ->first();
+
+            $validasiData = [
+                'rm_id'       => $id,
+                'tindakan_id' => $tindakan_id, // bisa null jika validasi = 0
+                'validasi'    => $validasi,
+                'updated_at'  => Time::now()->toDateTimeString(),
+            ];
+
+            if ($existingValidasi) {
+                $this->validasiModel->update($existingValidasi['id_validasi'], $validasiData);
+            } else {
+                $validasiData['created_at'] = Time::now()->toDateTimeString();
+                $this->validasiModel->insert($validasiData);
+            }
+
+            $pasienId  = $existingRekam['pasien_id'];
+            $tanggal   = date('Y-m-d');
+
+            if ($validasi == 1 && $tindakan_id) {
+                // Simpan/update formulir tindakan seperti sebelumnya
+                $dataTindakan = [
+                    'pasien_id'           => $pasienId,
+                    'tindakan_id'         => $tindakan_id,
+                    'petugas_pelaksana'   => session('nama'),
+                    'tanggal_pelaksanaan' => $tanggal,
+                    'waktu_mulai'         => $this->request->getPost('waktu_mulai') ?: date('H:i:s'),
+                    'waktu_selesai'       => $this->request->getPost('waktu_selesai') ?: date('H:i:s'),
+                    'updated_at'          => Time::now()->toDateTimeString(),
+                ];
+
+                $existingTindakan = $this->formulirTindakanModel
+                    ->where('pasien_id', $pasienId)
+                    ->where('tindakan_id', $tindakan_id)
+                    ->where('tanggal_pelaksanaan', $tanggal)
+                    ->first();
+
+                if ($existingTindakan) {
+                    $this->formulirTindakanModel->update($existingTindakan['id_formulir'], $dataTindakan);
+                } else {
+                    $dataTindakan['created_at'] = Time::now()->toDateTimeString();
+                    $this->formulirTindakanModel->insert($dataTindakan);
+                }
+            } else {
+                // Jika validasi != 1, hapus SEMUA tindakan pasien pada tanggal tersebut
+                $this->formulirTindakanModel
+                    ->where('pasien_id', $pasienId)
+                    ->where('tanggal_pelaksanaan', $tanggal)
+                    ->delete();
+            }
+
+
+            // Simpan atau update resume pasien
+            $resumeData = [
+                'nomer_rm'        => $existingRekam['no_rm'],
+                'pasien_id'       => $existingRekam['pasien_id'],
+                'rm_id'           => $id,
+                'dokter_id'       => $existingRekam['dokter_id'],
+                'nama_lengkap'    => $existingRekam['nama_lengkap'],
+                'tanggal_lahir'   => $existingRekam['tanggal_lahir'],
+                'tanggal_periksa' => $existingRekam['tanggal_periksa'],
+                'nama_dpjp'       => session('nama'),
+                'anamnesa'        => $data['keluhan'],
+                'diagnosa'        => $data['diagnosa'],
+                'catatan'         => $data['catatan'],
+                'updated_at'      => Time::now()->toDateTimeString(),
+            ];
+
+            $existingResume = $this->resumePasienModel->where('rm_id', $id)->first();
+
+            if ($existingResume) {
+                $this->resumePasienModel->update($existingResume['id_resume'], $resumeData);
+            } else {
+                $resumeData['created_at'] = Time::now()->toDateTimeString();
+                $this->resumePasienModel->insert($resumeData);
+            }
+
+            return redirect()->to(base_url('/rekam-medis'))->with('success', 'Rekam medis berhasil diperbarui dan status antrian diubah.');
+        } else {
+            return redirect()->to(base_url('/rekam-medis'))->with('error', 'Gagal memperbarui rekam medis.');
+        }
     }
-}
 
 
-    // resep
 
     public function simpan()
     {
         $pasienId = $this->request->getPost('pasien_id');
         $dokterId = session('id_dokter');
-        $rekamId  = $this->request->getPost('rekam_id'); // ambil rekam medis ID
+        $rekamId  = $this->request->getPost('rekam_id');
         $obat     = $this->request->getPost('obat_id');
         $jumlah   = $this->request->getPost('jumlah_obat');
         $dosis    = $this->request->getPost('dosis');
         $aturan   = $this->request->getPost('aturan_pakai');
-        $unit      = $this->request->getPost('unit');
+        $unit     = $this->request->getPost('unit');
         $keterangan = $this->request->getPost('keterangan');
 
         $pasien = $this->pasienModel->find($pasienId);
@@ -253,25 +364,28 @@ class RmController extends BaseController
 
         $tanggalPeriksa = $this->rekamMedisModel->find($rekamId)['tanggal_periksa'];
 
+
         for ($i = 0; $i < count($obat); $i++) {
             $this->resepModel->insert([
+                'rm_id'          => $rekamId,
                 'pasien_id'      => $pasienId,
                 'dokter_id'      => $dokterId,
                 'obat_id'        => $obat[$i],
                 'jumlah_obat'    => $jumlah[$i],
                 'dosis'          => $dosis[$i],
-                'unit'           => $unit[$i],          // ← DITAMBAH
-                'keterangan'     => $keterangan[$i],    // ← DITAMBAH
+                'unit'           => $unit[$i],
+                'keterangan'     => $keterangan[$i],
                 'aturan_pakai'   => $aturan[$i],
                 'tanggal_resep'  => $tanggalPeriksa,
-                'status_resep'   => 'sudah diberikan',  // ← Ubah ke huruf kecil
+                // 'status_resep'   => 'sudah_diberikan',
             ]);
         }
 
-        // Redirect ke halaman detail rekam medis (ganti sesuai URL-mu)
+
         return redirect()->to(base_url('/rekam-medis'))
             ->with('success', 'Resep untuk ' . $namaPasien . ' berhasil disimpan.');
     }
+
 
     public function hapusResep($id)
     {

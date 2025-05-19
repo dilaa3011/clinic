@@ -27,7 +27,7 @@
                                 <a href="<?= base_url('/master-user'); ?>">
                                     <span class="sub-item">Data User</span>
                                 </a>
-                            </li>                            
+                            </li>
                             <li>
                                 <a href="<?= base_url('/master-dokter'); ?>">
                                     <span class="sub-item">Data Dokter</span>
@@ -83,7 +83,7 @@
                         <i class="fas fa-notes-medical"></i>
                         <p>Antrian</p>
                     </a>
-                </li>                                
+                </li>
                 <li class="nav-item">
                     <a href="<?= base_url('/rekam-medis'); ?>">
                         <i class="fas fa-file-medical-alt"></i>
@@ -91,10 +91,29 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('/laporan'); ?>">
-                        <i class="fas fa-desktop"></i>
+                    <a
+                        data-bs-toggle="collapse"
+                        href="#laporan"
+                        class="collapsed"
+                        aria-expanded="false">
+                        <i class="fas fa-folder"></i>
                         <p>Laporan</p>
+                        <span class="caret"></span>
                     </a>
+                    <div class="collapse" id="laporan">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="<?= base_url('/master-lap-pasien'); ?>">
+                                    <span class="sub-item">Laporan Pasien</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('/master-lap-klinik'); ?>">
+                                    <span class="sub-item">Laporan Klinik</span>
+                                </a>
+                            </li>                            
+                        </ul>
+                    </div>
                 </li>
 
             <?php endif ?>

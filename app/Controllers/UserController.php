@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\I18n\Time;
 use App\Models\UserModel;
 use App\Models\JeniskelaminModel;
 
@@ -72,7 +73,7 @@ class UserController extends BaseController
         }
 
         if (!empty($updateData)) {
-            $updateData['updated_at'] = date('Y-m-d H:i:s');
+            $updateData['updated_at'] = Time::now()->toDateTimeString();
             $userModel->update($id, $updateData);
             return redirect()->to(base_url('/master-user'))->with('success', 'Data user berhasil diperbarui.');
         } else {
@@ -96,8 +97,8 @@ class UserController extends BaseController
             'role'              => $role,
             'foto'              => $foto,
             'jenis_kelamin_id'  => $this->request->getPost('jenis_kelamin_id'),
-            'created_at'        => date('Y-m-d H:i:s'),
-            'updated_at'        => date('Y-m-d H:i:s'),
+            'created_at'        => Time::now()->toDateTimeString(),
+            'updated_at'        => Time::now()->toDateTimeString(),
         ];
 
         if ($this->userModel->insert($data)) {

@@ -161,6 +161,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <form action="<?= base_url('/ambilAntrian'); ?>" method="post" class="d-inline">
+                                                            <input type="hidden" name="nomor_rekam_medis" value="<?= $p['nomor_rekam_medis']; ?>">
                                                             <input type="hidden" name="nik" value="<?= $p['nik']; ?>" />
                                                             <button type="submit" class="btn btn-primary">Ambil Antrian</button>
                                                         </form>

@@ -12,8 +12,7 @@ class RMModel extends Model
     protected $allowedFields = [
         'pasien_id',
         'dokter_id',
-        'penyakit_id',
-        'resep_id',
+        'penyakit_id',        
         'tindakan_id',
         'no_rm',
         'riwayat_penyakit',
@@ -27,6 +26,7 @@ class RMModel extends Model
         'diagnosa',        
         'resep',
         'catatan',
+        'validasi',
         'tanggal_periksa',
         'created_at',
         'updated_at'

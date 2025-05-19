@@ -20,12 +20,26 @@ class PembayaranModel extends Model
         'tanggal_bayar',
     ];
 
-    public function getPembayaran($id = null)
+    public function getCaraPembayaranEnum()
     {
-        if ($id === null) {
-            return $this->findAll();
-        }
+        // Query untuk mengambil enum values dari kolom cara_pembayaran
+        $db = \Config\Database::connect();
+        $builder = $db->table($this->table);
+        $column = 'cara_pembayaran';
 
-        return $this->find($id);
+        // Menjalankan query SHOW COLUMNS untuk mendapatkan data enum
+        $query = $db->query("SHOW COLUMNS FROM {$this->table} LIKE '{$column}'");
+        $result = $query->getRow();
+
+        // Menarik nilai enum dari `Type` dan menghapus bagian 'enum(' dan ')'
+        preg_match('/^enum\((.*)\)$/', $result->Type, $matches);
+        $enumValues = explode(',', $matches[1]);
+
+        // Menghilangkan tanda petik
+        $enumValues = array_map(function($value) {
+            return trim($value, "'");
+        }, $enumValues);
+
+        return $enumValues;
     }
 }

@@ -14,7 +14,7 @@ class Auth implements FilterInterface
 
         // Cek apakah pengguna sudah login
         if (!session()->get('logged_in') || !in_array(session()->get('role'), [1, 2, 3])) {
-            return redirect()->to('/')->with('error', 'Anda tidak memiliki akses.');
+            return redirect()->to(base_url('/'))->with('error', 'Anda tidak memiliki akses.');
         }
 
         $userLevel = (string)$session->get('role');

@@ -62,30 +62,36 @@ $routes->get('/pasien', 'pasienController::index',['filter' => 'role:1,2']);
 $routes->post('/pasien-add', 'PasienController::addPasien',['filter' => 'role:1,2']);
 $routes->post('/pasien/save', 'PasienController::save',['filter' => 'role:1,2']);
 
-$routes->get('/add-pasien', 'detailPasien::index',['filter' => 'role:1,2']);
+$routes->get('/add-pasien', 'DetailPasien::index',['filter' => 'role:1,2']);
 
 // antrian
 $routes->get('/antrian', 'AntrianController::index',['filter' => 'role:1,2']); //role:2
 // $routes->post('/antrian/tambah', 'AntrianController::AmbilAntrian');
 $routes->post('/antrian/ubah-status/(:num)', 'AntrianController::ubahStatus/$1',['filter' => 'role:1,2']); //role:2
 $routes->post('/ambilAntrian', 'AntrianController::ambilAntrian',['filter' => 'role:1,2']); //role:2
-$routes->post('/update-tarif', 'AntrianController::updateTarif',['filter' => 'role:1,2']); //role:2
+$routes->post('/pembayaran', 'AntrianController::bayar',['filter' => 'role:1,2']); //role:2
 $routes->post('/antrian/ubah-status-bayar/(:num)', 'AntrianController::ubahStatusBayar/$1',['filter' => 'role:1,2']); //role:2
 
 
 // dokter
 // $routes->get('/rekam_medis/(:num)', 'RmController::index/$1');
 $routes->get('/rekam-medis', 'RmController::index',['filter' => 'role:1,2']);
-$routes->post('/detail/', 'RmController::detail',['filter' => 'role:1,2']);
-// $routes->get('/detail/', 'RmController::detail',['filter' => 'role:1,2']);
+$routes->get('/detail', 'RmController::detail',['filter' => 'role:1,2']);
+// $routes->get('/detail/(:num)', 'RmController::detail/$1',['filter' => 'role:1,2']);
+// $routes->post('/rekam-medis/set-detail', 'RmController::setDetail',['filter' => 'role:1,2']);
+// $routes->get('/rekam-medis/detail/(:segment)', 'RmController::detail/$1',['filter' => 'role:1,2']);
+
+// $routes->get('/detail/(:num)', 'RmController::detail/$1', ['filter' => 'role:1,2']);
 $routes->post('/update_rekam_medis', 'RmController::updateRekamMedis',['filter' => 'role:1,2']);
 $routes->get('/all-rm', 'RmController::all',['filter' => 'role:1,2']);
 $routes->post('/resep/simpan', 'RmController::simpan',['filter' => 'role:1,2']);
 $routes->get('/resep/hapus/(:num)', 'RmController::hapusResep/$1');
 
 
-
 // laporan
-$routes->get('/laporan', 'LaporanController::index',['filter' => 'role:1,2']);
-$routes->post('/laporan/cetak', 'LaporanController::cetak',['filter' => 'role:1,2']);
-$routes->post('/laporan', 'LaporanController::index',['filter' => 'role:1,2']);
+$routes->get('/cetak-informed-consent(:num)', 'LaporanController::cetakSuratPerserujuan/$1');
+$routes->get('/master-lap-klinik', 'LaporanController::klinik',['filter' => 'role:1,2']);
+$routes->get('/master-lap-pasien', 'LaporanController::pasien',['filter' => 'role:1,2']);
+$routes->get('/cetak-surat-sakit/(:num)', 'LaporanController::cetakSuratSakit/$1');
+$routes->post('/laporan/cetak', 'LaporanController::cetakLapKlinik',['filter' => 'role:1,2']);
+// $routes->post('/laporan', 'LaporanController::index',['filter' => 'role:1,2']);

@@ -11,13 +11,14 @@ class Resep extends Model
     protected $allowedFields = [    
         'pasien_id',
         'dokter_id',
+        'rm_id',
         'obat_id',
         'jumlah_obat',
         'dosis',
         'unit',
         'aturan_pakai',
         'keterangan',
-        'status_Resep', //sudah diberikan, belum diberikan
+        'status_resep', //sudah diberikan, belum diberikan
         'tanggal_resep',
     ];
 

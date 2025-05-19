@@ -74,26 +74,17 @@
                                         <td><?= $rekam['tanggal_lahir'] ? date_diff(date_create($rekam['tanggal_lahir']), date_create('today'))->y : '-' ?></td>
                                         <td><?= date('d-m-Y', strtotime($rekam['tanggal_periksa'])); ?></td>
                                         <td>
-                                            <?php
-                                            // Menampilkan penyakit
-                                            echo $rekam['penyakit_id'] ? $rekam['nama_penyakit'] : 'Belum Diisi';
-                                            ?>
+                                            <?= $rekam['penyakit_id'] ? $rekam['nama_penyakit'] : 'Tidak Ada Penyakit'; ?>
                                         </td>
                                         <td>
-                                            <?php
-                                            // Menampilkan tindakan
-                                            echo $rekam['tindakan_id'] ? $rekam['nama_tindakan'] : 'Belum Diisi';
-                                            ?>
+                                            <?= $rekam['tindakan_id'] ? $rekam['nama_tindakan'] : 'Tidak Ada Tindakan'; ?>
                                         </td>
                                         <td><?= session('nama') ?></td>
                                         <td>
                                             <div class="form-button-action">
-                                                <form action="<?= base_url('/detail'); ?>" method="post">
-                                                    <input type="hidden" name="id_rm" value="<?= $rekam['id_rm']; ?>">
-                                                    <button type="submit" class="btn btn-link btn-rounded btn-outline-info">
-                                                        <i class="btn btn-rounded btn-outline-info">Periksa</i>
-                                                    </button>
-                                                </form>
+                                                <a href="<?= base_url('/detail?id_rm=' . $rekam['id_rm']); ?>" class="btn btn-link btn-rounded btn-outline-info">
+                                                    <i class="btn btn-rounded btn-outline-info">Periksa</i>
+                                                </a>
                                             </div>
 
                                         </td>

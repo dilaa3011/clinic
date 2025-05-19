@@ -20,6 +20,11 @@ class Resep extends Migration
                 'constraint' => 11,
                 'unsigned' => true, 
             ],
+            'rm_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true, 
+            ],
             'pasien_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
@@ -63,6 +68,7 @@ class Resep extends Migration
         $this->forge->addForeignKey('pasien_id', 'pasien', 'id_pasien', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('dokter_id', 'dokter', 'id_dokter', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('obat_id', 'obat', 'id_obat', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('rm_id', 'rekam_medis', 'id_rm', 'CASCADE', 'CASCADE');
         $this->forge->createTable('resep');
     }
 

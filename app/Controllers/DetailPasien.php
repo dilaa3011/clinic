@@ -31,22 +31,31 @@ class DetailPasien extends BaseController
 
     public function index()
     {
-        $tanggal = date('Ymd'); 
-        $prefix = 'RM - ' . $tanggal;
+        // Ambil semua nomor rekam medis
+        $allNomor = $this->pasienModel->select('nomor_rekam_medis')->findAll();
 
-        $last = $this->pasienModel->like('nomor_rekam_medis', $prefix, 'after')
-            ->orderBy('nomor_rekam_medis', 'DESC')
-            ->first();
-
-        if ($last) {
-            $lastNumber = (int)substr($last['nomor_rekam_medis'], -3) + 1;
-        } else {
-            $lastNumber = 1;
+        $lasNum = 0;
+        foreach ($allNomor as $item) {
+            $nomor = $item['nomor_rekam_medis'];
+            // ambil 4 digit terakhir
+            $last4 = substr($nomor, -4);
+            if (is_numeric($last4)) {
+                $num = (int)$last4;
+                if ($num > $lasNum) {
+                    $lasNum = $num;
+                }
+            }
         }
 
-        $newNumber = str_pad($lastNumber, 4, '0', STR_PAD_LEFT);        
-        $nomor_rekam_medis = $prefix . ' - ' .  $newNumber;
+        // nomor baru
+        $newNumber = str_pad($lasNum + 1, 4, '0', STR_PAD_LEFT);
 
+        $tanggal = date('Ymd');
+        $prefix = 'RM - ' . $tanggal;
+        $nomor_rekam_medis = $prefix . ' - ' . $newNumber;
+
+
+        // Sisanya seperti biasa...
         $pasien = $this->pasienModel
             ->select('pasien.*, jenis_kelamin.nama_jenis_kelamin, agama.nama_agama, pendidikan.nama_pendidikan')
             ->join('jenis_kelamin', 'jenis_kelamin.id_jenis_kelamin = pasien.jenis_kelamin_id')

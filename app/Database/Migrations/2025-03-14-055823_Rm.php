@@ -27,10 +27,6 @@ class Rm extends Migration
                 'type'           => 'INT',
                 'unsigned'       => true,
             ],
-            'resep_id' => [
-                'type'           => 'INT',
-                'unsigned'       => true,
-            ],
             'tindakan_id' => [
                 'type'           => 'INT',
                 'unsigned'       => true,
@@ -108,8 +104,7 @@ class Rm extends Migration
         $this->forge->addPrimaryKey('id_rm');
         $this->forge->addForeignKey('pasien_id', 'pasien', 'id_pasien', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('dokter_id', 'dokter', 'id_dokter', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('penyakit_id', 'penyakit', 'id_penyakit', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('resep_id', 'resep', 'id_resep', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('penyakit_id', 'penyakit', 'id_penyakit', 'CASCADE', 'CASCADE');        
         $this->forge->addForeignKey('tindakan_id', 'tindakan', 'id_tindakan', 'CASCADE', 'CASCADE');
         $this->forge->createTable('rekam_medis');
     }
