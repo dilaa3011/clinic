@@ -52,6 +52,9 @@ class Dashboard extends BaseController
         // total tindakan
         $totalTindakan = $this->formulirTindakanModel->countAll();
 
+        // data rekam medis
+        $totalRM = $this->rekamMedisModel->countAll();
+
         // Ambil data jumlah pasien per bulan
         $pasienPerBulan = $this->PasienModel
             ->select("MONTH(tanggal_lahir) AS bulan, COUNT(id_pasien) AS jumlah_pasien")
@@ -74,7 +77,17 @@ class Dashboard extends BaseController
             ->join('pasien', 'pasien.id_pasien = pembayaran.pasien_id')
             ->orderBy('pembayaran.tanggal_bayar', 'DESC')
             ->findAll(5);
-        
+
+        $builder = $this->pembayaranModel
+            ->select('pembayaran.*, pasien.nama_lengkap, pasien.nik, tindakan.nama_tindakan, obat.nama_obat, resep.dosis')
+            ->join('pasien', 'pasien.id_pasien = pembayaran.pasien_id', 'left')
+            ->join('tindakan', 'tindakan.id_tindakan = pembayaran.tindakan_id', 'left')
+            ->join('obat', 'obat.id_obat = pembayaran.obat_id', 'left')
+            ->join('resep', 'resep.id_resep = pembayaran.resep_id', 'left');
+
+        $dataPembayaran = $builder->orderBy('tanggal_bayar', 'desc')->findAll();
+        $total = array_sum(array_column($dataPembayaran, 'total_bayar'));        
+
 
         $data = [
             'tittle' => 'Dashboard',
@@ -86,7 +99,10 @@ class Dashboard extends BaseController
             'bulan' => $bulan,
             'jumlahPasien' => $jumlahPasien,
             'riwayatTransaksi' => $riwayatTransaksi,
-            'totalPemasukan' => $totalPemasukan['total_bayar'] ?? 0,            
+            'totalPemasukan' => $totalPemasukan['total_bayar'] ?? 0,
+            'pemasukan' => $total,
+            'totalRM' => $totalRM,
+            
         ];
         return view('admin/dashboard', $data);
     }

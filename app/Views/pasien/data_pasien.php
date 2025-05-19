@@ -134,8 +134,7 @@
                                                                             <th>Tanggal</th>
                                                                             <th>Keluhan</th>
                                                                             <th>Diagnosa</th>
-                                                                            <th>Tindakan</th>
-                                                                            <th>Resep</th>
+                                                                            <th>Tindakan</th>                                                                            
                                                                             <th>Catatan</th>
                                                                         </tr>
                                                                     </thead>
@@ -145,8 +144,7 @@
                                                                                 <td><?= esc($rm['tanggal_periksa']) ?></td>
                                                                                 <td><?= esc($rm['keluhan']) ?></td>
                                                                                 <td><?= esc($rm['diagnosa']) ?></td>
-                                                                                <td><?= esc($rm['tindakan']) ?></td>
-                                                                                <td><?= esc($rm['resep']) ?></td>
+                                                                                <td><?= esc($rm['nama_tindakan'] ?? '-') ?></td>                                                                                
                                                                                 <td><?= esc($rm['catatan']) ?></td>
                                                                             </tr>
                                                                         <?php endforeach; ?>

@@ -8,6 +8,8 @@ use App\Models\RMModel;
 use App\Models\JeniskelaminModel;
 use App\Models\AgamaModel;
 use App\Models\PendidikanModel;
+use App\models\ObatModel;
+use App\models\Resep;
 
 class PasienController extends BaseController
 {
@@ -16,6 +18,8 @@ class PasienController extends BaseController
     protected $jenisKelaminModel;
     protected $agamaModel;
     protected $pendidikanModel;
+    protected $obatModel;
+    protected $resepModel;
 
     public function __construct()
     {
@@ -24,11 +28,12 @@ class PasienController extends BaseController
         $this->jenisKelaminModel = new JeniskelaminModel();
         $this->agamaModel = new AgamaModel();
         $this->pendidikanModel = new PendidikanModel();
+        $this->obatModel = new ObatModel();
+        $this->resepModel = new Resep();
     }
 
     public function index()
     {
-
         $pasien = $this->pasienModel
             ->select('pasien.*, jenis_kelamin.nama_jenis_kelamin, agama.nama_agama, pendidikan.nama_pendidikan')
             ->join('jenis_kelamin', 'jenis_kelamin.id_jenis_kelamin = pasien.jenis_kelamin_id', 'left')
@@ -36,22 +41,47 @@ class PasienController extends BaseController
             ->join('pendidikan', 'pendidikan.id_pendidikan = pasien.pendidikan_id', 'left')
             ->findAll();
 
+        // Loop untuk menambahkan rekam medis per pasien
+        foreach ($pasien as &$p) {
+            $rekam_medis = $this->rekamMedisModel
+                ->select('rekam_medis.*, tindakan.nama_tindakan')
+                ->join('tindakan', 'tindakan.id_tindakan = rekam_medis.tindakan_id', 'left')
+                ->where('rekam_medis.pasien_id', $p['id_pasien'])
+                ->orderBy('tanggal_periksa', 'DESC')
+                ->findAll();
 
-        $jenis_kelamin = $this->jenisKelaminModel->findAll();
-        $agama = $this->agamaModel->findAll();
-        $pendidikan = $this->pendidikanModel->findAll();
+            foreach ($rekam_medis as &$rm) {
+                $resep = $this->resepModel
+                    ->select('resep.*, obat.nama_obat, obat.harga')
+                    ->join('obat', 'obat.id_obat = resep.obat_id', 'left')
+                    ->where('rm_id', $rm['id_rm'])
+                    ->findAll();
+
+                $rm['resep'] = $resep; // simpan resep langsung dalam rekam medis
+            }
+
+            $p['rekam_medis'] = $rekam_medis; // <-- INI PENTING, agar data dikirim ke view
+        }
+
+        $resepPerPasien = [];
+        foreach ($resep as $r) {
+            $resepPerPasien[$r['rm_id']][] = $r;
+        }
+
+
 
         $data = [
             'tittle' => 'Data Pasien',
             'pasien' => $pasien,
-            'jenis_kelamin' => $jenis_kelamin,
-            'agama' => $agama,
-            'pendidikan' => $pendidikan,
-
+            'jenis_kelamin' => $this->jenisKelaminModel->findAll(),
+            'agama' => $this->agamaModel->findAll(),
+            'pendidikan' => $this->pendidikanModel->findAll(),
+            'resepPerRM' => $resepPerPasien,
         ];
 
         return view('pasien/data_pasien', $data);
     }
+
 
     public function addPasien()
     {
