@@ -20,7 +20,7 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="<?=base_url('/master-dokter'); ?>">Dokter</a>
+                    <a href="<?= base_url('/master-dokter'); ?>">Dokter</a>
                 </li>
             </ul>
         </div>
@@ -50,7 +50,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="<?= base_url('dokter/add'); ?>" method="POST">
+                                    <form action="<?= base_url('dokter/add'); ?>" method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
@@ -75,8 +75,15 @@
                                                     <label>No. Telepon</label>
                                                     <input id="nomor_hp" type="text" name="nomor_hp" class="form-control" placeholder="masukkan nomor telepon " />
                                                 </div>
-                                            </div>
+                                            </div>    
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="ttd">Tanda Tangan</label>
+                                                    <input type="file" name="ttd" id="ttd" class="form-control">
+                                                </div>
+                                            </div>                                        
                                         </div>
+
                                         <div class="modal-footer border-0">
                                             <button type="submit" class="btn btn-primary">Add</button>
                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -89,7 +96,7 @@
                     <!-- end modal add -->
 
                     <div class="table-responsive">
-                        <table id="dokterTable" class="display table table-striped table-hover">
+                        <table id="datatables" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -113,7 +120,7 @@
                                                 <button type="button" class="btn btn-sm btn-primary me-1" title="Edit Data" data-bs-toggle="modal" data-bs-target="#updateDokterModal<?= $d['id_dokter']; ?>">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-danger btn-delete" title="Hapus Data" data-id="<?= $d['id_dokter']; ?>" nama-id = "<?= $d['nama']; ?>" data-bs-toggle="modal" data-bs-target="#deleteDokterModal<?= $d['id_dokter']; ?>">
+                                                <button type="button" class="btn btn-sm btn-danger btn-delete" title="Hapus Data" data-id="<?= $d['id_dokter']; ?>" nama-id="<?= $d['nama']; ?>" data-bs-toggle="modal" data-bs-target="#deleteDokterModal<?= $d['id_dokter']; ?>">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </div>
@@ -132,7 +139,7 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="<?= base_url('dokter/update'); ?>" method="POST">
+                                                            <form action="<?= base_url('dokter/update'); ?>" method="POST" enctype="multipart/form-data">
                                                                 <input type="hidden" name="id_dokter" value="<?= $d['id_dokter']; ?>">
                                                                 <div class="row">
                                                                     <div class="col-sm-12">
@@ -157,6 +164,21 @@
                                                                         <div class="form-group form-group-default">
                                                                             <label>No. Telepon</label>
                                                                             <input id="nomor_hp" type="text" name="nomor_hp" class="form-control" placeholder="<?= $d['nomor_hp']; ?> " />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label for="ttd">Tanda Tangan</label>
+
+                                                                            <?php if (!empty($d['ttd'])): ?>
+                                                                                <div class="mb-2">
+                                                                                    <img src="<?= base_url('uploads/ttd/' . $d['ttd']); ?>" alt="Foto ttd" width="150" class="img-thumbnail image-fit">
+                                                                                </div>
+                                                                            <?php else : ?>
+                                                                                <p>Belum Ada ttd</p>
+                                                                            <?php endif; ?>
+
+                                                                            <input type="file" name="ttd" id="ttd" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -184,25 +206,25 @@
 
 
 <!-- Script hapus -->
-  <script>
+<script>
     document.querySelectorAll('.btn-delete').forEach(button => {
-      button.addEventListener('click', function() {
-        const id = this.getAttribute('data-id');
-        const nama = this.getAttribute('nama-id');
-        Swal.fire({
-          title: 'Apakah Anda yakin?',
-          text: "Data " + nama + " tidak dapat dikembalikan!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Ya, hapus!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = "<?= base_url('dokter/delete'); ?>/" + id;
-          }
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const nama = this.getAttribute('nama-id');
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data " + nama + " tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "<?= base_url('dokter/delete'); ?>/" + id;
+                }
+            });
         });
-      });
     });
-  </script>
+</script>
 <?= $this->endSection(); ?>

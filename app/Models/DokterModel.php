@@ -14,6 +14,7 @@ class DokterModel extends Model
         'kode_dokter',
         'spesialis',
         'nomor_hp',
+        'ttd',
         'created_at',
         'updated_at',
     ];

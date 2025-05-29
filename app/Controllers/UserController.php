@@ -33,16 +33,13 @@ class UserController extends BaseController
 
     public function update()
     {
-        $userModel = new \App\Models\UserModel();
-
         $id = $this->request->getPost('id_user');
-        $oldData = $userModel->find($id);
+        $oldData = $this->userModel->find($id);
 
         if (!$oldData) {
             return redirect()->to(base_url('/master-user'))->with('error', 'Data user tidak ditemukan.');
         }
 
-        // Ambil input dari form
         $input = [
             'nama'             => $this->request->getPost('nama'),
             'username'         => $this->request->getPost('username'),
@@ -52,19 +49,28 @@ class UserController extends BaseController
             'jenis_kelamin_id' => $this->request->getPost('jenis_kelamin_id'),
         ];
 
-        // Tentukan foto berdasarkan role
+        $passwordInput = $this->request->getPost('password');
+
+        if (!empty($passwordInput)) {
+            if (!password_verify($passwordInput, $oldData['password'])) {
+                $input['password'] = password_hash($passwordInput, PASSWORD_DEFAULT);
+            } else {
+                $input['password'] = $oldData['password'];
+            }
+        } else {
+            $input['password'] = $oldData['password'];
+        }
+
         $fotoMap = [
             '1' => 'clinic/assets/dentist.png',
             '2' => 'clinic/assets/admin.png',
             '3' => 'clinic/assets/staff.png',
         ];
 
-        // Tambahkan foto jika role berubah atau belum ada
         if ($input['role'] != $oldData['role'] || empty($oldData['foto'])) {
             $input['foto'] = $fotoMap[$input['role']] ?? $oldData['foto'];
         }
 
-        // Bandingkan dan simpan hanya data yang berubah
         $updateData = [];
         foreach ($input as $key => $value) {
             if ($value != $oldData[$key]) {
@@ -74,24 +80,36 @@ class UserController extends BaseController
 
         if (!empty($updateData)) {
             $updateData['updated_at'] = Time::now()->toDateTimeString();
-            $userModel->update($id, $updateData);
+            $this->userModel->update($id, $updateData);
             return redirect()->to(base_url('/master-user'))->with('success', 'Data user berhasil diperbarui.');
         } else {
             return redirect()->to(base_url('/master-user'))->with('info', 'Tidak ada perubahan data.');
         }
     }
 
+
     public function addUser()
     {
         $role = $this->request->getPost('role');
+        $email = $this->request->getPost('email');
+        $username = $this->request->getPost('username');
 
-        // Tentukan foto berdasarkan role
+        // Cek apakah username atau email sudah terdaftar
+        $existingUser = $this->userModel
+            ->where('email', $email)
+            ->orWhere('username', $username)
+            ->first();
+
+        if ($existingUser) {
+            return redirect()->to(base_url('/master-user'))->withInput()->with('error', 'Email atau Username sudah terdaftar.');
+        }
+
         $foto = ($role == '1') ? 'clinic/assets/dentist.png' : 'clinic/assets/admin.png';
 
         $data = [
             'nama'              => ucwords(strtolower($this->request->getPost('nama'))),
-            'email'             => $this->request->getPost('email'),
-            'username'          => $this->request->getPost('username'),
+            'email'             => $email,
+            'username'          => $username,
             'password'          => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'no_hp'             => $this->request->getPost('no_hp'),
             'role'              => $role,
@@ -104,10 +122,9 @@ class UserController extends BaseController
         if ($this->userModel->insert($data)) {
             return redirect()->to(base_url('/master-user'))->with('success', 'Data berhasil ditambahkan');
         } else {
-            return redirect()->back()->with('error', 'Gagal menambahkan data');
+            return redirect()->to(base_url('/master-user'))->withInput()->with('error', 'Gagal menambahkan data');
         }
     }
-
 
     public function delete($id)
     {

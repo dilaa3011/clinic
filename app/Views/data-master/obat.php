@@ -94,7 +94,7 @@
                     </div>
                     <!-- end modal add -->
                     <div class="table-responsive">
-                        <table id="obatTable" class="display table table-striped table-hover">
+                        <table id="datatables" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>

@@ -39,7 +39,6 @@ class ObatController extends BaseController
 
     public function addObat()
     {
-
         $data = [
             'nama_obat' => ucwords(strtolower($this->request->getPost('nama'))),
             'kode_obat' => $this->request->getPost('kode_obat'),
@@ -51,7 +50,7 @@ class ObatController extends BaseController
         if ($this->obatModel->insert($data)) {
             return redirect()->to(base_url('/master-obat'))->with('success', 'Data berhasil ditambahkan');
         } else {
-            return redirect()->back()->with('error', 'Gagal menambahkan data');
+            return redirect()->to(base_url('/master-obat'))->with('error', 'Gagal menambahkan data');
         }
     }
 

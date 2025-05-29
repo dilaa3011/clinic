@@ -95,7 +95,7 @@ class LaporanController extends BaseController
     }
 
     public function cetakSuratSakit($id_rm)
-    {        
+    {
         // Ambil data resume pasien
         $resume = $this->resumeModel
             ->select('resumepasien.*, pasien.*, jenis_kelamin.nama_jenis_kelamin')
@@ -104,7 +104,7 @@ class LaporanController extends BaseController
             ->where('rm_id', $id_rm)
             ->first();
 
-            // dd($id_rm, $resume);
+        // dd($id_rm, $resume);
 
 
         // dd($resume);
@@ -118,13 +118,83 @@ class LaporanController extends BaseController
             ->orderBy('tanggal_pelaksanaan', 'DESC')
             ->first();
 
+        // Jika tidak ada formulir, buat data default
         if (!$formulir) {
-            return redirect()->to(base_url('/master-lap-pasien'))->with('error', 'Data formulir tindakan tidak ditemukan.');
+            $formulir = [
+                'tindakan_id'         => null,
+                'petugas_pelaksana'   => 'Tidak Ada',
+                'tanggal_pelaksanaan' => 'Tidak Ada',
+                'waktu_mulai'         => 'Tidak Ada',
+                'waktu_selesai'       => 'Tidak Ada',
+            ];
         }
 
         // Ambil nama tindakan
-        $tindakan = $this->tindakanModel
-            ->find($formulir['tindakan_id']);
+        $tindakan = null;
+        if ($formulir) {
+            $tindakan = $this->tindakanModel->find($formulir['tindakan_id']);
+        }
+
+        // Data dokter dari session
+        $role = session('role');
+        if ($role == '1') {
+            $jabatan = 'Dokter';
+        } elseif ($role == '2') {
+            $jabatan = 'Admin';
+        } else {
+            $jabatan = 'Staff';
+        }
+        $id_dokter = session('id_dokter');
+        $dokterData = $this->dokterModel->find($id_dokter);
+
+        $dokter = [
+            'nama'  => $dokterData['nama'],
+            'role'  => $jabatan,
+            'no_hp' => $dokterData['nomor_hp'],
+            'ttd'   => $dokterData['ttd'],
+        ];
+
+        return view('admin/cetak-surat-sakit', [
+            'dokter'   => $dokter,
+            'resume'   => $resume,
+            'formulir' => $formulir,
+            'tindakan' => $tindakan,
+        ]);
+    }
+
+    public function cetakResumePasien($id_rm)
+    {
+        // Ambil data resume pasien
+        $resume = $this->resumeModel
+            ->select('resumepasien.*, pasien.*, jenis_kelamin.nama_jenis_kelamin')
+            ->join('pasien', 'resumepasien.pasien_id = pasien.id_pasien')
+            ->join('jenis_kelamin', 'pasien.jenis_kelamin_id = jenis_kelamin.id_jenis_kelamin')
+            ->where('rm_id', $id_rm)
+            ->first();
+
+        // dd($resume);
+
+        if (!$resume) {
+            return redirect()->to(base_url('/master-lap-pasien'))->with('error', 'Data resume pasien tidak ditemukan.');
+        }
+
+        $resep = $this->resepModel
+            ->select('resep.*, obat.nama_obat, obat.kode_obat, obat.satuan')
+            ->join('obat', 'resep.obat_id = obat.id_obat')
+            ->where('resep.rm_id', $id_rm)
+            ->findAll();
+        // dd($resume);
+
+        // Ambil data tindakan dari formulir_tindakan
+        $formulir = $this->formTindakan
+            ->where('pasien_id', $resume['pasien_id'])
+            ->orderBy('tanggal_pelaksanaan', 'DESC')
+            ->first();
+
+        $tindakan = null;
+        if ($formulir) {
+            $tindakan = $this->tindakanModel->find($formulir['tindakan_id']);
+        }
 
         // Data dokter dari session
         $role = session('role');
@@ -135,20 +205,27 @@ class LaporanController extends BaseController
         } else {
             $jabatan = 'Staff';
         }
+
+        $id_dokter = session('id_dokter');
+        $dokterData = $this->dokterModel->find($id_dokter);
+
         $dokter = [
-            'nama'    => session('nama'),
-            'role' => $jabatan,
-            'no_hp'  => session('no_hp'),
+            'nama'  => $dokterData['nama'],
+            'role'  => $jabatan,
+            'no_hp' => $dokterData['nomor_hp'],
+            'ttd'   => $dokterData['ttd'],
         ];
 
-        return view('admin/cetak-surat-sakit', [
+        return view('admin/cetak-resume-pasien', [
             'dokter'   => $dokter,
             'resume'   => $resume,
             'formulir' => $formulir,
             'tindakan' => $tindakan,
+            'resep'    => $resep,
         ]);
     }
-    
+
+
     public function klinik()
     {
         $tanggal_awal = $this->request->getPost('tanggal_awal');
@@ -163,7 +240,7 @@ class LaporanController extends BaseController
 
         if ($tanggal_awal && $tanggal_akhir) {
             $builder->where('tanggal_bayar >=', $tanggal_awal)
-                    ->where('tanggal_bayar <=', $tanggal_akhir);
+                ->where('tanggal_bayar <=', $tanggal_akhir);
         }
 
         $dataPembayaran = $builder->orderBy('tanggal_bayar', 'desc')->findAll();
@@ -192,7 +269,7 @@ class LaporanController extends BaseController
 
         if ($tanggal_awal && $tanggal_akhir) {
             $builder->where('tanggal_bayar >=', $tanggal_awal)
-                    ->where('tanggal_bayar <=', $tanggal_akhir);
+                ->where('tanggal_bayar <=', $tanggal_akhir);
         }
 
         $dataPembayaran = $builder->orderBy('tanggal_bayar', 'desc')->findAll();
@@ -207,7 +284,7 @@ class LaporanController extends BaseController
     }
 
 
-    public function cetakSuratPersetujuan($id)
+    public function cetakInformed($id)
     {
         // Ambil data resume pasien
         $resume = $this->resumeModel
@@ -219,7 +296,7 @@ class LaporanController extends BaseController
 
         // dd($resume);
         if (!$resume) {
-            return redirect()->back()->with('error', 'Data resume pasien tidak ditemukan.');
+            return redirect()->to(base_url('/rekam-medis'))->with('error', 'Data resume pasien tidak ditemukan.');
         }
 
         // Ambil data tindakan dari formulir_tindakan
@@ -229,7 +306,7 @@ class LaporanController extends BaseController
             ->first();
 
         if (!$formulir) {
-            return redirect()->back()->with('error', 'Data formulir tindakan tidak ditemukan.');
+            return redirect()->to(base_url('/rekam-medis'))->with('error', 'Data formulir tindakan tidak ditemukan.');
         }
 
         // Ambil nama tindakan
@@ -245,10 +322,14 @@ class LaporanController extends BaseController
         } else {
             $jabatan = 'Staff';
         }
+        $id_dokter = session('id_dokter');
+        $dokterData = $this->dokterModel->find($id_dokter);
+
         $dokter = [
-            'nama'    => session('nama'),
-            'role' => $jabatan,
-            'no_hp'  => session('no_hp'),
+            'nama'  => $dokterData['nama'],
+            'role'  => $jabatan,
+            'no_hp' => $dokterData['nomor_hp'],
+            'ttd'   => $dokterData['ttd'],
         ];
 
         return view('admin/cetak-surat-persetujuan', [
@@ -259,4 +340,59 @@ class LaporanController extends BaseController
         ]);
     }
 
+    public function cetakGeneral($id)
+    {
+        // Ambil data resume pasien
+        $resume = $this->resumeModel
+            ->select('resumepasien.*, pasien.*, jenis_kelamin.nama_jenis_kelamin')
+            ->join('pasien', 'resumepasien.pasien_id = pasien.id_pasien')
+            ->join('jenis_kelamin', 'pasien.jenis_kelamin_id = jenis_kelamin.id_jenis_kelamin')
+            ->where('rm_id', $id)
+            ->first();
+
+        // dd($resume);
+        if (!$resume) {
+            return redirect()->to(base_url('/rekam-medis'))->with('error', 'Data resume pasien tidak ditemukan.');
+        }
+
+        // Ambil data tindakan dari formulir_tindakan
+        $formulir = $this->formTindakan
+            ->where('pasien_id', $resume['pasien_id'])
+            ->orderBy('tanggal_pelaksanaan', 'DESC')
+            ->first();
+
+        if (!$formulir) {
+            return redirect()->to(base_url('/rekam-medis'))->with('error', 'Data formulir tindakan tidak ditemukan.');
+        }
+
+        // Ambil nama tindakan
+        $tindakan = $this->tindakanModel
+            ->find($formulir['tindakan_id']);
+
+        // Data dokter dari session
+        $role = session('role');
+        if ($role == '1') {
+            $jabatan = 'Admin';
+        } elseif ($role == '2') {
+            $jabatan = 'Dokter';
+        } else {
+            $jabatan = 'Staff';
+        }
+        $id_dokter = session('id_dokter');
+        $dokterData = $this->dokterModel->find($id_dokter);
+
+        $dokter = [
+            'nama'  => $dokterData['nama'],
+            'role'  => $jabatan,
+            'no_hp' => $dokterData['nomor_hp'],
+            'ttd'   => $dokterData['ttd'],
+        ];
+
+        return view('admin/cetak-general-consent', [
+            'dokter'   => $dokter,
+            'resume'   => $resume,
+            'formulir' => $formulir,
+            'tindakan' => $tindakan,
+        ]);
+    }
 }

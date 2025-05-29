@@ -54,8 +54,18 @@ class DokterController extends BaseController
 
         $dokter = $this->dokterModel->where('kode_dokter', $kode_dokter)->first();
         if ($dokter) {
-            return redirect()->back()->with('error', 'Kode dokter sudah ada!');
+            return redirect()->to(base_url('/master-dokter'))->with('error', 'Kode dokter sudah ada!');
         }
+
+        $foto = $this->request->getFile('ttd');
+        $namaFoto = null;
+
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+            $namaFoto = $foto->getRandomName();
+            $foto->move('uploads/ttd', $namaFoto);
+        } else {
+            $namaFoto = null;
+        };
 
         $data = [
             'kode_dokter' => $this->request->getPost('kode_dokter'),
@@ -63,14 +73,15 @@ class DokterController extends BaseController
             'spesialis' => $this->request->getPost('spesialis'),
             'alamat' => $this->request->getPost('alamat'),
             'nomor_hp' => $this->request->getPost('nomor_hp'),
+            'ttd' => $namaFoto,
             'created_at' => Time::now()->toDateTimeString(),
             'updated_at' => Time::now()->toDateTimeString(),
-        ];
+        ];        
 
         if ($this->dokterModel->insert($data)) {
             return redirect()->to(base_url('/master-dokter'))->with('success', 'Data berhasil ditambahkan');
         } else {
-            return redirect()->back()->with('error', 'Gagal menambahkan data');
+            return redirect()->to(base_url('/master-dokter'))->with('error', 'Gagal menambahkan data');
         }
     }
 
@@ -107,7 +118,22 @@ class DokterController extends BaseController
             $data['nomor_hp'] = $inputNomorHp;
         }
 
-        $notif  = $inputNama ?: $dokterLama['nama_dokter'] ;
+        $existing = $this->dokterModel->find($id);
+
+        $foto = $this->request->getFile('ttd');
+        if ($foto && $foto->isValid() && !$foto->hasMoved()) {            
+            if (!empty($existing['ttd']) && file_exists('uploads/ttd/' . $existing['ttd'])) {
+                unlink('uploads/ttd/' . $existing['ttd']);
+            }
+            $newName = $foto->getRandomName();
+            $foto->move('uploads/ttd', $newName);
+            $data['ttd'] = $newName;
+        } else {
+            $data['ttd'] = $existing['ttd']; 
+        }
+
+
+        $notif  = $inputNama ?: $dokterLama['nama'] ;
         if (!empty($data)) {
             $this->dokterModel->update($id, $data);
             return redirect()->to(base_url('/master-dokter'))->with('success', 'Data dokter ' . $notif. ' berhasil diperbarui');
@@ -132,90 +158,5 @@ class DokterController extends BaseController
         } else {
             return redirect()->to(base_url('/master-dokter'))->with('error', 'Gagal menghapus data dokter');
         }
-    }
-
-
-    // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-    public function index_old()
-    {
-        $tanggalHariIni = date('Y-m-d');
-
-        $rekamMedis = $this->rekamMedisModel
-            ->select('rekam_medis.*, 
-                  pasien.nama AS nama_pasien, 
-                  pasien.tanggal_lahir, 
-                  tb_dokter.nama AS nama_dokter, 
-                  antrian.id AS antrian_id, 
-                  antrian.nomor_antrian')
-            ->join('pasien', 'rekam_medis.pasien_id = pasien.id', 'left')
-            ->join('tb_dokter', 'rekam_medis.dokter_id = tb_dokter.id', 'left')
-            ->join('antrian', 'rekam_medis.id = antrian.rm_id', 'left')
-            ->where('rekam_medis.tanggal_periksa', $tanggalHariIni)
-            ->findAll();
-
-        return view('dokter/data-rm', [
-            'tittle' => 'Rekam Medis Hari Ini',
-            'rekamMedis' => $rekamMedis,
-        ]);
-    }
-
-
-
-    public function all()
-    {
-
-        $rekamMedis = $this->rekamMedisModel
-            ->select('rekam_medis.*, 
-              pasien.nama AS nama_pasien, 
-              pasien.tanggal_lahir, 
-              tb_dokter.nama AS nama_dokter, 
-              antrian.id AS antrian_id, 
-              antrian.nomor_antrian')
-            ->join('pasien', 'rekam_medis.pasien_id = pasien.id', 'left')
-            ->join('tb_dokter', 'rekam_medis.dokter_id = tb_dokter.id', 'left')
-            ->join('antrian', 'rekam_medis.id = antrian.rm_id', 'left')
-            ->findAll();
-
-
-        // dd($rekamMedis);
-
-        $antrian = $this->antrianModel
-            ->select('antrian.*, rekam_medis.no_rm')
-            ->join('rekam_medis', 'antrian.rm_id = rekam_medis.id', 'left')
-            ->where('DATE(antrian.tanggal_periksa)', date('Y-m-d'))
-            ->findAll();
-
-        // dd($rekamMedis);
-
-        return view('dokter/data-rm-all', [
-            'tittle' => 'Rekam Medis',
-            'rekamMedis' => $rekamMedis,
-            'antrian' => $antrian,
-        ]);
-    }
-
-
-    public function updateRekamMedis()
-    {
-        $validationRules = [
-            'keluhan'  => 'required',
-            'diagnosa' => 'required',
-            'tindakan' => 'required',
-            'resep'    => 'required',
-            'catatan'  => 'required',
-        ];
-        if (!$this->validate($validationRules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-        }
-
-        $rekamId = $this->request->getPost('rekam_id');
-        $data = $this->request->getPost(['keluhan', 'diagnosa', 'tindakan', 'resep', 'catatan']);
-
-        if ($this->rekamMedisModel->update($rekamId, $data)) {
-            return redirect()->to(base_url('/rm'))->with('success', 'Data berhasil diperbarui');
-        }
-        return redirect()->back()->with('error', 'Gagal memperbarui data');
     }
 }

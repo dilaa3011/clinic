@@ -1,6 +1,6 @@
 <div class="table-responsive">
     <div class="table-responsive">
-        <table id="multi-filter-select" class="display table table-striped table-hover">
+        <table id="datatables" class="display table table-striped table-hover">
             <thead>
                 <tr>
                     <th>No. Rekam Medis</th>
@@ -13,17 +13,6 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tfoot>
-                <tr>
-                    <th>No. Rekam Medis</th>
-                    <th>Name</th>
-                    <th>Usia</th>
-                    <th>Tanggal Periksa</th>
-                    <th>Penyakit</th>
-                    <th>Tindakan</th>
-                    <th>Dokter</th>
-                </tr>
-            </tfoot>
             <tbody>
                 <?php
                 $no = 1;
@@ -140,6 +129,9 @@
                                                     <button type="button" class="btn btn-success" onclick="cetakSuratSakit(<?= $rekam['id_rm'] ?>)">
                                                         Cetak Surat Sakit
                                                     </button>
+                                                    <button type="button" class="btn btn-success" onclick="cetakResumePasien(<?= $rekam['id_rm'] ?>)">
+                                                        Cetak Surat Resume
+                                                    </button>
                                                     <!-- <button type="submit" class="btn btn-primary">Simpan</button> -->
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                                                 </div>
@@ -159,5 +151,11 @@
 <script>
 function cetakSuratSakit(idRekam) {
     window.open('<?= base_url('/cetak-surat-sakit/') ?>' + idRekam, '_blank');
+}
+</script>
+
+<script>
+function cetakResumePasien(idRekam) {
+    window.open('<?= base_url('/cetak-surat-resume/') ?>' + idRekam, '_blank');
 }
 </script>

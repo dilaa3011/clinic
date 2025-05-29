@@ -15,6 +15,7 @@ use App\Models\PasienModel;
 use App\Models\ValidasiModel;
 use App\Models\FormTindakanModel;
 use App\Models\ResumePasienModel;
+use App\models\OdontogramModel;
 
 class RmController extends BaseController
 {
@@ -29,6 +30,7 @@ class RmController extends BaseController
     protected $validasiModel;
     protected $formulirTindakanModel;
     protected $resumePasienModel;
+    protected $odontogramModel;
 
     public function __construct()
     {
@@ -43,6 +45,7 @@ class RmController extends BaseController
         $this->validasiModel = new ValidasiModel();
         $this->formulirTindakanModel = new FormTindakanModel();
         $this->resumePasienModel = new ResumePasienModel();
+        $this->odontogramModel = new OdontogramModel();
     }
 
     public function index()
@@ -81,7 +84,6 @@ class RmController extends BaseController
                 $rekamMedisGrouped[$id_rm] = $rm;
             }
         }
-
 
         $resepData = $this->resepModel->findAll();
         $resepPerPasien = [];
@@ -189,6 +191,8 @@ class RmController extends BaseController
             ->orderBy('tanggal_pelaksanaan', 'DESC')
             ->first();
 
+        $odontogram = $this->odontogramModel->where('rm_id', $rekam['id_rm'])->first();
+
         $data = [
             'tittle'         => 'Detail Rekam Medis',
             'rekamMedis'     => $rekam,
@@ -197,21 +201,58 @@ class RmController extends BaseController
             'resepPasien'    => $resepPasien,
             'obatList'       => $obatList,
             'formTindakan'   => $formTindakan,
+            'odontogram' => $odontogram,
         ];
 
         return view('dokter/detail/detail-rm', $data);
     }
+
+    public function batal($idRm)
+    {
+        $tanggalHariIni = date('Y-m-d');
+
+        // Cek apakah rekam medis tersebut dibuat hari ini
+        $rekam = $this->rekamMedisModel
+            ->where('id_rm', $idRm)
+            ->where('tanggal_periksa', $tanggalHariIni)
+            ->first();
+
+        if (!$rekam) {
+            return redirect()->to(base_url('/rekam-medis'))->with('message', 'Data tidak ditemukan atau bukan untuk hari ini.');
+        }
+
+        // Hapus antrian yang terkait
+        $this->antrianModel->where('rm_id', $idRm)->delete();
+
+        // Hapus rekam medis
+        $this->rekamMedisModel->delete($idRm);
+
+        return redirect()->to(base_url('/rekam-medis'))->with('message', 'Pemeriksaan berhasil dibatalkan.');
+    }
+
 
     public function updateRekamMedis()
     {
         $id = $this->request->getPost('rekam_id');
 
         $existingRekam = $this->rekamMedisModel
-            ->select('rekam_medis.*, pasien.nama_lengkap, pasien.tanggal_lahir')
+            ->select('rekam_medis.*, pasien.nama_lengkap, pasien.tanggal_lahir, dokter.nama')
             ->join('pasien', 'rekam_medis.pasien_id = pasien.id_pasien', 'left')
+            ->join('dokter', 'rekam_medis.dokter_id = dokter.id_dokter', 'left')
             ->where('rekam_medis.id_rm', $id)
             ->asArray()
             ->first();
+
+        if (is_null($existingRekam['dokter_id'])) {
+            $dokterId = session('id_dokter');
+            $this->rekamMedisModel->update($id, ['dokter_id' => $dokterId]);
+
+            $existingRekam['dokter_id'] = $dokterId;
+
+            $dokter = $this->dokterModel->find($dokterId);
+            $existingRekam['nama'] = $dokter['nama'] ?? '';
+        }
+
 
         if (!$existingRekam) {
             return redirect()->to(base_url('/rekam-medis'))->with('error', 'Data rekam medis tidak ditemukan.');
@@ -323,7 +364,7 @@ class RmController extends BaseController
                 'nama_lengkap'    => $existingRekam['nama_lengkap'],
                 'tanggal_lahir'   => $existingRekam['tanggal_lahir'],
                 'tanggal_periksa' => $existingRekam['tanggal_periksa'],
-                'nama_dpjp'       => session('nama'),
+                'nama_dpjp'       => $existingRekam['nama'],
                 'anamnesa'        => $data['keluhan'],
                 'diagnosa'        => $data['diagnosa'],
                 'catatan'         => $data['catatan'],
@@ -338,6 +379,67 @@ class RmController extends BaseController
                 $resumeData['created_at'] = Time::now()->toDateTimeString();
                 $this->resumePasienModel->insert($resumeData);
             }
+
+            // Simpan atau update odontogram
+            $odontogramData = [
+                'pasien_id' => $existingRekam['pasien_id'],
+                'rm_id'     => $id,
+            ];
+
+            $gigi = [
+                '11',
+                '12',
+                '13',
+                '14',
+                '15',
+                '16',
+                '17',
+                '18',
+                '21',
+                '22',
+                '23',
+                '24',
+                '25',
+                '26',
+                '27',
+                '28',
+                '31',
+                '32',
+                '33',
+                '34',
+                '35',
+                '36',
+                '37',
+                '38',
+                '41',
+                '42',
+                '43',
+                '44',
+                '45',
+                '46',
+                '47',
+                '48'
+            ];
+
+            $existingOdontogram = $this->odontogramModel->where('rm_id', $id)->first();
+
+            if ($existingOdontogram) {
+                foreach ($gigi as $kode) {
+                    $input = $this->request->getPost($kode);
+                    $odontogramData["g$kode"] = ($input !== null && $input !== '') ? $input : $existingOdontogram["g$kode"];
+                }
+
+                $this->odontogramModel->update($existingOdontogram['id_odontogram'], $odontogramData);
+            } else {
+                foreach ($gigi as $kode) {
+                    $odontogramData["g$kode"] = $this->request->getPost($kode) ?: null;
+                }
+
+                $odontogramData['created_at'] = Time::now()->toDateTimeString();
+                $this->odontogramModel->insert($odontogramData);
+            }
+
+
 
             return redirect()->to(base_url('/rekam-medis'))->with('success', 'Rekam medis berhasil diperbarui dan status antrian diubah.');
         } else {
@@ -391,7 +493,7 @@ class RmController extends BaseController
     {
         $resep = $this->resepModel->find($id);
         if (!$resep) {
-            return redirect()->back()->with('error', 'Resep tidak ditemukan.');
+            return redirect()->to(base_url('/rekam-medis'))->with('error', 'Resep tidak ditemukan.');
         }
 
         $pasien = $this->pasienModel->find($resep['pasien_id']);

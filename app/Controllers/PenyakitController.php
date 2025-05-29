@@ -43,6 +43,7 @@ class PenyakitController extends BaseController
         $data = [
             'nama_penyakit' => ucwords(strtolower($this->request->getPost('nama'))),
             'kode_penyakit' => $this->request->getPost('kode_penyakit'),
+            'keterangan' => $this->request->getPost('keterangan'),
         ];
 
         if ($this->penyakitModel->insert($data)) {
@@ -65,6 +66,7 @@ class PenyakitController extends BaseController
         // Ambil input
         $inputNama = ucwords(strtolower(trim($this->request->getPost('nama'))));
         $inputKode = $this->request->getPost('kode_penyakit');
+        $inputKeterangan = $this->request->getPost('keterangan');
 
         // Siapkan array untuk perubahan
         $data = [];
@@ -75,6 +77,9 @@ class PenyakitController extends BaseController
 
         if ($inputKode && $inputKode !== $penyakitLama['kode_penyakit']) {
             $data['kode_penyakit'] = $inputKode;
+        }
+        if ($inputKeterangan && $inputKeterangan !== $penyakitLama['keterangan']) {
+            $data['keterangan'] = $inputKeterangan;
         }
 
         $notif = $inputNama ?: $penyakitLama['nama_penyakit'] ;

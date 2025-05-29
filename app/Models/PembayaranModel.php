@@ -18,6 +18,7 @@ class PembayaranModel extends Model
         'nama_petugas',
         'total_bayar',
         'tanggal_bayar',
+        'uang_bayar',
     ];
 
     public function getCaraPembayaranEnum()

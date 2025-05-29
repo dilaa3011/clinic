@@ -12,6 +12,7 @@ class PenyakitModel extends Model
     protected $allowedFields = [
         'nama_penyakit',
         'kode_penyakit',
+        'keterangan',
     ];
 
     public function getPenyakit($id = null)

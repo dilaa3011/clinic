@@ -60,7 +60,7 @@
 
                                                 <div class="form-group">
                                                     <label>Email</label>
-                                                    <input type="email" name="email" class="form-control" placeholder="Masukkan enail" required>
+                                                    <input type="email" name="email" class="form-control" placeholder="Masukkan email" required>
                                                 </div>
 
                                                 <div class="form-group">
@@ -70,9 +70,13 @@
 
                                                 <div class="form-group">
                                                     <label>Password</label>
-                                                    <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+                                                    <div class="input-group">
+                                                        <input type="password" id="addPassword" class="form-control" placeholder="Masukkan password">
+                                                        <button type="button" class="btn btn-primary" onclick="togglePassword('addPassword', 'addToggleIcon')">
+                                                            <i class="fa fa-eye" id="addToggleIcon"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-
 
                                                 <div class="form-group">
                                                     <label>Nomor Telepon</label>
@@ -181,6 +185,16 @@
                                                                 </div>
 
                                                                 <div class="form-group">
+                                                                    <label for="password">Password (Kosongkan jika tidak diubah)</label>
+                                                                    <div class="input-group">
+                                                                        <input type="password" name="password" id="updatePassword" class="form-control" placeholder="******">
+                                                                        <button type="button" class="btn btn-primary" onclick="togglePassword('updatePassword', 'updateToggleIcon')">
+                                                                            <i class="fa fa-eye" id="updateToggleIcon"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
                                                                     <label>Nomor Telepon</label>
                                                                     <input type="no_hp" name="no_hp" class="form-control" value="<?= esc($u['no_hp']); ?>" required>
                                                                 </div>
@@ -203,10 +217,10 @@
                                                                             </option>
                                                                         <?php endforeach; ?>
                                                                     </select>
-                                                                </div>
+                                                                </div>                                                            
 
                                                                 <div class="modal-footer border-0">
-                                                                    <!-- <button type="submit" class="btn btn-primary">Simpan</button> -->
+                                                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                                                 </div>
                                                             </form>
@@ -250,4 +264,23 @@
         });
     });
 </script>
+
+<!-- script password -->
+<script>
+    function togglePassword(inputId, iconId) {
+        const passwordField = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+</script>
+
 <?= $this->endSection(); ?>

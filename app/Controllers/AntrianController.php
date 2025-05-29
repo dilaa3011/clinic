@@ -11,6 +11,7 @@ use App\Controllers\TindakanController;
 use App\Models\TindakanModel;
 use App\models\Resep;
 use App\models\PembayaranModel;
+use App\Models\ObatModel;
 use CodeIgniter\I18n\Time;
 
 class AntrianController extends BaseController
@@ -22,6 +23,7 @@ class AntrianController extends BaseController
     protected $tindakanModel;
     protected $resepModel;
     protected $pembayaranModel;
+    protected $obatModel;
 
     public function __construct()
     {
@@ -32,6 +34,7 @@ class AntrianController extends BaseController
         $this->tindakanModel = new TindakanModel();
         $this->resepModel = new Resep();
         $this->pembayaranModel = new PembayaranModel();
+        $this->obatModel = new ObatModel();
     }
 
     public function index()
@@ -109,21 +112,21 @@ class AntrianController extends BaseController
         }
 
         // Hitung total tarif untuk setiap antrian
-        $tarifPerRM = [];
+        // $tarifPerRM = [];
 
-        foreach ($rekamMedis as $id_rm => $rekam) {
-            $resepList = $resepPasien[$id_rm] ?? [];
-            $totalObat = 0;
+        // foreach ($rekamMedis as $id_rm => $rekam) {
+        //     $resepList = $resepPasien[$id_rm] ?? [];
+        //     $totalObat = 0;
 
-            foreach ($resepList as $item) {
-                $totalObat += $item['jumlah_obat'] * $item['harga'];
-            }
+        //     foreach ($resepList as $item) {
+        //         $totalObat += $item['jumlah_obat'] * $item['harga'];
+        //     }
 
-            $hargaTindakan = $rekam['harga_tindakan'] ?? 0;
-            $totalTarif = $totalObat + $hargaTindakan;
+        //     $hargaTindakan = $rekam['harga_tindakan'] ?? 0;
+        //     $totalTarif = $totalObat + $hargaTindakan;
 
-            $tarifPerRM[$id_rm] = $totalTarif;
-        }
+        //     $tarifPerRM[$id_rm] = $totalTarif;
+        // }
 
 
         // Data pembayaran
@@ -136,7 +139,7 @@ class AntrianController extends BaseController
             'rekamMedis' => $rekamMedis,
             'antrian' => $antrian,
             'resepPasien' => $resepPasien,
-            'tarif' =>  $tarifPerRM,
+            // 'tarif' =>  $tarifPerRM,
             'caraPembayaranOptions' => $caraPembayaranOptions,
             'pembayaran' => $pembayaran,
         ];
@@ -209,7 +212,9 @@ class AntrianController extends BaseController
     {
         $id_antrian = $this->request->getPost('id_antrian');
         $tarif = $this->request->getPost('tarif');
+        $uang_dibayar = $this->request->getPost('uang_dibayar');
         $no_bayar = $this->request->getPost('no_bayar');
+        // dd($tarif);
 
         // Ambil data antrian untuk dapatkan pasien_id dan rm_id
         $antrian = $this->antrianModel->find($id_antrian);
@@ -220,7 +225,7 @@ class AntrianController extends BaseController
         $pasien_id = $antrian['pasien_id'];
         $rekam_id  = $antrian['rm_id'];
 
-        // Ambil data tindakan dari rekam medis        
+        // Ambil data tindakan dari rekam medis
         $rekam = $this->rekamMedisModel->find($rekam_id);
 
         // Ambil semua resep terkait rekam medis
@@ -236,12 +241,12 @@ class AntrianController extends BaseController
             'no_bayar'        => $no_bayar,
             'cara_pembayaran' => $this->request->getPost('cara_pembayaran'),
             'nama_petugas'    => session()->get('nama') ?? 'Petugas Default',
-            'total_bayar'     => $tarif,
+            'total_bayar'     => (int) str_replace('.', '', $tarif),
+            'uang_bayar'      => (int) str_replace('.', '', $uang_dibayar),
             'tanggal_bayar'   => date('Y-m-d'),
         ];
         // dd($dataPembayaran);
-
-        // Cek apakah pembayaran dengan nomor tersebut sudah ada
+        
         $pembayaranLama = $this->pembayaranModel
             ->where('no_bayar', $no_bayar)
             ->first();
@@ -262,8 +267,32 @@ class AntrianController extends BaseController
             $this->resepModel->update($resep_id, ['status_resep' => 'sudah_diberikan']);
         }
 
-        return redirect()->to(base_url('/antrian'))->with('success', 'Pembayaran berhasil diproses.');
+        return redirect()->to(base_url('/struk/' . $no_bayar));
     }
+
+    public function cetakStruk($no_bayar)
+    {
+        $pembayaran = $this->pembayaranModel
+            ->where('no_bayar', $no_bayar)
+            ->first();
+
+        if (!$pembayaran) {
+            return redirect()->back()->with('error', 'Struk tidak ditemukan.');
+        }
+
+        $pasien = $this->PasienModel->find($pembayaran['pasien_id']);
+        $tindakan = $this->tindakanModel->find($pembayaran['tindakan_id']);
+        $obat = $this->obatModel->find($pembayaran['obat_id']);
+        // dd($pembayaran, $pasien, $tindakan, $obat);
+
+        return view('admin/cetak-struk', [
+            'pembayaran' => $pembayaran,
+            'pasien'     => $pasien,
+            'tindakan'   => $tindakan,
+            'obat'       => $obat,
+        ]);
+    }
+
 
     public function ubahStatusBayar($id)
     {

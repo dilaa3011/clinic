@@ -176,10 +176,10 @@
               </div>
             </div>
           </div>
-          <div class="card-body p-0">
+          <div class="card-body ">
             <div class="table-responsive">
               <!-- Projects table -->
-              <table class="table align-items-center mb-0">
+              <table id="datatables" class="table align-items-center mb-0">
                 <thead class="thead-light">
                   <tr>
                     <th scope="col">ID Pembayaran</th>

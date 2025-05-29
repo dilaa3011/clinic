@@ -61,7 +61,13 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
                                                     <label>Penyakit</label>
-                                                    <input id="nama" type="text" name="nama" class="form-control" placeholder="masukkan nama penyakit" required/>
+                                                    <input id="nama" type="text" name="nama" class="form-control" placeholder="masukkan nama penyakit" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label for="keterangan">Keterangan Penyakit</label>
+                                                    <textarea id="keterangan" name="keterangan" class="form-control" rows="5" placeholder="Masukkan keterangan penyakit" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -76,7 +82,7 @@
                     </div>
                     <!-- end modal add -->
                     <div class="table-responsive">
-                        <table id="genderTable" class="display table table-striped table-hover">
+                        <table id="datatables" class="display table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -123,7 +129,7 @@
                                                                     <div class="col-sm-12">
                                                                         <div class="form-group form-group-default">
                                                                             <label>Kode Penyakit</label>
-                                                                            <input id="kode_penyakit" type="text" name="kode_penyakit" class="form-control" placeholder="<?= $py['kode_penyakit']; ?>"/>
+                                                                            <input id="kode_penyakit" type="text" name="kode_penyakit" class="form-control" placeholder="<?= $py['kode_penyakit']; ?>" />
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-12">
@@ -132,7 +138,12 @@
                                                                             <input id="nama" type="text" name="nama" class="form-control" value="<?= $py['nama_penyakit']; ?>" />
                                                                         </div>
                                                                     </div>
-
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group form-group-default">
+                                                                            <label for="keterangan">Keterangan Penyakit</label>
+                                                                            <textarea id="keterangan" name="keterangan" class="form-control" rows="5" placeholder="<?= $py['keterangan']; ?>"></textarea>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer border-0">
                                                                     <button type="submit" class="btn btn-primary">Simpan</button>

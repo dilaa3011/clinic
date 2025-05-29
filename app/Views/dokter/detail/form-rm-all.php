@@ -1,6 +1,6 @@
 <div class="table-responsive">
     <div class="table-responsive">
-        <table id="multi-filter-select" class="display table table-striped table-hover">
+        <table id="datatables" class="display table table-striped table-hover">
             <thead>
                 <tr>
                     <th>No. Rekam Medis</th>
@@ -12,18 +12,7 @@
                     <th>Dokter</th>
                     <th>Action</th>
                 </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>No. Rekam Medis</th>
-                    <th>Name</th>
-                    <th>Usia</th>
-                    <th>Tanggal Periksa</th>
-                    <th>Penyakit</th>
-                    <th>Tindakan</th>
-                    <th>Dokter</th>
-                </tr>
-            </tfoot>
+            </thead>            
             <tbody>
                 <?php
                 $no = 1;
@@ -49,7 +38,7 @@
                             ?>
                         </td>
                         <td>
-                            <?= session('nama'); ?>
+                            <?= $rekam['nama_dokter'] ?>
                         </td>
 
                         <td>
@@ -107,7 +96,7 @@
                                                             <label for="resep">Resep</label><br>
                                                             <?php if (!empty($resepPerRM[$rekam['id_rm']])): ?>
                                                                 <div class="mb-3">                                                                    
-                                                                    <table class="table table-bordered">
+                                                                    <table id="datatables" class="table table-bordered">
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Nama Obat</th>

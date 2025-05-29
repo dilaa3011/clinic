@@ -10,6 +10,9 @@ use App\Models\AgamaModel;
 use App\Models\PendidikanModel;
 use App\models\ObatModel;
 use App\models\Resep;
+use App\Models\ResumePasienModel;
+use App\Models\PembayaranModel;
+use App\Models\UserModel;
 
 class PasienController extends BaseController
 {
@@ -20,6 +23,9 @@ class PasienController extends BaseController
     protected $pendidikanModel;
     protected $obatModel;
     protected $resepModel;
+    protected $resumePasienModel;
+    protected $pembayaranModel;
+    protected $userModel;
 
     public function __construct()
     {
@@ -30,6 +36,9 @@ class PasienController extends BaseController
         $this->pendidikanModel = new PendidikanModel();
         $this->obatModel = new ObatModel();
         $this->resepModel = new Resep();
+        $this->resumePasienModel = new ResumePasienModel();
+        $this->pembayaranModel = new PembayaranModel();
+        $this->userModel = new UserModel();
     }
 
     public function index()
@@ -57,17 +66,11 @@ class PasienController extends BaseController
                     ->where('rm_id', $rm['id_rm'])
                     ->findAll();
 
-                $rm['resep'] = $resep; // simpan resep langsung dalam rekam medis
+                $rm['resep'] = $resep;
             }
 
-            $p['rekam_medis'] = $rekam_medis; // <-- INI PENTING, agar data dikirim ke view
+            $p['rekam_medis'] = $rekam_medis;
         }
-
-        $resepPerPasien = [];
-        foreach ($resep as $r) {
-            $resepPerPasien[$r['rm_id']][] = $r;
-        }
-
 
 
         $data = [
@@ -76,7 +79,7 @@ class PasienController extends BaseController
             'jenis_kelamin' => $this->jenisKelaminModel->findAll(),
             'agama' => $this->agamaModel->findAll(),
             'pendidikan' => $this->pendidikanModel->findAll(),
-            'resepPerRM' => $resepPerPasien,
+            // 'resepPerRM' => $resepPerPasien,
         ];
 
         return view('pasien/data_pasien', $data);
@@ -132,5 +135,30 @@ class PasienController extends BaseController
         $pasienModel->insert($data);
 
         return redirect()->to(base_url('pasien'))->with('success', 'Data pasien berhasil ditambahkan!');
+    }
+
+    public function delete($id)
+    {
+        $pasien = $this->pasienModel->find($id);
+
+        if (!$pasien) {
+            return redirect()->to(base_url('/pasien'))->with('error', 'Data pasien tidak ditemukan.');
+        }
+
+        $this->rekamMedisModel->where('pasien_id', $id)->delete();
+
+        $this->resepModel->where('pasien_id', $id)->delete();
+
+        $this->resumePasienModel->where('pasien_id', $id)->delete();
+
+        $this->pembayaranModel->where('pasien_id', $id)->delete();
+
+        $this->pasienModel->delete($id);
+
+        if ($this->userModel->delete($id)) {
+            return redirect()->to(base_url('/pasien'))->with('success', 'Data pasien dan semua relasinya berhasil dihapus.');
+        } else {
+            return redirect()->to(base_url('/master-user'))->with('error', 'Gagal menghapus data user');
+        }
     }
 }

@@ -46,9 +46,9 @@
             <img src="<?= base_url('clinic/assets/tittle.png') ?>" alt="Logo" class="header-logo mb-2">
         </div>
         <div class="col-10">
-            <h5 class="mb-0">KLINIK GIGI Dr. MAYASARI</h5>
-            <p class="mb-0">Jl. Bharata Perumnas Bumi Telukjambe No. C16, Sukaluyu, Telukjambe Timur, Karawang</p>
-            <p>(<?= $dokter['no_hp'] ?>)</p>
+            <h5 class="mb-0">PRAKTIK MANDIRI drg. SONIYA MAYASARI</h5>
+            <p class="mb-0">JL Sidingsako No.35, Kemayoran, Kec. Bangkalan, Kabupaten Bangkalan, Jawa Timur 69116<br>
+                    Telepon: (0857) 4554 - 4445 | Email: <a href="mailto:drg.soniya@gmail.com">drg.soniya@gmail.com</a></p>
         </div>
     </div>
     <hr class="line">
@@ -96,9 +96,9 @@
     </div>
 
     <div class="signature">
-        <p>Bangkalan, <?= date('d F Y') ?></p>
+        <p>Bangkalan, .........................</p>
         <p>Dokter gigi yang menyatakan,</p>
-        <br><br>
+        <img src="<?= base_url('uploads/ttd/' . $dokter['ttd']) ?>" alt="Tanda Tangan Dokter" style="width: 150px;">
         <p class="fw-bold underline">(drg. <?= $dokter['nama'] ?>)</p>
     </div>
 

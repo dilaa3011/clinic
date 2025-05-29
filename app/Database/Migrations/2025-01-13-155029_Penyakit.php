@@ -23,6 +23,10 @@ class Penyakit extends Migration
                 'type' => 'VARCHAR', 
                 'constraint' => 255
             ],
+            'keterangan'=> [
+                'type' => 'VARCHAR', 
+                'constraint' => 255
+            ],
         ]);
         $this->forge->addPrimaryKey('id_penyakit');
         $this->forge->createTable('penyakit');

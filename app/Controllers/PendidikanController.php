@@ -40,8 +40,7 @@ class PendidikanController extends BaseController
     }
 
     public function addPendidikan()
-    {        
-
+    {
         $data = [            
             'nama_pendidikan' =>ucwords(strtolower($this->request->getPost('nama'))),
         ];

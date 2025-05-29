@@ -43,7 +43,7 @@ class AuthController extends BaseController
                 return redirect()->to(base_url('/'))->with('error', 'Level akun tidak diizinkan!');
             }
            
-            // Cek jika role adalah dokter, cari dokter yang cocok
+            // Cek jika role adalah dokter
             $dokterData = null;
             if ($user['role'] == '1') {
                 $dokterModel = new \App\Models\DokterModel();
@@ -55,7 +55,6 @@ class AuthController extends BaseController
                 }
             }
 
-             // Set session
             $this->session->set([
                 'id_user'       => $user['id_user'],
                 'username'      => $user['username'],
@@ -63,10 +62,11 @@ class AuthController extends BaseController
                 'role'          => $user['role'],
                 'no_hp'         => $user['no_hp'],
                 'email'         => $user['email'],
+                // 'ttd'         => $user['ttd'],
                 'jenis_kelamin' => $user['jenis_kelamin_id'],
                 'foto'          => $foto,
                 'logged_in'     => true,
-                'id_dokter'     => $dokterData['id_dokter'] ?? null, // hanya jika dokter
+                'id_dokter'     => $dokterData['id_dokter'] ?? null, 
             ]);
 
             switch ($user['role']) {
@@ -87,7 +87,6 @@ class AuthController extends BaseController
 
         return redirect()->to(base_url('/'))->with('error', 'Username atau Password salah!');
     }
-
 
 
     public function logout()

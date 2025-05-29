@@ -10,6 +10,8 @@
   <!-- pop up -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
   <!-- Fonts and icons -->
   <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/webfont/webfont.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -128,8 +130,12 @@
   <!-- Chart Circle -->
   <!-- <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/chart-circle/circles.min.js"></script> -->
 
-  <!-- Datatables -->
-  <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/datatables/datatables.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
 
   <!-- Bootstrap Notify -->
   <script src="<?= base_url(); ?>kaiadmin/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
@@ -147,8 +153,39 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+  <!-- Select2 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+  <!-- jQuery (wajib untuk Select2) -->
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+  <!-- Select2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
   <!-- pagination -->
   <script>
+    $(document).ready(function() {
+      $('#datatables').DataTable({
+        language: {
+          search: "Cari:",
+          lengthMenu: "Tampilkan _MENU_ data per halaman",
+          zeroRecords: "Data tidak ditemukan",
+          info: "Menampilkan halaman _PAGE_ dari _PAGES_",
+          infoEmpty: "Tidak ada data tersedia",
+          infoFiltered: "(difilter dari total _MAX_ data)",
+          paginate: {
+            first: "Pertama",
+            last: "Terakhir",
+            next: "Berikutnya",
+            previous: "Sebelumnya"
+          }
+        }
+      });
+    });
+  </script>
+
+  <!-- <script>
     $(document).ready(function() {
       $('#basic-datatables').DataTable({});
 
@@ -178,7 +215,8 @@
         },
       });
     });
-  </script>
+  </script> -->
+
   <!-- antrian -->
   <script>
     document.getElementById('addToQueueButton').addEventListener('click', function() {
@@ -206,7 +244,7 @@
         })
         .catch(error => console.error('Error:', error));
     });
-  </script>    
+  </script>
 
   <!-- status -->
   <script>
@@ -262,7 +300,7 @@
         timerProgressBar: true
       });
     </script>
-  <?php endif; ?>  
+  <?php endif; ?>
 
 
 </body>
