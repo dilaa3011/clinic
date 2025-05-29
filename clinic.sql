@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2025 at 03:30 PM
+-- Generation Time: May 29, 2025 at 04:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -71,7 +71,8 @@ CREATE TABLE `antrian` (
 INSERT INTO `antrian` (`id_antrian`, `rm_id`, `pasien_id`, `nomor_antrian`, `nik`, `tarif`, `status_pemeriksaan`, `status_bayar`, `tanggal_periksa`, `created_at`, `updated_at`) VALUES
 (21, 24, 1, 1, '3526017011030002', 0.00, 'selesai', 'lunas', '2025-05-22 00:00:00', '2025-05-22 03:36:02', '2025-05-22 20:28:27'),
 (23, 26, 2, 1, '3526032412640002', 0.00, 'selesai', 'lunas', '2025-05-23 00:00:00', '2025-05-23 15:38:20', '2025-05-23 15:52:50'),
-(24, 27, 4, 1, '1111111111111111', 0.00, 'selesai', 'lunas', '2025-05-27 00:00:00', '2025-05-27 12:46:16', '2025-05-27 13:23:08');
+(24, 27, 4, 1, '1111111111111111', 0.00, 'selesai', 'lunas', '2025-05-27 00:00:00', '2025-05-27 12:46:16', '2025-05-27 13:23:08'),
+(27, 30, 4, 1, '1111111111111111', 0.00, 'selesai', 'lunas', '2025-05-29 00:00:00', '2025-05-29 13:23:40', '2025-05-29 14:39:46');
 
 -- --------------------------------------------------------
 
@@ -293,7 +294,8 @@ CREATE TABLE `odontogram` (
 INSERT INTO `odontogram` (`id_odontogram`, `pasien_id`, `rm_id`, `g11`, `g12`, `g13`, `g14`, `g15`, `g16`, `g17`, `g18`, `g21`, `g22`, `g23`, `g24`, `g25`, `g26`, `g27`, `g28`, `g31`, `g32`, `g33`, `g34`, `g35`, `g36`, `g37`, `g38`, `g41`, `g42`, `g43`, `g44`, `g45`, `g46`, `g47`, `g48`, `created_at`, `updated_at`) VALUES
 (1, 1, 24, '', '', '', 'mou', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'jkh', '', '', '', '', '', '', '2025-05-22 07:56:44', '2025-05-22 20:10:22'),
 (2, 2, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-23 15:50:56', '2025-05-23 15:50:56'),
-(3, 4, 27, 'mo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-27 12:51:07', '2025-05-27 12:51:07');
+(3, 4, 27, 'mo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-27 12:51:07', '2025-05-27 12:51:07'),
+(5, 4, 30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-05-29 13:24:16', '2025-05-29 13:24:16');
 
 -- --------------------------------------------------------
 
@@ -357,7 +359,8 @@ CREATE TABLE `pembayaran` (
   `no_bayar` varchar(20) NOT NULL,
   `nama_petugas` varchar(100) NOT NULL,
   `cara_pembayaran` enum('JKN','Mandiri','Asuransi Lainnya') NOT NULL,
-  `total_bayar` decimal(10,2) NOT NULL,
+  `total_bayar` bigint(20) UNSIGNED NOT NULL,
+  `uang_bayar` bigint(20) UNSIGNED NOT NULL,
   `tanggal_bayar` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -365,10 +368,11 @@ CREATE TABLE `pembayaran` (
 -- Dumping data for table `pembayaran`
 --
 
-INSERT INTO `pembayaran` (`id_bayar`, `pasien_id`, `tindakan_id`, `obat_id`, `resep_id`, `no_bayar`, `nama_petugas`, `cara_pembayaran`, `total_bayar`, `tanggal_bayar`) VALUES
-(16, 1, 1, 2, 43, 'BYR-22-05-2025-01', 'Drg. Adinda Maharani', 'JKN', 160000.00, '2025-05-22 00:00:00'),
-(17, 2, NULL, 2, 44, 'BYR-23-05-2025-01', 'Drg. Adinda Maharani', 'Mandiri', 10000.00, '2025-05-23 00:00:00'),
-(18, 4, 3, 2, 45, 'BYR-27-05-2025-01', 'Drg. Adinda Maharani', 'Mandiri', 100000.00, '2025-05-27 00:00:00');
+INSERT INTO `pembayaran` (`id_bayar`, `pasien_id`, `tindakan_id`, `obat_id`, `resep_id`, `no_bayar`, `nama_petugas`, `cara_pembayaran`, `total_bayar`, `uang_bayar`, `tanggal_bayar`) VALUES
+(16, 1, 1, 2, 43, 'BYR-22-05-2025-01', 'Drg. Adinda Maharani', 'JKN', 160000, 0, '2025-05-22 00:00:00'),
+(17, 2, NULL, 2, 44, 'BYR-23-05-2025-01', 'Drg. Adinda Maharani', 'Mandiri', 10000, 0, '2025-05-23 00:00:00'),
+(18, 4, 3, 2, 45, 'BYR-27-05-2025-01', 'Drg. Adinda Maharani', 'Mandiri', 100000, 0, '2025-05-27 00:00:00'),
+(19, 4, NULL, 3, 46, 'BYR-29-05-2025-01', 'Drg. Adinda Maharani', 'Mandiri', 10000, 10000, '2025-05-29 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -842,7 +846,8 @@ CREATE TABLE `rekam_medis` (
 INSERT INTO `rekam_medis` (`id_rm`, `pasien_id`, `dokter_id`, `penyakit_id`, `tindakan_id`, `validasi`, `no_rm`, `riwayat_penyakit`, `riwayat_alergi`, `riwayat_pengobatan`, `keluhan`, `periksa_bibir_masuk_mulut`, `periksa_gigi_geligi`, `periksa_lidah`, `periksa_langit_langit`, `diagnosa`, `catatan`, `tanggal_periksa`, `created_at`, `updated_at`) VALUES
 (24, 1, 5, 101, 1, 1, 'RM - 20250508 - 0001', 'diabetes', '-', '-', 'panas', 'normal', 'patah', 'luka', ' normal', 'demam ringan', '-', '2025-05-22', '2025-05-22 03:36:02', '2025-05-22 20:10:22'),
 (26, 2, 5, 17, NULL, 0, 'RM - 20250515 - 0002', '-', '-', '-', 'panas,mual', 'normal', 'normal', 'normal', ' normal', 'sakit gigi', '-', '2025-05-23', '2025-05-23 15:38:20', '2025-05-23 15:50:56'),
-(27, 4, 5, 321, 3, 1, 'RM - 20250527 - 00-00-03', 'Scalling', '-', 'Scalling', 'Scalling', 'Bagus', '-', 'bagus', 'bagus', 'Scalling', '-', '2025-05-27', '2025-05-27 12:46:16', '2025-05-27 12:51:07');
+(27, 4, 5, 321, 3, 1, 'RM - 20250527 - 00-00-03', 'Scalling', '-', 'Scalling', 'Scalling', 'Bagus', '-', 'bagus', 'bagus', 'Scalling', '-', '2025-05-27', '2025-05-27 12:46:16', '2025-05-27 12:51:07'),
+(30, 4, 5, 8, NULL, 0, 'RM - 20250527 - 00-00-03', '-', '-', '-', 'panas,mual', 'normal', 'normal', 'normal', 'normal', 'sakit gigi', '-', '2025-05-29', '2025-05-29 13:23:40', '2025-05-29 13:24:16');
 
 -- --------------------------------------------------------
 
@@ -872,7 +877,8 @@ CREATE TABLE `resep` (
 INSERT INTO `resep` (`id_resep`, `dokter_id`, `pasien_id`, `obat_id`, `rm_id`, `jumlah_obat`, `dosis`, `unit`, `aturan_pakai`, `keterangan`, `status_resep`, `tanggal_resep`) VALUES
 (43, 5, 1, 2, 24, 1, '2', 'tablet', '1x3', 'setelah makan', 'sudah_diberikan', '2025-05-22 00:00:00'),
 (44, 5, 2, 2, 26, 1, '1', 'tablet', '1x3', 'setelah makan', 'sudah_diberikan', '2025-05-23 00:00:00'),
-(45, 5, 4, 2, 27, 1, '5mg', '-', '3x1', 'habiskan', 'sudah_diberikan', '2025-05-27 00:00:00');
+(45, 5, 4, 2, 27, 1, '5mg', '-', '3x1', 'habiskan', 'sudah_diberikan', '2025-05-27 00:00:00'),
+(46, 5, 4, 3, 30, 1, '1', 'tablet', '1x3', 'setelah makan', 'sudah_diberikan', '2025-05-29 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -904,7 +910,8 @@ CREATE TABLE `resumepasien` (
 INSERT INTO `resumepasien` (`id_resume`, `pasien_id`, `rm_id`, `dokter_id`, `nomer_rm`, `nama_lengkap`, `tanggal_lahir`, `tanggal_periksa`, `nama_dpjp`, `anamnesa`, `diagnosa`, `catatan`, `created_at`, `updated_at`) VALUES
 (5, 1, 24, 5, 'RM - 20250508 - 0001', 'Diana Purbaningsih', '2017-03-01', '2025-05-22 00:00:00', 'drg. adinda maharani', 'panas', 'demam ringan', '-', '2025-05-22 07:56:44', '2025-05-22 20:10:22'),
 (6, 2, 26, 5, 'RM - 20250515 - 0002', 'Arifin Rizal', '1996-11-14', '2025-05-23 00:00:00', 'drg. adinda maharani', 'panas,mual', 'sakit gigi', '-', '2025-05-23 15:50:56', '2025-05-23 15:50:56'),
-(7, 4, 27, 5, 'RM - 20250527 - 00-00-03', 'M Nafis Riskillah', '2003-08-01', '2025-05-27 00:00:00', 'drg. adinda maharani', 'Scalling', 'Scalling', '-', '2025-05-27 12:51:07', '2025-05-27 12:51:07');
+(7, 4, 27, 5, 'RM - 20250527 - 00-00-03', 'M Nafis Riskillah', '2003-08-01', '2025-05-27 00:00:00', 'drg. adinda maharani', 'Scalling', 'Scalling', '-', '2025-05-27 12:51:07', '2025-05-27 12:51:07'),
+(9, 4, 30, 5, 'RM - 20250527 - 00-00-03', 'M Nafis Riskillah', '2003-08-01', '2025-05-29 00:00:00', 'drg. adinda maharani', 'panas,mual', 'sakit gigi', '-', '2025-05-29 13:24:16', '2025-05-29 13:24:16');
 
 -- --------------------------------------------------------
 
@@ -979,7 +986,8 @@ CREATE TABLE `validasi_tindakan` (
 INSERT INTO `validasi_tindakan` (`id_validasi`, `rm_id`, `tindakan_id`, `validasi`, `created_at`, `updated_at`) VALUES
 (24, 24, 1, '1', '2025-05-22 07:56:44', '2025-05-22 20:10:22'),
 (26, 26, NULL, '', '2025-05-23 15:50:56', '2025-05-23 15:50:56'),
-(27, 27, 3, '1', '2025-05-27 12:51:07', '2025-05-27 12:51:07');
+(27, 27, 3, '1', '2025-05-27 12:51:07', '2025-05-27 12:51:07'),
+(29, 30, NULL, '', '2025-05-29 13:24:16', '2025-05-29 13:24:16');
 
 --
 -- Indexes for dumped tables
@@ -1149,7 +1157,7 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `antrian`
 --
 ALTER TABLE `antrian`
-  MODIFY `id_antrian` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_antrian` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `dokter`
@@ -1161,7 +1169,7 @@ ALTER TABLE `dokter`
 -- AUTO_INCREMENT for table `formulir_tindakan`
 --
 ALTER TABLE `formulir_tindakan`
-  MODIFY `id_formulir` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_formulir` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `informed_consent`
@@ -1191,7 +1199,7 @@ ALTER TABLE `obat`
 -- AUTO_INCREMENT for table `odontogram`
 --
 ALTER TABLE `odontogram`
-  MODIFY `id_odontogram` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_odontogram` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pasien`
@@ -1203,7 +1211,7 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_bayar` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_bayar` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `pendidikan`
@@ -1221,19 +1229,19 @@ ALTER TABLE `penyakit`
 -- AUTO_INCREMENT for table `rekam_medis`
 --
 ALTER TABLE `rekam_medis`
-  MODIFY `id_rm` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_rm` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `resep`
 --
 ALTER TABLE `resep`
-  MODIFY `id_resep` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id_resep` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `resumepasien`
 --
 ALTER TABLE `resumepasien`
-  MODIFY `id_resume` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_resume` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tindakan`
@@ -1251,7 +1259,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `validasi_tindakan`
 --
 ALTER TABLE `validasi_tindakan`
-  MODIFY `id_validasi` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_validasi` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
